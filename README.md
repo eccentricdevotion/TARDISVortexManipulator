@@ -16,7 +16,7 @@ This should work with Multiverse, remembering personally saved locations and all
 ##Configuration
 There should be configuration options that allow for energy usage, recharging, and other things. The various features should use different levels of energy, while charging is on a timer, gaining so much charge every minute or so (should be configurable, along with charge costs). Regarding it's uses, see the "Ideas for Commands" section below.
 
-Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this.
+Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI should be provided as well.
 
 ##Ideas for commands
 A first release should be simple, but don't stop there. Add as much as you think you are able!
@@ -42,8 +42,7 @@ _Other things that should be added, either on initial release or later:_
 
 * `/vm lifesigns` - list entities nearby, mobs and players
 * `/vm lifesigns` {player} - Gets health and hunger of a player, possibly oxygen level too.
-
-/vm beacon - send out a beacon signal that lasts until the player moves
+* `/vm beacon` - send out a beacon signal that lasts until the player moves
 
 ##Ideas for permissions: 
 * `vm.teleport` - allow crafting and using of a Vortex Manipulator
