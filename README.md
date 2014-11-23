@@ -42,6 +42,9 @@ _Other things that should be added, either on initial release or later:_
 
 * `/vm lifesigns` - list entities nearby, mobs and players
 * `/vm lifesigns` {player} - Gets health and hunger of a player, possibly oxygen level too.
+
+####Beacon
+
 * `/vm beacon` - send out a beacon signal that lasts until the player moves
 
 ##Ideas for permissions: 
