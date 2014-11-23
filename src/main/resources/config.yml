@@ -1,0 +1,29 @@
+allow:
+    teleport: true
+    messaging: true
+    lifesigns: true
+    beacon: true
+worlds:
+    world: true
+recipe:
+    shape: BBG,WOC,III
+    ingredients:
+        B: STONE_BUTTON
+        G: GLASS
+        W: WATCH
+        O: GOLD_INGOT
+        C: COMPASS
+        I: IRON_INGOT
+    result: COMPASS
+    amount: 1
+    lore: "Cheap and nasty time travel"
+tachyon_use:
+    max: 1000
+    recharge: 5
+    travel:
+        random: 100
+        world: 150
+        coords: 200
+        saved: 50
+    lifesigns: 15
+    beacon: 1000

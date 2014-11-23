@@ -1,0 +1,29 @@
+author: eccentric_nz
+description: Vortex manipulator. Cheap and nasty time travel. Very bad for you. I'm trying to give it up.
+main: me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator
+name: TARDISVortexManipulator
+load: POSTWORLD
+depend: [TARDIS]
+version: '1.0'
+website: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
+dev-url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
+url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
+permissions:
+    vm.teleport:
+        description: Allow crafting and using of a Vortex Manipulator
+        default: op
+    vm.message:
+        description: Allow Vortex Manipulator messaging
+        default: op
+    vm.lifesigns:
+        description: Allow players to detect lifesigns and info on other players
+    vm.beacon:
+        description: Allow players to activate the Vortex Manipulator beacon
+        default: op
+commands:
+    vm:
+        aliases: [vortexmainpulator,tvm]
+        description: Cheap and nasty time travel. Very bad for you.
+        usage: /<command> [arg0] [arg1]
+        permission: tardisvortexmanipulator.use
+        permission-message: You don't have the permission <permission> to use this command
