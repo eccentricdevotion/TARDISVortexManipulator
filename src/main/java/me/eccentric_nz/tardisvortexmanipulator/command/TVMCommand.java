@@ -1,5 +1,7 @@
-package me.eccentric_nz.tardisvortexmanipulator;
+package me.eccentric_nz.tardisvortexmanipulator.command;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.TVMGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,11 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class TARDISVortexManipulatorCommand implements CommandExecutor {
+public class TVMCommand implements CommandExecutor {
 
     private final TARDISVortexManipulator plugin;
 
-    public TARDISVortexManipulatorCommand(TARDISVortexManipulator plugin) {
+    public TVMCommand(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
     }
 
@@ -28,7 +30,7 @@ public class TARDISVortexManipulatorCommand implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("gui")) {
                 // open gui
-                ItemStack[] gui = new TARDISVortexManipulatorGUI(plugin).getGUI();
+                ItemStack[] gui = new TVMGUI(plugin).getGUI();
                 Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
                 vmg.setContents(gui);
                 player.openInventory(vmg);

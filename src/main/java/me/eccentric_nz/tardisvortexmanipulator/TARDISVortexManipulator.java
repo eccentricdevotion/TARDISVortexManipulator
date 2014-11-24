@@ -1,5 +1,10 @@
 package me.eccentric_nz.tardisvortexmanipulator;
 
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
+import java.io.File;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
 import org.bukkit.ChatColor;
@@ -13,6 +18,8 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private String pluginName;
     private TardisAPI tardisapi;
     private TARDIS tardis;
+    public static TARDISVortexManipulator plugin;
+    private final TVMDatabase service = TVMDatabase.getInstance();
 
     @Override
     public void onDisable() {
@@ -21,6 +28,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
         saveDefaultConfig();
         PluginManager pm = getServer().getPluginManager();
         /* Get TARDIS */
@@ -33,9 +41,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
         tardisapi = tardis.getTardisAPI();
         PluginDescriptionFile pdfFile = getDescription();
         pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
-        pm.registerEvents(new TARDISVortexManipulatorGUIListener(this), this);
-        getCommand("vm").setExecutor(new TARDISVortexManipulatorCommand(this));
-        getServer().addRecipe(new TARDISVortexManipulatorRecipe(this).makeRecipe());
+        loadDatabase();
+        pm.registerEvents(new TVMGUIListener(this), this);
+        getCommand("vm").setExecutor(new TVMCommand(this));
+        getServer().addRecipe(new TVMRecipe(this).makeRecipe());
     }
 
     public String getPluginName() {
@@ -44,5 +53,37 @@ public class TARDISVortexManipulator extends JavaPlugin {
 
     public TardisAPI getTardisAPI() {
         return tardisapi;
+    }
+
+    /**
+     * Sets up the database.
+     */
+    private void loadDatabase() {
+        String dbtype = getConfig().getString("storage.database");
+        try {
+            if (dbtype.equals("sqlite")) {
+                String path = getDataFolder() + File.separator + "TVM.db";
+                service.setConnection(path);
+                TVMSQLite sqlite = new TVMSQLite(this);
+                sqlite.createTables();
+            } else {
+                service.setConnection();
+                TVMMySQL mysql = new TVMMySQL(this);
+                mysql.createTables();
+            }
+        } catch (Exception e) {
+            getServer().getConsoleSender().sendMessage(pluginName + "Connection and Tables Error: " + e);
+        }
+    }
+
+    /**
+     * Outputs a message to the console. Requires debug: true in config.yml
+     *
+     * @param o the Object to print to the console
+     */
+    public void debug(Object o) {
+        if (getConfig().getBoolean("debug") == true) {
+            getServer().getConsoleSender().sendMessage(pluginName + "Debug: " + o);
+        }
     }
 }

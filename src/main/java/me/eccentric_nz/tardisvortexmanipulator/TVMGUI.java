@@ -12,12 +12,12 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TARDISVortexManipulatorGUI {
+public class TVMGUI {
 
     private final TARDISVortexManipulator plugin;
     private final ItemStack[] gui;
 
-    public TARDISVortexManipulatorGUI(TARDISVortexManipulator plugin) {
+    public TVMGUI(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         this.gui = getItemStack();
     }

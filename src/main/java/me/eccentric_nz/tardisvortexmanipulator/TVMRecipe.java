@@ -15,11 +15,11 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TARDISVortexManipulatorRecipe {
+public class TVMRecipe {
 
     private final TARDISVortexManipulator plugin;
 
-    public TARDISVortexManipulatorRecipe(TARDISVortexManipulator plugin) {
+    public TVMRecipe(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
     }
 

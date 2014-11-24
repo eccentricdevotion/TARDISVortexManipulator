@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TARDISVortexManipulatorGUIListener implements Listener {
+public class TVMGUIListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
     List<String> components = Arrays.asList("", "", "", "");
@@ -46,7 +46,7 @@ public class TARDISVortexManipulatorGUIListener implements Listener {
     int ts = 0;
     int th = 0;
 
-    public TARDISVortexManipulatorGUIListener(TARDISVortexManipulator plugin) {
+    public TVMGUIListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         // init string positions
         this.pos = new int[4];

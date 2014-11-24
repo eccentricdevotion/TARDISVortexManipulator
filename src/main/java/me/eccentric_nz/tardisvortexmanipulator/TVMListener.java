@@ -7,11 +7,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class TARDISVortexManipulatorListener implements Listener {
+public class TVMListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
 
-    public TARDISVortexManipulatorListener(TARDISVortexManipulator plugin) {
+    public TVMListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
     }
 

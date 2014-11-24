@@ -27,3 +27,10 @@ tachyon_use:
         saved: 50
     lifesigns: 15
     beacon: 1000
+storage:
+  database: sqlite
+  mysql:
+    url: mysql://localhost:3306/TARDIS
+    user: bukkit
+    password: mysecurepassword
+date_format: dd/mn/YY HH:mm
