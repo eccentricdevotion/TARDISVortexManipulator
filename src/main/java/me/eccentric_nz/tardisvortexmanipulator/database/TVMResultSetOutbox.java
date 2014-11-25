@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.message.TVMMessage;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
 
 /**
  *

@@ -1,7 +1,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.TVMGUI;
+import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ public class TVMCommand implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("gui")) {
                 // open gui
-                ItemStack[] gui = new TVMGUI(plugin).getGUI();
+                ItemStack[] gui = new TVMGUI().getGUI();
                 Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
                 vmg.setContents(gui);
                 player.openInventory(vmg);

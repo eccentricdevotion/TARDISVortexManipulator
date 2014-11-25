@@ -1,7 +1,7 @@
 /*
  *  Copyright 2014 eccentric_nz.
  */
-package me.eccentric_nz.tardisvortexmanipulator;
+package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.Arrays;
 import org.bukkit.Material;
@@ -14,11 +14,9 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class TVMGUI {
 
-    private final TARDISVortexManipulator plugin;
     private final ItemStack[] gui;
 
-    public TVMGUI(TARDISVortexManipulator plugin) {
-        this.plugin = plugin;
+    public TVMGUI() {
         this.gui = getItemStack();
     }
 

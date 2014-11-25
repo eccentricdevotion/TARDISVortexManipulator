@@ -1,13 +1,17 @@
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
+import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -20,6 +24,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private TARDIS tardis;
     public static TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
+    private static final List<Location> blocks = new ArrayList<Location>();
 
     @Override
     public void onDisable() {
@@ -74,6 +79,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(pluginName + "Connection and Tables Error: " + e);
         }
+    }
+
+    public static List<Location> getBlocks() {
+        return blocks;
     }
 
     /**

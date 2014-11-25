@@ -4,33 +4,28 @@
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
 
 /**
  *
  * @author eccentric_nz
  */
-public class TVMResultSetInbox {
+public class TVMResultSetSaves {
 
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
-    private final String where;
-    private final boolean read;
-    private List<TVMMessage> mail;
+    private final String uuid;
+    private List<TVMSave> saves;
 
-    public TVMResultSetInbox(TARDISVortexManipulator plugin, String where, boolean read) {
+    public TVMResultSetSaves(TARDISVortexManipulator plugin, String uuid) {
         this.plugin = plugin;
-        this.where = where;
-        this.read = read;
+        this.uuid = uuid;
     }
 
     /**
@@ -43,27 +38,28 @@ public class TVMResultSetInbox {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM messages WHERE uuid_to = ? AND read = ? ORDER BY date DESC";
+        String query = "SELECT * FROM saves WHERE uuid = ? ORDER BY save_name";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
-            statement.setString(1, where);
-            statement.setInt(2, (read ? 1 : 0));
+            statement.setString(1, uuid);
             rs = statement.executeQuery();
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    TVMMessage tvmm = new TVMMessage();
-                    tvmm.setId(rs.getInt("message_id"));
-                    tvmm.setWho(UUID.fromString(rs.getString("uuid_from")));
-                    tvmm.setMessage(rs.getString("message"));
-                    tvmm.setDate(getFormattedDate(rs.getLong("date")));
-                    mail.add(tvmm);
+                    TVMSave tvms = new TVMSave();
+                    tvms.setId(rs.getInt("save_id"));
+                    tvms.setName(rs.getString("save_name"));
+                    tvms.setWorld(rs.getString("world"));
+                    tvms.setX(rs.getFloat("x"));
+                    tvms.setY(rs.getFloat("y"));
+                    tvms.setZ(rs.getFloat("z"));
+                    saves.add(tvms);
                 }
             } else {
                 return false;
             }
         } catch (SQLException e) {
-            plugin.debug("Inbox error for messages table! " + e.getMessage());
+            plugin.debug("ResultSet error for saves table! " + e.getMessage());
             return false;
         } finally {
             try {
@@ -74,19 +70,13 @@ public class TVMResultSetInbox {
                     statement.close();
                 }
             } catch (SQLException e) {
-                plugin.debug("Error closing messages table! " + e.getMessage());
+                plugin.debug("Error closing saves table! " + e.getMessage());
             }
         }
         return true;
     }
 
-    private String getFormattedDate(long millis) {
-        SimpleDateFormat sdf = new SimpleDateFormat(plugin.getConfig().getString("date_format"));
-        Date theDate = new Date(millis);
-        return sdf.format(theDate);
-    }
-
-    public List<TVMMessage> getMail() {
-        return mail;
+    public List<TVMSave> getSaves() {
+        return saves;
     }
 }

@@ -1,16 +1,18 @@
 /*
  *  Copyright 2014 eccentric_nz.
  */
-package me.eccentric_nz.tardisvortexmanipulator;
+package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TVMGUIListener implements Listener {
+public class TVMMessageGUIListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
     List<String> components = Arrays.asList("", "", "", "");
@@ -46,7 +48,7 @@ public class TVMGUIListener implements Listener {
     int ts = 0;
     int th = 0;
 
-    public TVMGUIListener(TARDISVortexManipulator plugin) {
+    public TVMMessageGUIListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         // init string positions
         this.pos = new int[4];
@@ -55,7 +57,7 @@ public class TVMGUIListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true)
     public void onGUIClick(InventoryClickEvent event) {
         Inventory inv = event.getInventory();
         String name = inv.getTitle();
@@ -340,5 +342,20 @@ public class TVMGUIListener implements Listener {
                 p.closeInventory();
             }
         }, 1L);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onMenuDrag(InventoryDragEvent event) {
+        Inventory inv = event.getInventory();
+        String title = inv.getTitle();
+        if (!title.equals("§4Vortex Manipulator")) {
+            return;
+        }
+        Set<Integer> slots = event.getRawSlots();
+        for (Integer slot : slots) {
+            if ((slot >= 0 && slot < 81)) {
+                event.setCancelled(true);
+            }
+        }
     }
 }

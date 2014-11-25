@@ -4,37 +4,36 @@
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.UUID;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMBlock;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 /**
  *
  * @author eccentric_nz
  */
-public class TVMResultSetInbox {
+public class TVMResultSetBlock {
 
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
-    private final String where;
-    private final boolean read;
-    private List<TVMMessage> mail;
+    private final String uuid;
+    private List<TVMBlock> blocks;
 
-    public TVMResultSetInbox(TARDISVortexManipulator plugin, String where, boolean read) {
+    public TVMResultSetBlock(TARDISVortexManipulator plugin, String uuid) {
         this.plugin = plugin;
-        this.where = where;
-        this.read = read;
+        this.uuid = uuid;
     }
 
     /**
-     * Retrieves an SQL ResultSet from the messages table. This method builds an
+     * Retrieves an SQL ResultSet from the beacons table. This method builds an
      * SQL query string from the parameters supplied and then executes the
      * query. Use the getters to retrieve the results.
      *
@@ -43,27 +42,29 @@ public class TVMResultSetInbox {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM messages WHERE uuid_to = ? AND read = ? ORDER BY date DESC";
+        String query = "SELECT * FROM beacons WHERE uuid = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
-            statement.setString(1, where);
-            statement.setInt(2, (read ? 1 : 0));
+            statement.setString(1, uuid);
             rs = statement.executeQuery();
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    TVMMessage tvmm = new TVMMessage();
-                    tvmm.setId(rs.getInt("message_id"));
-                    tvmm.setWho(UUID.fromString(rs.getString("uuid_from")));
-                    tvmm.setMessage(rs.getString("message"));
-                    tvmm.setDate(getFormattedDate(rs.getLong("date")));
-                    mail.add(tvmm);
+                    TVMBlock tvmb = new TVMBlock();
+                    Location l = TARDIS.plugin.getUtils().getLocationFromBukkitString(rs.getString("location"));
+                    Material m = Material.valueOf(rs.getString("block_type"));
+                    byte d = rs.getByte("data");
+                    Block b = l.getBlock();
+                    tvmb.setBlock(b);
+                    tvmb.setType(m);
+                    tvmb.setData(d);
+                    blocks.add(tvmb);
                 }
             } else {
                 return false;
             }
         } catch (SQLException e) {
-            plugin.debug("Inbox error for messages table! " + e.getMessage());
+            plugin.debug("Block error for beacons table! " + e.getMessage());
             return false;
         } finally {
             try {
@@ -74,19 +75,13 @@ public class TVMResultSetInbox {
                     statement.close();
                 }
             } catch (SQLException e) {
-                plugin.debug("Error closing messages table! " + e.getMessage());
+                plugin.debug("Error closing beacons table! " + e.getMessage());
             }
         }
         return true;
     }
 
-    private String getFormattedDate(long millis) {
-        SimpleDateFormat sdf = new SimpleDateFormat(plugin.getConfig().getString("date_format"));
-        Date theDate = new Date(millis);
-        return sdf.format(theDate);
-    }
-
-    public List<TVMMessage> getMail() {
-        return mail;
+    public List<TVMBlock> getBlocks() {
+        return blocks;
     }
 }

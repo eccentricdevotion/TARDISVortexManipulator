@@ -22,8 +22,42 @@ permissions:
         default: op
 commands:
     vm:
-        aliases: [vortexmainpulator,tvm]
+        aliases: [vortexmainpulator,tvm,vmg,vmgo]
         description: Cheap and nasty time travel. Very bad for you.
-        usage: /<command> [arg0] [arg1]
-        permission: tardisvortexmanipulator.use
+        usage: /<command> [world] [x] [y] [z]
+        permission: tvm.teleport
+        permission-message: You don't have the permission <permission> to use this command
+    vmm:
+        aliases: [vmmsg,vmmessage]
+        description: Message other Vortex Manipulator users.
+        usage: /<command> [player] [message], /<command> list [new|old], /<command> read [#], /<command> clear [new|old]
+        permission: tvm.message
+        permission-message: You don't have the permission <permission> to use this command
+    vms:
+        aliases: [vmsave]
+        description: Save Vortex Manipulator location.
+        usage: /<command> [save_name]
+        permission: tvm.teleport
+        permission-message: You don't have the permission <permission> to use this command
+    vmr:
+        aliases: [vmremove]
+        description: Remove Vortex Manipulator save.
+        usage: /<command> [save_name]
+        permission: tvm.teleport
+        permission-message: You don't have the permission <permission> to use this command
+    vmh:
+        aliases: [vmhelp]
+        description: Vortex Manipulator help.
+        usage: /<command> [topic]
+    vml:
+        aliases: [vmlife,vmlifesigns]
+        description: Get Vortex Manipulator entity information.
+        usage: /<command> [save_name]
+        permission: tvm.lifesigns
+        permission-message: You don't have the permission <permission> to use this command
+    vmb:
+        aliases: [vmbeacon]
+        description: Send out a Vortex Manipulator beacon signal.
+        usage: /<command> [colour]
+        permission: tvm.beacon
         permission-message: You don't have the permission <permission> to use this command

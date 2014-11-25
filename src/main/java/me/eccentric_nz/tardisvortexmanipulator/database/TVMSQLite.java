@@ -39,6 +39,10 @@ public class TVMSQLite {
             String queryMessages = "CREATE TABLE IF NOT EXISTS messages (message_id INTEGER PRIMARY KEY NOT NULL, uuid_to TEXT DEFAULT '', uuid_from TEXT DEFAULT '', message TEXT DEFAULT '', date INTEGER DEFAULT (strftime('%s', 'now')), read INTEGER DEFAULT 0)";
             statement.executeUpdate(queryMessages);
 
+            //  Table structure for table 'beacon'
+            String queryBeacons = "CREATE TABLE IF NOT EXISTS beacons (beacon_id INTEGER PRIMARY KEY NOT NULL, uuid TEXT DEFAULT '', location TEXT DEFAULT '', block_type TEXT DEFAULT '', data INTEGER DEFAULT 0)";
+            statement.executeUpdate(queryBeacons);
+
         } catch (SQLException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "SQLite create table error: " + e);
         } finally {
