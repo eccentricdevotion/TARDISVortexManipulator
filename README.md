@@ -12,6 +12,8 @@ Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipul
 ##Crafting
 Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for this crafted item would be a wonderful addition, as well.
 
+![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulator.jpg)
+
 ##Multiworld support
 This should work with Multiverse, remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Border (plugin and the 1.8 default if possible). Towny/Faction integration isn't necessary as it's time traveling.
 
