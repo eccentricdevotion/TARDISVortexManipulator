@@ -2,6 +2,8 @@
 
 Plugin request: [http://forums.bukkit.org/threads/request-vortex-manipulator.323227/](http://forums.bukkit.org/threads/request-vortex-manipulator.323227/), initiator: roracle
 
+We like a challenge :)
+
 ##What it is
 "Vortex manipulator. Cheap and nasty time travel. Very bad for you. I'm trying to give it up."
 
