@@ -48,8 +48,8 @@ public class TVMSavesGUI {
                 // save
                 ItemStack save = new ItemStack(Material.WOOL, 1, (byte) 5);
                 ItemMeta warp = save.getItemMeta();
-                warp.setDisplayName("#");
-                warp.setLore(Arrays.asList("World: ", "x: ", "y: ", "z: "));
+                warp.setDisplayName(s.getName());
+                warp.setLore(Arrays.asList("World: " + s.getWorld(), "x: " + s.getX(), "y: " + s.getY(), "z: " + s.getZ()));
                 save.setItemMeta(warp);
                 stack[i] = save;
                 i++;

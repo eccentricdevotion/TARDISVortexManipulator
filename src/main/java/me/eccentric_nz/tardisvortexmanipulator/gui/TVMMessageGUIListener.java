@@ -61,7 +61,7 @@ public class TVMMessageGUIListener implements Listener {
     public void onGUIClick(InventoryClickEvent event) {
         Inventory inv = event.getInventory();
         String name = inv.getTitle();
-        if (name.equals("§4Vortex Manipulator")) {
+        if (name.equals("§4VM Messages")) {
             event.setCancelled(true);
             final Player player = (Player) event.getWhoClicked();
             UUID uuid = player.getUniqueId();
