@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import me.eccentric_nz.TARDIS.api.Parameters;
+import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import org.bukkit.Location;
@@ -32,6 +34,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class TVMGUIListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
+    List<String> titles = Arrays.asList("§4Vortex Manipulator", "§4VM Messages", "§4VM Saves");
     List<String> components = Arrays.asList("", "", "", "", "");
     char[] two = new char[]{'2', 'a', 'b', 'c'};
     char[] three = new char[]{'3', 'd', 'e', 'f'};
@@ -376,6 +379,29 @@ public class TVMGUIListener implements Listener {
         UUID uuid = p.getUniqueId();
         String ustr = uuid.toString();
         Location l = p.getLocation();
+        // potential griefing, we need to check the location first!
+        List<FLAG> flags = new ArrayList<FLAG>();
+        if (plugin.getConfig().getBoolean("respect.factions")) {
+            flags.add(FLAG.RESPECT_FACTIONS);
+        }
+        if (plugin.getConfig().getBoolean("respect.griefprevention")) {
+            flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+        }
+        if (plugin.getConfig().getBoolean("respect.towny")) {
+            flags.add(FLAG.RESPECT_TOWNY);
+        }
+        if (plugin.getConfig().getBoolean("respect.worldborder")) {
+            flags.add(FLAG.RESPECT_WORLDBORDER);
+        }
+        if (plugin.getConfig().getBoolean("respect.worldguard")) {
+            flags.add(FLAG.RESPECT_WORLDGUARD);
+        }
+        Parameters params = new Parameters(p, flags);
+        if (!plugin.getTardisAPI().getRespect().getRespect(l, params)) {
+            close(p);
+            p.sendMessage(plugin.getPluginName() + "You are not permitted to set a beacon signal here!");
+            return;
+        }
         Block b = l.getBlock().getRelative(BlockFace.DOWN);
         qf.saveBeaconBlock(ustr, b);
         b.setType(Material.BEACON);
@@ -388,6 +414,7 @@ public class TVMGUIListener implements Listener {
             down.getRelative(f).setType(Material.IRON_BLOCK);
         }
         plugin.getBeaconSetters().add(uuid);
+        close(p);
     }
 
     private void doWarp(final Player p, Inventory inv) {
@@ -397,13 +424,35 @@ public class TVMGUIListener implements Listener {
         String[] dest = lore.get(0).split(" ");
         List<String> worlds = new ArrayList<String>();
         Location l;
+        // set parameters
+        List<FLAG> flags = new ArrayList<FLAG>();
+        flags.add(FLAG.PERMS_AREA);
+        flags.add(FLAG.PERMS_NETHER);
+        flags.add(FLAG.PERMS_THEEND);
+        flags.add(FLAG.PERMS_WORLD);
+        if (plugin.getConfig().getBoolean("respect.factions")) {
+            flags.add(FLAG.RESPECT_FACTIONS);
+        }
+        if (plugin.getConfig().getBoolean("respect.griefprevention")) {
+            flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+        }
+        if (plugin.getConfig().getBoolean("respect.towny")) {
+            flags.add(FLAG.RESPECT_TOWNY);
+        }
+        if (plugin.getConfig().getBoolean("respect.worldborder")) {
+            flags.add(FLAG.RESPECT_WORLDBORDER);
+        }
+        if (plugin.getConfig().getBoolean("respect.worldguard")) {
+            flags.add(FLAG.RESPECT_WORLDGUARD);
+        }
+        Parameters params = new Parameters(p, flags);
         switch (dest.length) {
             case 1:
             case 2:
             case 3:
                 // only world specified (or incomplete setting)
                 worlds.add(dest[0]);
-                l = plugin.getTardisAPI().getRandomLocation(worlds, p);
+                l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
                 break;
             case 4:
                 // world, x, y, z specified
@@ -447,7 +496,7 @@ public class TVMGUIListener implements Listener {
                 break;
             default:
                 // random
-                l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), p);
+                l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                 break;
         }
         if (l != null) {
@@ -460,6 +509,9 @@ public class TVMGUIListener implements Listener {
                     p.teleport(warp);
                 }
             }, 10L);
+        } else {
+            close(p);
+            p.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
         }
     }
 
@@ -481,7 +533,7 @@ public class TVMGUIListener implements Listener {
     public void onMenuDrag(InventoryDragEvent event) {
         Inventory inv = event.getInventory();
         String title = inv.getTitle();
-        if (!title.equals("§4Vortex Manipulator")) {
+        if (!titles.contains(title)) {
             return;
         }
         Set<Integer> slots = event.getRawSlots();

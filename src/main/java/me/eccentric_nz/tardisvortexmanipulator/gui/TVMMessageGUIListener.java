@@ -5,14 +5,12 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -342,20 +340,5 @@ public class TVMMessageGUIListener implements Listener {
                 p.closeInventory();
             }
         }, 1L);
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onMenuDrag(InventoryDragEvent event) {
-        Inventory inv = event.getInventory();
-        String title = inv.getTitle();
-        if (!title.equals("§4Vortex Manipulator")) {
-            return;
-        }
-        Set<Integer> slots = event.getRawSlots();
-        for (Integer slot : slots) {
-            if ((slot >= 0 && slot < 81)) {
-                event.setCancelled(true);
-            }
-        }
     }
 }

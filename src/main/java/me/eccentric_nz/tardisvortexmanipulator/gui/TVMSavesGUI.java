@@ -32,7 +32,7 @@ public class TVMSavesGUI {
     }
 
     /**
-     * Constructs an inventory for the Vortex Manipulator GUI.
+     * Constructs an inventory for the Vortex Manipulator Saves GUI.
      *
      * @return an Array of itemStacks (an inventory)
      */

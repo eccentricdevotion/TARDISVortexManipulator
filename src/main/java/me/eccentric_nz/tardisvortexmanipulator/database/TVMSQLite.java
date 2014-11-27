@@ -43,6 +43,10 @@ public class TVMSQLite {
             String queryBeacons = "CREATE TABLE IF NOT EXISTS beacons (beacon_id INTEGER PRIMARY KEY NOT NULL, uuid TEXT DEFAULT '', location TEXT DEFAULT '', block_type TEXT DEFAULT '', data INTEGER DEFAULT 0)";
             statement.executeUpdate(queryBeacons);
 
+            //  Table structure for table 'manipulator'
+            String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid TEXT PRIMARY KEY NOT NULL, INTEGER tachyon_level DEFAULT 0)";
+            statement.executeUpdate(queryManipulator);
+
         } catch (SQLException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "SQLite create table error: " + e);
         } finally {

@@ -19,7 +19,8 @@ recipe:
     lore: "Cheap and nasty time travel"
 tachyon_use:
     max: 1000
-    recharge: 5
+    recharge: 25
+    recharge_interval: 600
     travel:
         random: 100
         world: 150
@@ -36,7 +37,7 @@ storage:
 date_format: dd/mn/YY HH:mm
 respect:
     worldborder: true
-    worldguard: entry
+    worldguard: true
     griefprevention: true
     factions: true
-    towny: none
+    towny: true

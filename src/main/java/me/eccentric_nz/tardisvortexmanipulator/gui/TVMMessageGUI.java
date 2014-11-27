@@ -34,7 +34,7 @@ public class TVMMessageGUI {
     }
 
     /**
-     * Constructs an inventory for the Vortex Manipulator GUI.
+     * Constructs an inventory for the Vortex Manipulator Messages GUI.
      *
      * @return an Array of itemStacks (an inventory)
      */

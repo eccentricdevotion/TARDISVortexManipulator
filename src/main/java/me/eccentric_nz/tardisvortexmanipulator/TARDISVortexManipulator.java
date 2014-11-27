@@ -12,6 +12,8 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMCraftListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMMoveListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -28,6 +30,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final List<Location> blocks = new ArrayList<Location>();
     private final List<UUID> beaconSetters = new ArrayList<UUID>();
+    private PluginManager pm;
 
     @Override
     public void onDisable() {
@@ -38,7 +41,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         saveDefaultConfig();
-        PluginManager pm = getServer().getPluginManager();
+        pm = getServer().getPluginManager();
         /* Get TARDIS */
         Plugin p = pm.getPlugin("TARDIS");
         if (p == null) {
@@ -50,10 +53,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
         PluginDescriptionFile pdfFile = getDescription();
         pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
         loadDatabase();
-        pm.registerEvents(new TVMGUIListener(this), this);
-        pm.registerEvents(new TVMBlockListener(this), this);
+        registerListeners();
         getCommand("vm").setExecutor(new TVMCommand(this));
         getServer().addRecipe(new TVMRecipe(this).makeRecipe());
+        startRecharger();
     }
 
     public String getPluginName() {
@@ -83,6 +86,17 @@ public class TARDISVortexManipulator extends JavaPlugin {
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(pluginName + "Connection and Tables Error: " + e);
         }
+    }
+
+    private void registerListeners() {
+        pm.registerEvents(new TVMGUIListener(this), this);
+        pm.registerEvents(new TVMBlockListener(this), this);
+        pm.registerEvents(new TVMMoveListener(this), this);
+        pm.registerEvents(new TVMCraftListener(this), this);
+    }
+
+    private void startRecharger() {
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new TVMTachyonRunnable(this), 1200L, getConfig().getLong("tachyon_use.recharge_interval"));
     }
 
     public List<Location> getBlocks() {

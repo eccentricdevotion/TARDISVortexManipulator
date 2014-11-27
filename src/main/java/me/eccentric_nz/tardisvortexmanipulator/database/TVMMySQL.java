@@ -44,6 +44,10 @@ public class TVMMySQL {
             String queryBeacons = "CREATE TABLE IF NOT EXISTS beacons (beacon_id int(11) NOT NULL AUTO_INCREMENT, uuid varchar(48) DEFAULT '', location varchar(512) DEFAULT '', block_type varchar(32) DEFAULT '', data int(2) DEFAULT '0', PRIMARY KEY (beacon_id)) DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;";
             statement.executeUpdate(queryBeacons);
 
+            // Table structure for table 'manipulator'
+            String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid varchar(48) NOT NULL, tachyon_level int(11) DEFAULT '0', PRIMARY KEY (manipulator)) DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;";
+            statement.executeUpdate(queryManipulator);
+
         } catch (SQLException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "MySQL create table error: " + e);
         } finally {

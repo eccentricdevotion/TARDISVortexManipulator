@@ -24,7 +24,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -88,12 +87,12 @@ public class TVMQueryFactory {
                     ps.setString(i, entry.getValue().toString());
                 } else {
                     if (entry.getValue().getClass().getName().contains("Double")) {
-                        ps.setDouble(i, TARDIS.plugin.getUtils().parseDouble(entry.getValue().toString()));
+                        ps.setDouble(i, plugin.getTardisAPI().getUtils().parseDouble(entry.getValue().toString()));
                     }
                     if (entry.getValue().getClass().getName().contains("Long")) {
-                        ps.setLong(i, TARDIS.plugin.getUtils().parseLong(entry.getValue().toString()));
+                        ps.setLong(i, plugin.getTardisAPI().getUtils().parseLong(entry.getValue().toString()));
                     } else {
-                        ps.setInt(i, TARDIS.plugin.getUtils().parseInt(entry.getValue().toString()));
+                        ps.setInt(i, plugin.getTardisAPI().getUtils().parseInt(entry.getValue().toString()));
                     }
                 }
                 i++;
