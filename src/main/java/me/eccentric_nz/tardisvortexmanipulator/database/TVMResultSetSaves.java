@@ -21,11 +21,14 @@ public class TVMResultSetSaves {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String uuid;
+    private final int start, limit;
     private List<TVMSave> saves;
 
-    public TVMResultSetSaves(TARDISVortexManipulator plugin, String uuid) {
+    public TVMResultSetSaves(TARDISVortexManipulator plugin, String uuid, int start, int limit) {
         this.plugin = plugin;
         this.uuid = uuid;
+        this.start = start;
+        this.limit = limit;
     }
 
     /**
@@ -38,7 +41,7 @@ public class TVMResultSetSaves {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM saves WHERE uuid = ? ORDER BY save_name";
+        String query = String.format("SELECT * FROM saves WHERE uuid = ? ORDER BY save_name LIMIT %d, %d", start, start + limit);
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);

@@ -34,3 +34,9 @@ storage:
     user: bukkit
     password: mysecurepassword
 date_format: dd/mn/YY HH:mm
+respect:
+    worldborder: true
+    worldguard: entry
+    griefprevention: true
+    factions: true
+    towny: none

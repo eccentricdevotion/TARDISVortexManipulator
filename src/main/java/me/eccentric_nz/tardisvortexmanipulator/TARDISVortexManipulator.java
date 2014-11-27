@@ -3,6 +3,7 @@ package me.eccentric_nz.tardisvortexmanipulator;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
@@ -10,6 +11,7 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -24,7 +26,8 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private TARDIS tardis;
     public static TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
-    private static final List<Location> blocks = new ArrayList<Location>();
+    private final List<Location> blocks = new ArrayList<Location>();
+    private final List<UUID> beaconSetters = new ArrayList<UUID>();
 
     @Override
     public void onDisable() {
@@ -48,6 +51,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
         loadDatabase();
         pm.registerEvents(new TVMGUIListener(this), this);
+        pm.registerEvents(new TVMBlockListener(this), this);
         getCommand("vm").setExecutor(new TVMCommand(this));
         getServer().addRecipe(new TVMRecipe(this).makeRecipe());
     }
@@ -81,8 +85,12 @@ public class TARDISVortexManipulator extends JavaPlugin {
         }
     }
 
-    public static List<Location> getBlocks() {
+    public List<Location> getBlocks() {
         return blocks;
+    }
+
+    public List<UUID> getBeaconSetters() {
+        return beaconSetters;
     }
 
     /**

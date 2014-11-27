@@ -6,8 +6,8 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import java.util.Arrays;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,20 +16,18 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TVMMessageGUI {
+public class TVMSavesGUI {
 
     private final TARDISVortexManipulator plugin;
     private final int start, finish;
     private final String uuid;
     private final ItemStack[] gui;
-    private final boolean box;
 
-    public TVMMessageGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid, boolean box) {
+    public TVMSavesGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid) {
         this.plugin = plugin;
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        this.box = box;
         this.gui = getItemStack();
     }
 
@@ -43,17 +41,17 @@ public class TVMMessageGUI {
         ItemStack[] stack = new ItemStack[54];
         int i = 0;
         // get the player's messages
-        TVMResultSetInbox rs = new TVMResultSetInbox(plugin, uuid, box, start, 44);
+        TVMResultSetSaves rs = new TVMResultSetSaves(plugin, uuid, start, 44);
         if (rs.resultSet()) {
-            List<TVMMessage> messages = rs.getMail();
-            for (TVMMessage m : messages) {
-                // message
-                ItemStack mess = new ItemStack(Material.WOOL, 1, (byte) 5);
-                ItemMeta age = mess.getItemMeta();
-                age.setDisplayName("#");
-                age.setLore(Arrays.asList("From: ", "Date: ", "ID: "));
-                mess.setItemMeta(age);
-                stack[i] = mess;
+            List<TVMSave> saves = rs.getSaves();
+            for (TVMSave s : saves) {
+                // save
+                ItemStack save = new ItemStack(Material.WOOL, 1, (byte) 5);
+                ItemMeta warp = save.getItemMeta();
+                warp.setDisplayName("#");
+                warp.setLore(Arrays.asList("World: ", "x: ", "y: ", "z: "));
+                save.setItemMeta(warp);
+                stack[i] = save;
                 i++;
             }
         }

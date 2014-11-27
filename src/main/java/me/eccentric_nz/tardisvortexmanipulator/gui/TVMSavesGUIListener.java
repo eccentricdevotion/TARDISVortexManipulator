@@ -3,19 +3,11 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,10 +21,10 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TVMGUIListener implements Listener {
+public class TVMSavesGUIListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
-    List<String> components = Arrays.asList("", "", "", "", "");
+    List<String> components = Arrays.asList("", "", "", "");
     char[] two = new char[]{'2', 'a', 'b', 'c'};
     char[] three = new char[]{'3', 'd', 'e', 'f'};
     char[] four = new char[]{'4', 'g', 'h', 'i'};
@@ -55,16 +47,14 @@ public class TVMGUIListener implements Listener {
     int t9 = 0;
     int ts = 0;
     int th = 0;
-    TVMQueryFactory qf;
 
-    public TVMGUIListener(TARDISVortexManipulator plugin) {
+    public TVMSavesGUIListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         // init string positions
-        this.pos = new int[5];
-        for (int i = 0; i < 5; i++) {
+        this.pos = new int[4];
+        for (int i = 0; i < 4; i++) {
             this.pos[i] = 0;
         }
-        qf = new TVMQueryFactory(this.plugin);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -74,6 +64,7 @@ public class TVMGUIListener implements Listener {
         if (name.equals("§4Vortex Manipulator")) {
             event.setCancelled(true);
             final Player player = (Player) event.getWhoClicked();
+            UUID uuid = player.getUniqueId();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
@@ -118,8 +109,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 16:
                         // save
-                        which = 4;
-                        resetTrackers();
+                        saveCurrentLocation(player);
                         break;
                     case 20:
                         // x
@@ -261,13 +251,8 @@ public class TVMGUIListener implements Listener {
                         resetTrackers();
                         break;
                     case 53:
-                        if (which == 4) {
-                            // save
-                            saveCurrentLocation(player, inv);
-                        } else {
-                            // warp
-                            doWarp(player, inv);
-                        }
+                        // warp
+                        doWarp(player);
                         break;
                     default:
                         break;
@@ -277,7 +262,7 @@ public class TVMGUIListener implements Listener {
     }
 
     private void updateDisplay(Inventory inv, char s) {
-        ItemStack display = inv.getItem(4);
+        ItemStack display = inv.getItem(2);
         ItemMeta dim = display.getItemMeta();
         char[] chars = (components.get(which).isEmpty()) ? new char[1] : components.get(which).toCharArray();
         if (pos[which] >= chars.length) {
@@ -325,142 +310,24 @@ public class TVMGUIListener implements Listener {
         th = 0;
     }
 
-    private void saveCurrentLocation(Player p, Inventory inv) {
-        ItemStack display = inv.getItem(4);
-        ItemMeta dim = display.getItemMeta();
-        List<String> lore = dim.getLore();
-        Location l = p.getLocation();
-        HashMap<String, Object> set = new HashMap<String, Object>();
-        set.put("uuid", p.getUniqueId().toString());
-        set.put("save_name", lore.get(0));
-        set.put("world", l.getWorld().getName());
-        set.put("x", l.getX());
-        set.put("y", l.getY());
-        set.put("z", l.getZ());
-        set.put("yaw", l.getYaw());
-        set.put("pitch", l.getPitch());
-        qf.doInsert("saves", set);
-        close(p);
-        p.sendMessage(plugin.getPluginName() + "Current location saved.");
+    private void saveCurrentLocation(Player p) {
+
     }
 
-    private void loadSaves(final Player p) {
-        close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMSavesGUI tvms = new TVMSavesGUI(plugin, 0, 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvms.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
-        }, 2L);
+    private void loadSaves(Player p) {
+
     }
 
-    private void message(final Player p) {
-        close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, p.getUniqueId().toString(), false);
-                ItemStack[] gui = tvmm.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
-        }, 2L);
+    private void message(Player p) {
+
     }
 
     private void setBeacon(Player p) {
-        UUID uuid = p.getUniqueId();
-        String ustr = uuid.toString();
-        Location l = p.getLocation();
-        Block b = l.getBlock().getRelative(BlockFace.DOWN);
-        qf.saveBeaconBlock(ustr, b);
-        b.setType(Material.BEACON);
-        Block down = b.getRelative(BlockFace.DOWN);
-        qf.saveBeaconBlock(ustr, down);
-        down.setType(Material.IRON_BLOCK);
-        List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
-        for (BlockFace f : faces) {
-            qf.saveBeaconBlock(ustr, down.getRelative(f));
-            down.getRelative(f).setType(Material.IRON_BLOCK);
-        }
-        plugin.getBeaconSetters().add(uuid);
+
     }
 
-    private void doWarp(final Player p, Inventory inv) {
-        ItemStack display = inv.getItem(4);
-        ItemMeta dim = display.getItemMeta();
-        List<String> lore = dim.getLore();
-        String[] dest = lore.get(0).split(" ");
-        List<String> worlds = new ArrayList<String>();
-        Location l;
-        switch (dest.length) {
-            case 1:
-            case 2:
-            case 3:
-                // only world specified (or incomplete setting)
-                worlds.add(dest[0]);
-                l = plugin.getTardisAPI().getRandomLocation(worlds, p);
-                break;
-            case 4:
-                // world, x, y, z specified
-                World w;
-                double x;
-                double y;
-                double z;
-                try {
-                    if (dest[0].contains("~")) {
-                        // relative location
-                        w = p.getLocation().getWorld();
-                        x = Double.parseDouble(dest[1].replace("~", ""));
-                        y = Double.parseDouble(dest[2].replace("~", ""));
-                        z = Double.parseDouble(dest[3].replace("~", ""));
+    private void doWarp(Player p) {
 
-                    } else {
-                        w = plugin.getServer().getWorld(dest[0]);
-                        if (w == null) {
-                            close(p);
-                            p.sendMessage(plugin.getPluginName() + "World does not exist!");
-                            return;
-                        }
-                        x = Double.parseDouble(dest[1]);
-                        y = Double.parseDouble(dest[2]);
-                        z = Double.parseDouble(dest[3]);
-
-                    }
-                } catch (NumberFormatException e) {
-                    close(p);
-                    p.sendMessage(plugin.getPluginName() + "Could not parse coordinates!");
-                    return;
-                }
-                l = new Location(w, x, y, z);
-                // check block has space for player
-                if (!l.getBlock().getType().equals(Material.AIR)) {
-                    p.sendMessage(plugin.getPluginName() + "Destination block is not AIR! Adjusting...");
-                    // get highest block at these coords
-                    int highest = l.getWorld().getHighestBlockYAt(l);
-                    l.setY(highest);
-                }
-                break;
-            default:
-                // random
-                l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), p);
-                break;
-        }
-        if (l != null) {
-            final Location warp = l;
-            close(p);
-            p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    p.teleport(warp);
-                }
-            }, 10L);
-        }
     }
 
     /**
