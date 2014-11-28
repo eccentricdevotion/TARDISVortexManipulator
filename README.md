@@ -13,6 +13,7 @@ Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipul
 Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for this crafted item would be a wonderful addition, as well.
 
 ![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulator.jpg)
+![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
 
 ##Multiworld support
 This should work with Multiverse, remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Border (plugin and the 1.8 default if possible). Towny/Faction integration isn't necessary as it's time traveling.
@@ -22,6 +23,8 @@ There should be configuration options that allow for energy usage, recharging, a
 
 Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI should be provided as well.
 
+![GUI](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulatorGUI.jpg)
+
 ##Ideas for commands
 A first release should be simple, but don't stop there. Add as much as you think you are able!
 
@@ -30,8 +33,11 @@ A first release should be simple, but don't stop there. Add as much as you think
 * `/vm {worldname} {X,Y,Z}` - Teleport to specific location in the specified world
 * `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
 * `/vm go {custom}` - Teleport to saved location
-* `/vm save {custom}` - Save a specific location
-* `/vm remove {custom}` - Remove saved location
+
+####Saves
+
+* `/vms {custom}` - Save a specific location
+* `/vmr {custom}` - Remove saved location
 
 _Other things that should be added, either on initial release or later:_
 

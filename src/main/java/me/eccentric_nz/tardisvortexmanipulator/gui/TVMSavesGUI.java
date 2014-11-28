@@ -78,18 +78,18 @@ public class TVMSavesGUI {
             next.setItemMeta(scr);
             stack[48] = next;
         }
-        // read
-        ItemStack read = new ItemStack(Material.BOWL, 1);
-        ItemMeta daer = read.getItemMeta();
-        daer.setDisplayName("Read");
-        read.setItemMeta(daer);
-        stack[50] = read;
         // delete
         ItemStack del = new ItemStack(Material.BOWL, 1);
         ItemMeta ete = del.getItemMeta();
         ete.setDisplayName("Delete");
         del.setItemMeta(ete);
-        stack[53] = del;
+        stack[50] = del;
+        // warp
+        ItemStack warp = new ItemStack(Material.BOWL, 1);
+        ItemMeta to = warp.getItemMeta();
+        to.setDisplayName("Enter Vortex");
+        warp.setItemMeta(to);
+        stack[53] = warp;
 
         return stack;
     }
