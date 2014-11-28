@@ -3,7 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import java.util.HashMap;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetTachyon;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMTachyon;
@@ -37,11 +36,7 @@ public class TVMTachyonRunnable implements Runnable {
                     // check their tachyon level
                     if (t.getLevel() + recharge <= max) {
                         // recharge them if they are not full
-                        HashMap<String, Object> set = new HashMap<String, Object>();
-                        set.put("tachyon_level", t.getLevel() + recharge);
-                        HashMap<String, Object> where = new HashMap<String, Object>();
-                        where.put("uuid", t.getUuid().toString());
-                        qf.doUpdate("manipulator", set, where);
+                        qf.alterTachyons(t.getUuid().toString(), recharge);
                     }
                 }
             }
