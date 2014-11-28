@@ -4,6 +4,9 @@
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.Arrays;
+import java.util.List;
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -14,9 +17,13 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class TVMGUI {
 
+    private final TARDISVortexManipulator plugin;
+    private final String uuid;
     private final ItemStack[] gui;
 
-    public TVMGUI() {
+    public TVMGUI(TARDISVortexManipulator plugin, String uuid) {
+        this.plugin = plugin;
+        this.uuid = uuid;
         this.gui = getItemStack();
     }
 
@@ -113,46 +120,54 @@ public class TVMGUI {
         ItemMeta sel = x.getItemMeta();
         sel.setDisplayName("X");
         x.setItemMeta(sel);
-        // 0
+        // y
         ItemStack y = new ItemStack(Material.BOWL, 1);
         ItemMeta hei = y.getItemMeta();
         hei.setDisplayName("Y");
         y.setItemMeta(hei);
-        // 0
+        // z
         ItemStack z = new ItemStack(Material.BOWL, 1);
         ItemMeta coord = z.getItemMeta();
         coord.setDisplayName("Z");
         z.setItemMeta(coord);
         // tachyon level - TODO show different levels depening on % full
+        TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
+        short durability = 1562;
+        int percent = rs.getTachyonLevel() / plugin.getConfig().getInt("tachyon_use.max");
+        if (rs.resultSet()) {
+            durability = (short) (1562 - (percent * 1562));
+        }
         ItemStack tach = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta yon = tach.getItemMeta();
         yon.setDisplayName("Tachyon Level");
+        List<String> lore = Arrays.asList(percent + "%");
+        yon.setLore(lore);
         tach.setItemMeta(yon);
-        tach.setDurability((short) 250);
+        tach.setDurability(durability);
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta tol = warp.getItemMeta();
-        tol.setDisplayName("Enter Vortex");
+        tol.setDisplayName("Enter Vortex / Save location");
         warp.setItemMeta(tol);
         // beacon
         ItemStack bea = new ItemStack(Material.BOWL, 1);
         ItemMeta con = bea.getItemMeta();
-        con.setDisplayName("Beacon");
+        con.setDisplayName("Beacon signal");
         bea.setItemMeta(con);
         // message
         ItemStack mess = new ItemStack(Material.BOWL, 1);
         ItemMeta age = mess.getItemMeta();
-        age.setDisplayName("Message");
+        age.setDisplayName("Messages");
         mess.setItemMeta(age);
         // save
         ItemStack save = new ItemStack(Material.BOWL, 1);
         ItemMeta curr = save.getItemMeta();
-        curr.setDisplayName("Save");
+        curr.setDisplayName("Save current location");
         save.setItemMeta(curr);
         // load
         ItemStack load = new ItemStack(Material.BOWL, 1);
         ItemMeta disk = load.getItemMeta();
-        disk.setDisplayName("Load");
+        disk.setDisplayName("Load saved location");
         load.setItemMeta(disk);
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
@@ -162,12 +177,12 @@ public class TVMGUI {
         // next
         ItemStack next = new ItemStack(Material.BOWL, 1);
         ItemMeta cha = next.getItemMeta();
-        cha.setDisplayName("Next");
+        cha.setDisplayName("Next character");
         next.setItemMeta(cha);
         // back
         ItemStack prev = new ItemStack(Material.BOWL, 1);
         ItemMeta let = prev.getItemMeta();
-        let.setDisplayName("Previous");
+        let.setDisplayName("Previous character");
         prev.setItemMeta(let);
 
         ItemStack[] is = {
