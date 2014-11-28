@@ -41,3 +41,4 @@ respect:
     griefprevention: true
     factions: true
     towny: true
+debug: false

@@ -26,7 +26,7 @@ public class TVMEquipListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
         if (!action.equals(Action.RIGHT_CLICK_AIR)) {
