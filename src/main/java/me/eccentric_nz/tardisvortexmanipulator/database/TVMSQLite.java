@@ -44,7 +44,7 @@ public class TVMSQLite {
             statement.executeUpdate(queryBeacons);
 
             //  Table structure for table 'manipulator'
-            String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid TEXT PRIMARY KEY NOT NULL, INTEGER tachyon_level DEFAULT 0)";
+            String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid TEXT PRIMARY KEY NOT NULL, tachyon_level INTEGER DEFAULT 0)";
             statement.executeUpdate(queryManipulator);
 
         } catch (SQLException e) {
