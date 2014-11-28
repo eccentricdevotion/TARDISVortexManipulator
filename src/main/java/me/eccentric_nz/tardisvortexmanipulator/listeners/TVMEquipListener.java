@@ -34,6 +34,9 @@ public class TVMEquipListener implements Listener {
             return;
         }
         final Player player = event.getPlayer();
+        if (!player.hasPermission("vm.teleport")) {
+            return;
+        }
         ItemStack is = player.getItemInHand();
         if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
             // get tachyon level
