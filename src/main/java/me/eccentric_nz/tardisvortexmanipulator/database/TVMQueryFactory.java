@@ -207,4 +207,15 @@ public class TVMQueryFactory {
         set.put("data", data);
         doSyncInsert("beacons", set);
     }
+
+    /**
+     * Alter tachyon levels. This method executes the SQL in a separate thread.
+     *
+     * @param uuid the player's string UUID
+     * @param amount the amount add tachyons to add or remove
+     */
+    public void alterTachyons(String uuid, int amount) {
+        TVMAlterTachyon alter = new TVMAlterTachyon(plugin, amount, uuid);
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, alter);
+    }
 }

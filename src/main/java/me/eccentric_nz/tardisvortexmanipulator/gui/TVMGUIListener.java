@@ -98,7 +98,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 13:
                         // two
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, two[t2]);
                             t2++;
                             if (t2 == two.length) {
@@ -110,7 +110,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 14:
                         // three
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, three[t3]);
                             t3++;
                             if (t3 == three.length) {
@@ -132,7 +132,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 21:
                         // four
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, four[t4]);
                             t4++;
                             if (t4 == four.length) {
@@ -144,7 +144,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 22:
                         // five
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, five[t5]);
                             t5++;
                             if (t5 == five.length) {
@@ -156,7 +156,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 23:
                         // six
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, six[t6]);
                             t6++;
                             if (t6 == six.length) {
@@ -178,7 +178,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 30:
                         // seven
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, seven[t7]);
                             t7++;
                             if (t7 == seven.length) {
@@ -190,7 +190,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 31:
                         // eight
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, eight[t8]);
                             t8++;
                             if (t8 == eight.length) {
@@ -202,7 +202,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 32:
                         // nine
-                        if (which == 0) {
+                        if (which == 0 || which == 4) {
                             updateDisplay(inv, nine[t9]);
                             t9++;
                             if (t9 == nine.length) {
@@ -430,7 +430,12 @@ public class TVMGUIListener implements Listener {
         ItemStack display = inv.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
-        String[] dest = lore.get(0).split(" ");
+        List<String> dest;
+        if (!lore.get(0).trim().isEmpty()) {
+            dest = Arrays.asList(lore.get(0).trim().split(" "));
+        } else {
+            dest = new ArrayList<String>();
+        }
         List<String> worlds = new ArrayList<String>();
         Location l;
         // set parameters
@@ -456,42 +461,37 @@ public class TVMGUIListener implements Listener {
         }
         Parameters params = new Parameters(p, flags);
         int required;
-        switch (dest.length) {
+        switch (dest.size()) {
             case 1:
             case 2:
             case 3:
                 required = plugin.getConfig().getInt("tachyon_use.travel.world");
                 // only world specified (or incomplete setting)
-                worlds.add(dest[0]);
+                worlds.add(dest.get(0));
                 l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
                 break;
             case 4:
                 required = plugin.getConfig().getInt("tachyon_use.travel.coords");
                 // world, x, y, z specified
                 World w;
+                if (dest.get(0).contains("~")) {
+                    // relative location
+                    w = p.getLocation().getWorld();
+                } else {
+                    w = plugin.getServer().getWorld(dest.get(0));
+                    if (w == null) {
+                        close(p);
+                        p.sendMessage(plugin.getPluginName() + "World does not exist!");
+                        return;
+                    }
+                }
                 double x;
                 double y;
                 double z;
                 try {
-                    if (dest[0].contains("~")) {
-                        // relative location
-                        w = p.getLocation().getWorld();
-                        x = Double.parseDouble(dest[1].replace("~", ""));
-                        y = Double.parseDouble(dest[2].replace("~", ""));
-                        z = Double.parseDouble(dest[3].replace("~", ""));
-
-                    } else {
-                        w = plugin.getServer().getWorld(dest[0]);
-                        if (w == null) {
-                            close(p);
-                            p.sendMessage(plugin.getPluginName() + "World does not exist!");
-                            return;
-                        }
-                        x = Double.parseDouble(dest[1]);
-                        y = Double.parseDouble(dest[2]);
-                        z = Double.parseDouble(dest[3]);
-
-                    }
+                    x = Double.parseDouble(dest.get(1));
+                    y = Double.parseDouble(dest.get(2));
+                    z = Double.parseDouble(dest.get(3));
                 } catch (NumberFormatException e) {
                     close(p);
                     p.sendMessage(plugin.getPluginName() + "Could not parse coordinates!");
@@ -521,14 +521,25 @@ public class TVMGUIListener implements Listener {
             final Location warp = l;
             close(p);
             p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
+            while (!warp.getChunk().isLoaded()) {
+                warp.getChunk().load();
+            }
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
                     p.teleport(warp);
                 }
-            }, 10L);
+            }, 60L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    p.teleport(warp);
+                }
+            }, 65L);
+            // remove tachyons
+            qf.alterTachyons(p.getUniqueId().toString(), -required);
         } else {
-            close(p);
+            //close(p);
             p.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
         }
     }
@@ -539,6 +550,7 @@ public class TVMGUIListener implements Listener {
      * @param p the player using the GUI
      */
     public void close(final Player p) {
+        components = Arrays.asList("", "", "", "", "");
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
