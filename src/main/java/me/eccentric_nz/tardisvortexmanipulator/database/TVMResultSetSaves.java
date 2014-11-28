@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
@@ -22,7 +23,7 @@ public class TVMResultSetSaves {
     private final TARDISVortexManipulator plugin;
     private final String uuid;
     private final int start, limit;
-    private List<TVMSave> saves;
+    private final List<TVMSave> saves = new ArrayList<TVMSave>();
 
     public TVMResultSetSaves(TARDISVortexManipulator plugin, String uuid, int start, int limit) {
         this.plugin = plugin;
