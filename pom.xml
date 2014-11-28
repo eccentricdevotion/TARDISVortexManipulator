@@ -9,11 +9,27 @@
             <id>md-5</id>
             <url>http://repo.md-5.net/content/groups/public</url>
         </repository>
-        <repository>
-            <id>Bromley Massive</id>
-            <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
-        </repository>
     </repositories>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <repositories>
+                <repository>
+                    <id>Bromley Massive</id>
+                    <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>jenkins</id>
+            <repositories>
+                <repository>
+                    <id>Bromley Massive</id>
+                    <url>http://localhost:8080/plugin/repository/everything/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
     <build>
         <finalName>TARDISVortexManipulator</finalName>
         <plugins>
@@ -51,6 +67,88 @@
             <version>3.2-beta-1</version>
             <type>jar</type>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>worldguard</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>worldedit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.swinglabs</groupId>
+                    <artifactId>swing-layout</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.massivecraft</groupId>
+                    <artifactId>massivecore</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.griefcraft</groupId>
+                    <artifactId>lwc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.yi.acru.bukkit</groupId>
+                    <artifactId>lockette</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.massivecraft</groupId>
+                    <artifactId>factions</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.citizensnpcs</groupId>
+                    <artifactId>citizensapi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.wimbli.WorldBorder</groupId>
+                    <artifactId>WorldBorder</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.palmergames.bukkit</groupId>
+                    <artifactId>Towny</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>me.eccentric_nz.tardishelper</groupId>
+                    <artifactId>TARDISHelper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>me.eccentric_nz.tardischunkgenerator</groupId>
+                    <artifactId>TARDISChunkGenerator</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.comphenix.protocol</groupId>
+                    <artifactId>ProtocolLib-Spigot</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.onarandombox.multiverseinventories</groupId>
+                    <artifactId>Multiverse-Inventories</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.onarandombox.multiversecore</groupId>
+                    <artifactId>Multiverse-Core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.onarandombox.multiverseadventure</groupId>
+                    <artifactId>Multiverse-Adventure</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>multiworld</groupId>
+                    <artifactId>MultiWorld</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>LibsDisguises</groupId>
+                    <artifactId>LibsDisguises</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>me.ryanhamshire</groupId>
+                    <artifactId>GriefPrevention</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>me.confuser</groupId>
+                    <artifactId>BarAPI</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <properties>
