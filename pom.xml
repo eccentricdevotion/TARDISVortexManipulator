@@ -5,10 +5,6 @@
     <version>1.0</version>
     <name>TARDISVortexManipulator</name>
     <repositories>
-        <repository>
-            <id>md-5</id>
-            <url>http://repo.md-5.net/content/groups/public</url>
-        </repository>
     </repositories>
     <profiles>
         <profile>
@@ -17,6 +13,10 @@
                 <repository>
                     <id>Bromley Massive</id>
                     <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
+                </repository>
+                <repository>
+                    <id>md-5</id>
+                    <url>http://repo.md-5.net/content/groups/public</url>
                 </repository>
             </repositories>
         </profile>
