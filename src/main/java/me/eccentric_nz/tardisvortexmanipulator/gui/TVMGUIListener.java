@@ -429,11 +429,11 @@ public class TVMGUIListener implements Listener {
             double health = scanned.getHealth() / scanned.getMaxHealth() * scanned.getHealthScale();
             float hunger = (scanned.getFoodLevel() / 20F) * 100;
             int air = scanned.getRemainingAir();
-            p.sendMessage(plugin.getPluginName() + pname + " lifesigns:");
+            p.sendMessage(plugin.getPluginName() + pname + "'s lifesigns:");
             p.sendMessage("Has been alive for: " + convertTicksToTime(scanned.getTicksLived()));
-            p.sendMessage("Health: " + String.format("%f", health));
-            p.sendMessage("Hunger: " + String.format("%.2f", hunger));
-            p.sendMessage("Air: " + air + "/20");
+            p.sendMessage("Health: " + String.format("%.1f", health / 2) + " hearts");
+            p.sendMessage("Hunger bar: " + String.format("%.2f", hunger) + "%");
+            p.sendMessage("Air: ~" + (air / 20) + " seconds remaining");
         }
     }
 
