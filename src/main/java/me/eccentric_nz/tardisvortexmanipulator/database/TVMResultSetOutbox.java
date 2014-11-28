@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
@@ -24,7 +25,7 @@ public class TVMResultSetOutbox {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String where;
-    private List<TVMMessage> mail;
+    private List<TVMMessage> mail = new ArrayList<TVMMessage>();
 
     public TVMResultSetOutbox(TARDISVortexManipulator plugin, String where) {
         this.plugin = plugin;

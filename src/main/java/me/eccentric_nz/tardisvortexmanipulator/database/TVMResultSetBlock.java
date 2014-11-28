@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMBlock;
@@ -24,7 +25,7 @@ public class TVMResultSetBlock {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String uuid;
-    private List<TVMBlock> blocks;
+    private final List<TVMBlock> blocks = new ArrayList<TVMBlock>();
 
     public TVMResultSetBlock(TARDISVortexManipulator plugin, String uuid) {
         this.plugin = plugin;
