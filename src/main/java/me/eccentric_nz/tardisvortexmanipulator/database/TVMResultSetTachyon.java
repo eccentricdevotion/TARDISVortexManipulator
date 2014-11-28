@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
@@ -21,7 +22,7 @@ public class TVMResultSetTachyon {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
-    private List<TVMTachyon> vms;
+    private final List<TVMTachyon> vms = new ArrayList<TVMTachyon>();
 
     public TVMResultSetTachyon(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
