@@ -514,7 +514,8 @@ public class TVMGUIListener implements Listener {
         }
         if (!checkTachyonLevel(p.getUniqueId(), required)) {
             close(p);
-            p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel there!");
+            p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
+            return;
         }
         if (l != null) {
             final Location warp = l;
