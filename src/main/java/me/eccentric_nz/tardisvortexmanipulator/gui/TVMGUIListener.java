@@ -13,6 +13,7 @@ import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -305,8 +306,11 @@ public class TVMGUIListener implements Listener {
             case 2:
                 combined = components.get(0) + " " + components.get(1) + " " + comp + " " + components.get(3);
                 break;
-            default:
+            case 3:
                 combined = components.get(0) + " " + components.get(1) + " " + components.get(2) + " " + comp;
+                break;
+            default:
+                combined = comp;
                 break;
         }
         components.set(which, comp);
@@ -377,44 +381,49 @@ public class TVMGUIListener implements Listener {
 
     private void setBeacon(Player p) {
         UUID uuid = p.getUniqueId();
-        String ustr = uuid.toString();
-        Location l = p.getLocation();
-        // potential griefing, we need to check the location first!
-        List<FLAG> flags = new ArrayList<FLAG>();
-        if (plugin.getConfig().getBoolean("respect.factions")) {
-            flags.add(FLAG.RESPECT_FACTIONS);
+        String message = "You don't have enough tachyons to set a beacon signal!";
+        if (checkTachyonLevel(uuid, plugin.getConfig().getInt("tachyon_use.beacon"))) {
+            String ustr = uuid.toString();
+            Location l = p.getLocation();
+            // potential griefing, we need to check the location first!
+            List<FLAG> flags = new ArrayList<FLAG>();
+            if (plugin.getConfig().getBoolean("respect.factions")) {
+                flags.add(FLAG.RESPECT_FACTIONS);
+            }
+            if (plugin.getConfig().getBoolean("respect.griefprevention")) {
+                flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+            }
+            if (plugin.getConfig().getBoolean("respect.towny")) {
+                flags.add(FLAG.RESPECT_TOWNY);
+            }
+            if (plugin.getConfig().getBoolean("respect.worldborder")) {
+                flags.add(FLAG.RESPECT_WORLDBORDER);
+            }
+            if (plugin.getConfig().getBoolean("respect.worldguard")) {
+                flags.add(FLAG.RESPECT_WORLDGUARD);
+            }
+            Parameters params = new Parameters(p, flags);
+            if (!plugin.getTardisAPI().getRespect().getRespect(l, params)) {
+                close(p);
+                p.sendMessage(plugin.getPluginName() + "You are not permitted to set a beacon signal here!");
+                return;
+            }
+            Block b = l.getBlock().getRelative(BlockFace.DOWN);
+            qf.saveBeaconBlock(ustr, b);
+            b.setType(Material.BEACON);
+            Block down = b.getRelative(BlockFace.DOWN);
+            qf.saveBeaconBlock(ustr, down);
+            down.setType(Material.IRON_BLOCK);
+            List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
+            for (BlockFace f : faces) {
+                qf.saveBeaconBlock(ustr, down.getRelative(f));
+                down.getRelative(f).setType(Material.IRON_BLOCK);
+            }
+            plugin.getBeaconSetters().add(uuid);
+            message = "Beacon signal set, don't move!";
         }
-        if (plugin.getConfig().getBoolean("respect.griefprevention")) {
-            flags.add(FLAG.RESPECT_GRIEFPREVENTION);
-        }
-        if (plugin.getConfig().getBoolean("respect.towny")) {
-            flags.add(FLAG.RESPECT_TOWNY);
-        }
-        if (plugin.getConfig().getBoolean("respect.worldborder")) {
-            flags.add(FLAG.RESPECT_WORLDBORDER);
-        }
-        if (plugin.getConfig().getBoolean("respect.worldguard")) {
-            flags.add(FLAG.RESPECT_WORLDGUARD);
-        }
-        Parameters params = new Parameters(p, flags);
-        if (!plugin.getTardisAPI().getRespect().getRespect(l, params)) {
-            close(p);
-            p.sendMessage(plugin.getPluginName() + "You are not permitted to set a beacon signal here!");
-            return;
-        }
-        Block b = l.getBlock().getRelative(BlockFace.DOWN);
-        qf.saveBeaconBlock(ustr, b);
-        b.setType(Material.BEACON);
-        Block down = b.getRelative(BlockFace.DOWN);
-        qf.saveBeaconBlock(ustr, down);
-        down.setType(Material.IRON_BLOCK);
-        List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
-        for (BlockFace f : faces) {
-            qf.saveBeaconBlock(ustr, down.getRelative(f));
-            down.getRelative(f).setType(Material.IRON_BLOCK);
-        }
-        plugin.getBeaconSetters().add(uuid);
         close(p);
+        p.sendMessage(plugin.getPluginName() + message);
     }
 
     private void doWarp(final Player p, Inventory inv) {
@@ -446,15 +455,18 @@ public class TVMGUIListener implements Listener {
             flags.add(FLAG.RESPECT_WORLDGUARD);
         }
         Parameters params = new Parameters(p, flags);
+        int required;
         switch (dest.length) {
             case 1:
             case 2:
             case 3:
+                required = plugin.getConfig().getInt("tachyon_use.travel.world");
                 // only world specified (or incomplete setting)
                 worlds.add(dest[0]);
                 l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
                 break;
             case 4:
+                required = plugin.getConfig().getInt("tachyon_use.travel.coords");
                 // world, x, y, z specified
                 World w;
                 double x;
@@ -495,9 +507,14 @@ public class TVMGUIListener implements Listener {
                 }
                 break;
             default:
+                required = plugin.getConfig().getInt("tachyon_use.travel.random");
                 // random
                 l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                 break;
+        }
+        if (!checkTachyonLevel(p.getUniqueId(), required)) {
+            close(p);
+            p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel there!");
         }
         if (l != null) {
             final Location warp = l;
@@ -542,5 +559,29 @@ public class TVMGUIListener implements Listener {
                 event.setCancelled(true);
             }
         }
+    }
+
+    /**
+     * Check they have enough tachyons.
+     *
+     * @param uuid the String UUID of the player to check
+     * @param required the minimum amount of Tachyon required
+     */
+    private boolean checkTachyonLevel(String uuid, int required) {
+        TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
+        if (!rs.resultSet()) {
+            return false;
+        }
+        return rs.getTachyonLevel() >= required;
+    }
+
+    /**
+     * Check they have enough tachyons.
+     *
+     * @param uuid the UUID of the player to check
+     * @param required the minimum amount of Tachyon required
+     */
+    private boolean checkTachyonLevel(UUID uuid, int required) {
+        return checkTachyonLevel(uuid.toString(), required);
     }
 }
