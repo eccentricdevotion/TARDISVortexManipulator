@@ -15,17 +15,17 @@ import org.bukkit.World;
  *
  * @author eccentric_nz
  */
-public class TVMResultSetWarp {
+public class TVMResultSetWarpByName {
 
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
-    private final int id;
+    private final String name;
     private Location warp;
 
-    public TVMResultSetWarp(TARDISVortexManipulator plugin, int id) {
+    public TVMResultSetWarpByName(TARDISVortexManipulator plugin, String name) {
         this.plugin = plugin;
-        this.id = id;
+        this.name = name;
     }
 
     /**
@@ -38,11 +38,11 @@ public class TVMResultSetWarp {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM saves WHERE save_id = ?";
+        String query = "SELECT * FROM saves WHERE save_name = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setString(1, name);
             rs = statement.executeQuery();
             if (rs.isBeforeFirst()) {
                 rs.next();
