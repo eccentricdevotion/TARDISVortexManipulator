@@ -6,7 +6,6 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import java.util.Arrays;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,12 +17,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class TVMGUI {
 
     private final TARDISVortexManipulator plugin;
-    private final String uuid;
+    private final int tachyonLevel;
     private final ItemStack[] gui;
 
-    public TVMGUI(TARDISVortexManipulator plugin, String uuid) {
+    public TVMGUI(TARDISVortexManipulator plugin, int tachyonLevel) {
         this.plugin = plugin;
-        this.uuid = uuid;
+        this.tachyonLevel = tachyonLevel;
         this.gui = getItemStack();
     }
 
@@ -131,16 +130,12 @@ public class TVMGUI {
         coord.setDisplayName("Z");
         z.setItemMeta(coord);
         // tachyon level - TODO show different levels depening on % full
-        TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
-        short durability = 1562;
-        int percent = rs.getTachyonLevel() / plugin.getConfig().getInt("tachyon_use.max");
-        if (rs.resultSet()) {
-            durability = (short) (1562 - (percent * 1562));
-        }
+        double percent = tachyonLevel / plugin.getConfig().getDouble("tachyon_use.max");
+        short durability = (short) (1562 - (percent * 1562));
         ItemStack tach = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta yon = tach.getItemMeta();
         yon.setDisplayName("Tachyon Level");
-        List<String> lore = Arrays.asList(percent + "%");
+        List<String> lore = Arrays.asList((percent * 100) + "%");
         yon.setLore(lore);
         tach.setItemMeta(yon);
         tach.setDurability(durability);

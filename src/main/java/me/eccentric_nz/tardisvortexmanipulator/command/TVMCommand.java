@@ -1,6 +1,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,11 +30,15 @@ public class TVMCommand implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("gui")) {
-                // open gui
-                ItemStack[] gui = new TVMGUI(plugin, player.getUniqueId().toString()).getGUI();
-                Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
-                vmg.setContents(gui);
-                player.openInventory(vmg);
+                // get tachyon level
+                TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
+                if (rs.resultSet()) {
+                    // open gui
+                    ItemStack[] gui = new TVMGUI(plugin, rs.getTachyonLevel()).getGUI();
+                    Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
+                    vmg.setContents(gui);
+                    player.openInventory(vmg);
+                }
             }
             // do stuff
             return true;

@@ -4,6 +4,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,11 +36,15 @@ public class TVMEquipListener implements Listener {
         final Player player = event.getPlayer();
         ItemStack is = player.getItemInHand();
         if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
-            // open gui
-            ItemStack[] gui = new TVMGUI(plugin, player.getUniqueId().toString()).getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
+            // get tachyon level
+            TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
+            if (rs.resultSet()) {
+                // open gui
+                ItemStack[] gui = new TVMGUI(plugin, rs.getTachyonLevel()).getGUI();
+                Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
+                vmg.setContents(gui);
+                player.openInventory(vmg);
+            }
         }
     }
 }
