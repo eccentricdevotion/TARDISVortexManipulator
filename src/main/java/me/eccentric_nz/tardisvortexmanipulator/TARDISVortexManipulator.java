@@ -13,6 +13,7 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMCraftListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMDeathListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMEquipListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMMoveListener;
 import org.bukkit.ChatColor;
@@ -31,6 +32,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final List<Location> blocks = new ArrayList<Location>();
     private final List<UUID> beaconSetters = new ArrayList<UUID>();
+    private final List<UUID> travellers = new ArrayList<UUID>();
     private PluginManager pm;
 
     @Override
@@ -95,6 +97,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pm.registerEvents(new TVMMoveListener(this), this);
         pm.registerEvents(new TVMCraftListener(this), this);
         pm.registerEvents(new TVMEquipListener(this), this);
+        pm.registerEvents(new TVMDeathListener(this), this);
     }
 
     private void startRecharger() {
@@ -107,6 +110,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
 
     public List<UUID> getBeaconSetters() {
         return beaconSetters;
+    }
+
+    public List<UUID> getTravellers() {
+        return travellers;
     }
 
     /**

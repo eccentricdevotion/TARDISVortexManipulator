@@ -14,8 +14,12 @@ import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -518,24 +522,12 @@ public class TVMGUIListener implements Listener {
             return;
         }
         if (l != null) {
-            final Location warp = l;
             close(p);
             p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
-            while (!warp.getChunk().isLoaded()) {
-                warp.getChunk().load();
+            while (!l.getChunk().isLoaded()) {
+                l.getChunk().load();
             }
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    p.teleport(warp);
-                }
-            }, 60L);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    p.teleport(warp);
-                }
-            }, 65L);
+            movePlayer(p, l, p.getLocation().getWorld());
             // remove tachyons
             qf.alterTachyons(p.getUniqueId().toString(), -required);
         } else {
@@ -596,5 +588,55 @@ public class TVMGUIListener implements Listener {
      */
     private boolean checkTachyonLevel(UUID uuid, int required) {
         return checkTachyonLevel(uuid.toString(), required);
+    }
+
+    public void movePlayer(Player p, Location l, World from) {
+
+        final Player thePlayer = p;
+        plugin.getTravellers().add(p.getUniqueId());
+        // set location to centre of block
+        l.setX(l.getBlockX() + 0.5);
+        l.setY(l.getY() + 0.2);
+        l.setZ(l.getBlockZ() + 0.5);
+        final Location theLocation = l;
+
+        final World to = theLocation.getWorld();
+        final boolean allowFlight = thePlayer.getAllowFlight();
+        final boolean crossWorlds = from != to;
+
+        // try loading chunk
+        World world = l.getWorld();
+        Chunk chunk = world.getChunkAt(l);
+        while (!world.isChunkLoaded(chunk)) {
+            world.loadChunk(chunk);
+        }
+
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                thePlayer.teleport(theLocation);
+                thePlayer.getWorld().playSound(theLocation, Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+            }
+        }, 10L);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                thePlayer.teleport(theLocation);
+                if (plugin.getConfig().getBoolean("no_damage")) {
+                    thePlayer.setNoDamageTicks(plugin.getConfig().getInt("no_damage_time") * 20);
+                }
+                if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
+                    thePlayer.setAllowFlight(true);
+                }
+            }
+        }, 15L);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                if (plugin.getTravellers().contains(thePlayer.getUniqueId())) {
+                    plugin.getTravellers().remove(thePlayer.getUniqueId());
+                }
+            }
+        }, 100L);
     }
 }

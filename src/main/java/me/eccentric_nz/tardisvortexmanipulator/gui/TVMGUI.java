@@ -33,7 +33,7 @@ public class TVMGUI {
      */
     private ItemStack[] getItemStack() {
         // display
-        ItemStack dis = new ItemStack(Material.WOOL, 1, (byte) 5);
+        ItemStack dis = new ItemStack(Material.BOWL, 1);
         ItemMeta play = dis.getItemMeta();
         play.setDisplayName("Display");
         play.setLore(Arrays.asList(""));
@@ -135,7 +135,7 @@ public class TVMGUI {
         ItemStack tach = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta yon = tach.getItemMeta();
         yon.setDisplayName("Tachyon Level");
-        List<String> lore = Arrays.asList((percent * 100) + "%");
+        List<String> lore = Arrays.asList((int) (percent * 100) + "%");
         yon.setLore(lore);
         tach.setItemMeta(yon);
         tach.setDurability(durability);
