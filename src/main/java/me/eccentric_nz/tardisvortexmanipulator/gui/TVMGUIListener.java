@@ -370,6 +370,14 @@ public class TVMGUIListener implements Listener {
             p.sendMessage(plugin.getPluginName() + "You don't have permission to use the lifesigns scanner!");
             return;
         }
+        int required = plugin.getConfig().getInt("tachyon_use.lifesigns");
+        if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
+            p.sendMessage(plugin.getPluginName() + "You don't have enough tachyons to use the lifesigns scanner!");
+            return;
+        }
+        // remove tachyons
+        qf.alterTachyons(p.getUniqueId().toString(), -required);
+        // process GUI
         ItemStack display = inv.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
@@ -477,7 +485,8 @@ public class TVMGUIListener implements Listener {
         }
         UUID uuid = p.getUniqueId();
         String message = "You don't have enough tachyons to set a beacon signal!";
-        if (TVMUtils.checkTachyonLevel(uuid.toString(), plugin.getConfig().getInt("tachyon_use.beacon"))) {
+        int required = plugin.getConfig().getInt("tachyon_use.beacon");
+        if (TVMUtils.checkTachyonLevel(uuid.toString(), required)) {
             String ustr = uuid.toString();
             Location l = p.getLocation();
             // potential griefing, we need to check the location first!
@@ -516,6 +525,8 @@ public class TVMGUIListener implements Listener {
             }
             plugin.getBeaconSetters().add(uuid);
             message = "Beacon signal set, don't move!";
+            // remove tachyons
+            qf.alterTachyons(p.getUniqueId().toString(), -required);
         }
         close(p);
         p.sendMessage(plugin.getPluginName() + message);
