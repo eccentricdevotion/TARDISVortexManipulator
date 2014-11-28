@@ -139,10 +139,15 @@ public class TVMGUI {
         yon.setLore(lore);
         tach.setItemMeta(yon);
         tach.setDurability(durability);
+        // lifesigns
+        ItemStack life = new ItemStack(Material.BOWL, 1);
+        ItemMeta signs = life.getItemMeta();
+        signs.setDisplayName("Lifesigns");
+        life.setItemMeta(signs);
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta tol = warp.getItemMeta();
-        tol.setDisplayName("Enter Vortex / Save location");
+        tol.setDisplayName("Enter Vortex / Save location / Check lifesigns");
         warp.setItemMeta(tol);
         // beacon
         ItemStack bea = new ItemStack(Material.BOWL, 1);
@@ -183,7 +188,7 @@ public class TVMGUI {
         ItemStack[] is = {
             null, null, null, null, dis, null, null, null, null,
             tach, null, world, one, two, three, null, save, null,
-            null, null, x, four, five, six, null, load, null,
+            life, null, x, four, five, six, null, load, null,
             null, null, y, seven, eight, nine, null, mess, null,
             null, null, z, star, zero, hash, null, bea, null,
             close, null, null, prev, null, next, null, null, warp

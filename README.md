@@ -26,9 +26,9 @@ Because the device in the TV show has buttons and a lot of pushing of them, it w
 A first release should be simple, but don't stop there. Add as much as you think you are able!
 
 * `/vm help` - This would display help and commands for the plugin
-* `/vm {worldname}` - Teleport to a random location in available worlds
-* `/vm {worldname} {X,Y,Z}` - Teleport to specific location in available worlds
-* `/vm go` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
+* `/vm {worldname}` - Teleport to a random location in the specified world
+* `/vm {worldname} {X,Y,Z}` - Teleport to specific location in the specified world
+* `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
 * `/vm go {custom}` - Teleport to saved location
 * `/vm save {custom}` - Save a specific location
 * `/vm remove {custom}` - Remove saved location
@@ -37,19 +37,19 @@ _Other things that should be added, either on initial release or later:_
 
 ####Messaging
 
-* `/vm msg {player} {message}` - Send message to other user with a device
-* `/vm msg {new/old} list` - See new or old messages
-* `/vm msg {new/old} read {#}` - Read specific message
-* `/vm msg {new/old} clear` - Clearing "new" sends to old, and clearing "old" deletes all stored messages
+* `/vmm {player} {message}` - Send message to other user with a device
+* `/vmm {new/old} list` - See new or old messages
+* `/vmm {new/old} read {#}` - Read specific message
+* `/vmm {new/old} clear` - Clearing "new" sends to old, and clearing "old" deletes all stored messages
 
 ####Lifesigns
 
-* `/vm lifesigns` - list entities nearby, mobs and players
-* `/vm lifesigns` {player} - Gets health and hunger of a player, possibly oxygen level too.
+* `/vml` - list entities nearby, mobs and players
+* `/vml` {player} - Gets health and hunger of a player, possibly oxygen level too.
 
 ####Beacon
 
-* `/vm beacon` - send out a beacon signal that lasts until the player moves
+* `/vmb` - send out a beacon signal that lasts until the player moves
 
 ##Ideas for permissions: 
 * `vm.teleport` - allow crafting and using of a Vortex Manipulator

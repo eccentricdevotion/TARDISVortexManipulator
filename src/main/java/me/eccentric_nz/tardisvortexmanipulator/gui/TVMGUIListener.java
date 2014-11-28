@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,7 +40,8 @@ public class TVMGUIListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
     List<String> titles = Arrays.asList("§4Vortex Manipulator", "§4VM Messages", "§4VM Saves");
-    List<String> components = Arrays.asList("", "", "", "", "");
+    List<String> components = Arrays.asList("", "", "", "", "", "");
+    List<Integer> letters = Arrays.asList(0, 4, 5);
     char[] two = new char[]{'2', 'a', 'b', 'c'};
     char[] three = new char[]{'3', 'd', 'e', 'f'};
     char[] four = new char[]{'4', 'g', 'h', 'i'};
@@ -68,8 +69,8 @@ public class TVMGUIListener implements Listener {
     public TVMGUIListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         // init string positions
-        this.pos = new int[5];
-        for (int i = 0; i < 5; i++) {
+        this.pos = new int[6];
+        for (int i = 0; i < 6; i++) {
             this.pos[i] = 0;
         }
         qf = new TVMQueryFactory(this.plugin);
@@ -102,7 +103,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 13:
                         // two
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, two[t2]);
                             t2++;
                             if (t2 == two.length) {
@@ -114,7 +115,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 14:
                         // three
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, three[t3]);
                             t3++;
                             if (t3 == three.length) {
@@ -129,6 +130,11 @@ public class TVMGUIListener implements Listener {
                         which = 4;
                         resetTrackers();
                         break;
+                    case 18:
+                        // save
+                        which = 5;
+                        resetTrackers();
+                        break;
                     case 20:
                         // x
                         which = 1;
@@ -136,7 +142,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 21:
                         // four
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, four[t4]);
                             t4++;
                             if (t4 == four.length) {
@@ -148,7 +154,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 22:
                         // five
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, five[t5]);
                             t5++;
                             if (t5 == five.length) {
@@ -160,7 +166,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 23:
                         // six
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, six[t6]);
                             t6++;
                             if (t6 == six.length) {
@@ -182,7 +188,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 30:
                         // seven
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, seven[t7]);
                             t7++;
                             if (t7 == seven.length) {
@@ -194,7 +200,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 31:
                         // eight
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, eight[t8]);
                             t8++;
                             if (t8 == eight.length) {
@@ -206,7 +212,7 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 32:
                         // nine
-                        if (which == 0 || which == 4) {
+                        if (letters.contains(which)) {
                             updateDisplay(inv, nine[t9]);
                             t9++;
                             if (t9 == nine.length) {
@@ -272,6 +278,9 @@ public class TVMGUIListener implements Listener {
                         if (which == 4) {
                             // save
                             saveCurrentLocation(player, inv);
+                        } else if (which == 5) {
+                            // save
+                            scanLifesigns(player, inv);
                         } else {
                             // warp
                             doWarp(player, inv);
@@ -355,6 +364,79 @@ public class TVMGUIListener implements Listener {
         p.sendMessage(plugin.getPluginName() + "Current location saved.");
     }
 
+    private void scanLifesigns(Player p, Inventory inv) {
+        close(p);
+        if (!p.hasPermission("vm.lifesigns")) {
+            p.sendMessage(plugin.getPluginName() + "You don't have permission to use the lifesigns scanner!");
+            return;
+        }
+        ItemStack display = inv.getItem(4);
+        ItemMeta dim = display.getItemMeta();
+        List<String> lore = dim.getLore();
+        String pname = lore.get(0).trim();
+        if (pname.isEmpty()) {
+            p.sendMessage(plugin.getPluginName() + "Nearby entities:");
+            // scan nearby entities
+            List<Entity> ents = p.getNearbyEntities(16d, 16d, 16d);
+            if (ents.size() > 0) {
+                // record nearby entities
+                final HashMap<EntityType, Integer> scannedentities = new HashMap<EntityType, Integer>();
+                final List<String> playernames = new ArrayList<String>();
+                for (Entity k : ents) {
+                    EntityType et = k.getType();
+                    if (TARDISConstants.ENTITY_TYPES.contains(et)) {
+                        Integer entity_count = (scannedentities.containsKey(et)) ? scannedentities.get(et) : 0;
+                        boolean visible = true;
+                        if (et.equals(EntityType.PLAYER)) {
+                            Player entPlayer = (Player) k;
+                            if (p.canSee(entPlayer)) {
+                                playernames.add(entPlayer.getName());
+                            } else {
+                                visible = false;
+                            }
+                        }
+                        if (visible) {
+                            scannedentities.put(et, entity_count + 1);
+                        }
+                    }
+                }
+                for (Map.Entry<EntityType, Integer> entry : scannedentities.entrySet()) {
+                    String message = "";
+                    StringBuilder buf = new StringBuilder();
+                    if (entry.getKey().equals(EntityType.PLAYER) && playernames.size() > 0) {
+                        for (String pn : playernames) {
+                            buf.append(", ").append(pn);
+                        }
+                        message = " (" + buf.toString().substring(2) + ")";
+                    }
+                    p.sendMessage("    " + entry.getKey() + ": " + entry.getValue() + message);
+                }
+                scannedentities.clear();
+            } else {
+                p.sendMessage("No nearby entities.");
+            }
+        } else {
+            Player scanned = plugin.getServer().getPlayer(pname);
+            if (scanned == null) {
+                p.sendMessage(plugin.getPluginName() + "Could not find a player with that name!");
+                return;
+            }
+            if (!scanned.isOnline()) {
+                p.sendMessage(plugin.getPluginName() + pname + " is not online!");
+                return;
+            }
+            // getHealth() / getMaxHealth() * getHealthScale()
+            double health = scanned.getHealth() / scanned.getMaxHealth() * scanned.getHealthScale();
+            float hunger = (scanned.getFoodLevel() / 20F) * 100;
+            int air = scanned.getRemainingAir();
+            p.sendMessage(plugin.getPluginName() + pname + " lifesigns:");
+            p.sendMessage("Has been alive for: " + convertTicksToTime(scanned.getTicksLived()));
+            p.sendMessage("Health: " + String.format("%f", health));
+            p.sendMessage("Hunger: " + String.format("%.2f", hunger));
+            p.sendMessage("Air: " + air + "/20");
+        }
+    }
+
     private void loadSaves(final Player p) {
         close(p);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -371,6 +453,10 @@ public class TVMGUIListener implements Listener {
 
     private void message(final Player p) {
         close(p);
+        if (!p.hasPermission("vm.message")) {
+            p.sendMessage(plugin.getPluginName() + "You don't have permission to use Vortex messages!");
+            return;
+        }
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -384,9 +470,14 @@ public class TVMGUIListener implements Listener {
     }
 
     private void setBeacon(Player p) {
+        if (!p.hasPermission("vm.beacon")) {
+            close(p);
+            p.sendMessage(plugin.getPluginName() + "You don't have permission to set a beacon signal!");
+            return;
+        }
         UUID uuid = p.getUniqueId();
         String message = "You don't have enough tachyons to set a beacon signal!";
-        if (checkTachyonLevel(uuid, plugin.getConfig().getInt("tachyon_use.beacon"))) {
+        if (TVMUtils.checkTachyonLevel(uuid.toString(), plugin.getConfig().getInt("tachyon_use.beacon"))) {
             String ustr = uuid.toString();
             Location l = p.getLocation();
             // potential griefing, we need to check the location first!
@@ -516,7 +607,7 @@ public class TVMGUIListener implements Listener {
                 l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                 break;
         }
-        if (!checkTachyonLevel(p.getUniqueId(), required)) {
+        if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
             close(p);
             p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
             return;
@@ -527,7 +618,7 @@ public class TVMGUIListener implements Listener {
             while (!l.getChunk().isLoaded()) {
                 l.getChunk().load();
             }
-            movePlayer(p, l, p.getLocation().getWorld());
+            TVMUtils.movePlayer(p, l, p.getLocation().getWorld());
             // remove tachyons
             qf.alterTachyons(p.getUniqueId().toString(), -required);
         } else {
@@ -566,77 +657,16 @@ public class TVMGUIListener implements Listener {
         }
     }
 
-    /**
-     * Check they have enough tachyons.
-     *
-     * @param uuid the String UUID of the player to check
-     * @param required the minimum amount of Tachyon required
-     */
-    private boolean checkTachyonLevel(String uuid, int required) {
-        TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
-        if (!rs.resultSet()) {
-            return false;
-        }
-        return rs.getTachyonLevel() >= required;
-    }
-
-    /**
-     * Check they have enough tachyons.
-     *
-     * @param uuid the UUID of the player to check
-     * @param required the minimum amount of Tachyon required
-     */
-    private boolean checkTachyonLevel(UUID uuid, int required) {
-        return checkTachyonLevel(uuid.toString(), required);
-    }
-
-    public void movePlayer(Player p, Location l, World from) {
-
-        final Player thePlayer = p;
-        plugin.getTravellers().add(p.getUniqueId());
-        // set location to centre of block
-        l.setX(l.getBlockX() + 0.5);
-        l.setY(l.getY() + 0.2);
-        l.setZ(l.getBlockZ() + 0.5);
-        final Location theLocation = l;
-
-        final World to = theLocation.getWorld();
-        final boolean allowFlight = thePlayer.getAllowFlight();
-        final boolean crossWorlds = from != to;
-
-        // try loading chunk
-        World world = l.getWorld();
-        Chunk chunk = world.getChunkAt(l);
-        while (!world.isChunkLoaded(chunk)) {
-            world.loadChunk(chunk);
-        }
-
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                thePlayer.teleport(theLocation);
-                thePlayer.getWorld().playSound(theLocation, Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-            }
-        }, 10L);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                thePlayer.teleport(theLocation);
-                if (plugin.getConfig().getBoolean("no_damage")) {
-                    thePlayer.setNoDamageTicks(plugin.getConfig().getInt("no_damage_time") * 20);
-                }
-                if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
-                    thePlayer.setAllowFlight(true);
-                }
-            }
-        }, 15L);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (plugin.getTravellers().contains(thePlayer.getUniqueId())) {
-                    plugin.getTravellers().remove(thePlayer.getUniqueId());
-                }
-            }
-        }, 100L);
+    private String convertTicksToTime(int time) {
+        // convert to seconds
+        int seconds = time / 20;
+        int h = seconds / 3600;
+        int remainder = seconds - (h * 3600);
+        int m = remainder / 60;
+        int s = remainder - (m * 60);
+        String gh = (h > 1 || h == 0) ? " hours " : " hour ";
+        String gm = (m > 1 || m == 0) ? " minutes " : " minute ";
+        String gs = (s > 1 || s == 0) ? " seconds" : " second";
+        return h + gh + m + gm + s + gs;
     }
 }
