@@ -5,35 +5,15 @@
     <version>1.0</version>
     <name>TARDISVortexManipulator</name>
     <repositories>
+        <repository>
+            <id>macgeek</id>
+            <url>http://tardisjenkins.duckdns.org:8888</url>
+        </repository>
+        <repository>
+            <id>Bromley Massive</id>
+            <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
+        </repository>
     </repositories>
-    <profiles>
-        <profile>
-            <id>local</id>
-            <repositories>
-                <repository>
-                    <id>Bromley Massive</id>
-                    <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
-                </repository>
-                <repository>
-                    <id>md-5</id>
-                    <url>http://repo.md-5.net/content/groups/public</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>jenkins</id>
-            <repositories>
-                <repository>
-                    <id>macgeek</id>
-                    <url>http://localhost:8888</url>
-                </repository>
-                <repository>
-                    <id>Bromley Massive</id>
-                    <url>http://localhost:8080/plugin/repository/everything/</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
     <build>
         <finalName>TARDISVortexManipulator</finalName>
         <plugins>
