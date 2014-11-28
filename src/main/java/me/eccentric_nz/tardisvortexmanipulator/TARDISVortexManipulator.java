@@ -13,6 +13,7 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMCraftListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMEquipListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMMoveListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -93,6 +94,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pm.registerEvents(new TVMBlockListener(this), this);
         pm.registerEvents(new TVMMoveListener(this), this);
         pm.registerEvents(new TVMCraftListener(this), this);
+        pm.registerEvents(new TVMEquipListener(this), this);
     }
 
     private void startRecharger() {

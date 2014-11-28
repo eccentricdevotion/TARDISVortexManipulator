@@ -30,7 +30,7 @@ public class TVMCommand implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("gui")) {
                 // open gui
-                ItemStack[] gui = new TVMGUI().getGUI();
+                ItemStack[] gui = new TVMGUI(plugin, player.getUniqueId().toString()).getGUI();
                 Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
                 vmg.setContents(gui);
                 player.openInventory(vmg);
