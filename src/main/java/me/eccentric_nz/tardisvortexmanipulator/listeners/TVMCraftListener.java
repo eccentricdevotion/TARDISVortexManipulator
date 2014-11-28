@@ -32,7 +32,7 @@ public class TVMCraftListener implements Listener {
     public void onCraftManipulator(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
         ItemStack is = recipe.getResult();
-        if (is.getType().equals(Material.COMPASS) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+        if (is.getType().equals(Material.WATCH) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
             Player player = (Player) event.getWhoClicked();
             String uuid = player.getUniqueId().toString();
             // check if they have a manipulatior record

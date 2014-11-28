@@ -14,7 +14,7 @@ recipe:
         O: GOLD_INGOT
         C: COMPASS
         I: IRON_INGOT
-    result: COMPASS
+    result: WATCH
     amount: 1
     lore: "Cheap and nasty time travel"
 tachyon_use:
