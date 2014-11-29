@@ -7,6 +7,7 @@ import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandActivate;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
@@ -57,7 +58,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
         loadDatabase();
         registerListeners();
-        getCommand("vm").setExecutor(new TVMCommand(this));
+        registerCommands();
         getServer().addRecipe(new TVMRecipe(this).makeRecipe());
         startRecharger();
     }
@@ -98,6 +99,11 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pm.registerEvents(new TVMCraftListener(this), this);
         pm.registerEvents(new TVMEquipListener(this), this);
         pm.registerEvents(new TVMDeathListener(this), this);
+    }
+
+    private void registerCommands() {
+        getCommand("vm").setExecutor(new TVMCommand(this));
+        getCommand("vma").setExecutor(new TVMCommandActivate(this));
     }
 
     private void startRecharger() {
