@@ -6,6 +6,7 @@ package me.eccentric_nz.tardisvortexmanipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetTachyon;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMTachyon;
+import org.bukkit.entity.Player;
 
 /**
  *
@@ -32,7 +33,8 @@ public class TVMTachyonRunnable implements Runnable {
         if (rs.resultSet()) {
             for (TVMTachyon t : rs.getMaipulators()) {
                 // player must be online to recharge
-                if (plugin.getServer().getPlayer(t.getUuid()).isOnline()) {
+                Player p = plugin.getServer().getPlayer(t.getUuid());
+                if (p != null && p.isOnline()) {
                     // check their tachyon level
                     if (t.getLevel() + recharge <= max) {
                         // recharge them if they are not full
