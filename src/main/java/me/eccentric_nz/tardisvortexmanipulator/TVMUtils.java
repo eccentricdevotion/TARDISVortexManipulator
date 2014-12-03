@@ -3,8 +3,14 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
+import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -73,6 +79,7 @@ public class TVMUtils {
      *
      * @param uuid the String UUID of the player to check
      * @param required the minimum amount of Tachyon required
+     * @return true if the player has enough energy
      */
     public static boolean checkTachyonLevel(String uuid, int required) {
         TVMResultSetManipulator rs = new TVMResultSetManipulator(TARDISVortexManipulator.plugin, uuid);
@@ -80,5 +87,66 @@ public class TVMUtils {
             return false;
         }
         return rs.getTachyonLevel() >= required;
+    }
+
+    /**
+     * Send a list of saves to a player.
+     *
+     * @param p the player to message
+     * @param rss the ResultSet containing the save information
+     * @param page the page number of this list
+     */
+    public static void sendSaveList(Player p, TVMResultSetSaves rss, int page) {
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Saves (page " + page + ":");
+        for (TVMSave s : rss.getSaves()) {
+            p.sendMessage(s.getName() + " - " + s.getWorld() + ":" + s.getX() + ":" + s.getY() + ":" + s.getZ());
+        }
+    }
+
+    /**
+     * Send a list of received messages to a player.
+     *
+     * @param p the player to message
+     * @param rsi the ResultSet containing the message information
+     * @param page the page number of this list
+     */
+    public static void sendInboxList(Player p, TVMResultSetInbox rsi, int page) {
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + ":");
+        for (TVMMessage m : rsi.getMail()) {
+            p.sendMessage(m.getId() + ": " + m.getDate() + " - " + m.getMessage().substring(0, 12));
+        }
+    }
+
+    /**
+     * Send a list of received messages to a player.
+     *
+     * @param p the player to message
+     * @param rso the ResultSet containing the message information
+     * @param page the page number of this list
+     */
+    public static void sendOutboxList(Player p, TVMResultSetOutbox rso, int page) {
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + ":");
+        for (TVMMessage m : rso.getMail()) {
+            p.sendMessage(m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12));
+        }
+    }
+
+    /**
+     * Convert ticks to human readable time.
+     *
+     * @param time the time in ticks to convert
+     * @return the human readable time
+     */
+    public static String convertTicksToTime(int time) {
+        // convert to seconds
+        int seconds = time / 20;
+        int h = seconds / 3600;
+        int remainder = seconds - (h * 3600);
+        int m = remainder / 60;
+        int s = remainder - (m * 60);
+        String gh = (h > 1 || h == 0) ? " hours " : " hour ";
+        String gm = (m > 1 || m == 0) ? " minutes " : " minute ";
+        String gs = (s > 1 || s == 0) ? " seconds" : " second";
+        return h + gh + m + gm + s + gs;
     }
 }

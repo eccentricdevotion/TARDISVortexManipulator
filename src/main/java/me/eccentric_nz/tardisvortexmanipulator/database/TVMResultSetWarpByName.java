@@ -20,11 +20,13 @@ public class TVMResultSetWarpByName {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
+    private final String uuid;
     private final String name;
     private Location warp;
 
-    public TVMResultSetWarpByName(TARDISVortexManipulator plugin, String name) {
+    public TVMResultSetWarpByName(TARDISVortexManipulator plugin, String uuid, String name) {
         this.plugin = plugin;
+        this.uuid = uuid;
         this.name = name;
     }
 
@@ -38,11 +40,12 @@ public class TVMResultSetWarpByName {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM saves WHERE save_name = ?";
+        String query = "SELECT * FROM saves WHERE uuid = ? save_name = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
-            statement.setString(1, name);
+            statement.setString(1, uuid);
+            statement.setString(2, name);
             rs = statement.executeQuery();
             if (rs.isBeforeFirst()) {
                 rs.next();

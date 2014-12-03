@@ -8,6 +8,12 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandActivate;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandBeacon;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandHelp;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandLifesigns;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandRemove;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandSave;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMTabCompleteHelp;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
@@ -104,6 +110,12 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private void registerCommands() {
         getCommand("vm").setExecutor(new TVMCommand(this));
         getCommand("vma").setExecutor(new TVMCommandActivate(this));
+        getCommand("vmb").setExecutor(new TVMCommandBeacon(this));
+        getCommand("vmh").setExecutor(new TVMCommandHelp(this));
+        getCommand("vmh").setTabCompleter(new TVMTabCompleteHelp());
+        getCommand("vml").setExecutor(new TVMCommandLifesigns(this));
+        getCommand("vmr").setExecutor(new TVMCommandRemove(this));
+        getCommand("vms").setExecutor(new TVMCommandSave(this));
     }
 
     private void startRecharger() {
