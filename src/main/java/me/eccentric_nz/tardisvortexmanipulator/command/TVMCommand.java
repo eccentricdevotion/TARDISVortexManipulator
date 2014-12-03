@@ -43,11 +43,16 @@ public class TVMCommand implements CommandExecutor {
                 player.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
+            if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
+                plugin.getServer().dispatchCommand(sender, "vmh");
+                return true;
+            }
             ItemStack is = player.getItemInHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
-                if (args[0].equalsIgnoreCase("gui")) {
+                String uuid = player.getUniqueId().toString();
+                if (args.length > 0 && args[0].equalsIgnoreCase("gui")) {
                     // get tachyon level
-                    TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
+                    TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
                     if (rs.resultSet()) {
                         // open gui
                         ItemStack[] gui = new TVMGUI(plugin, rs.getTachyonLevel()).getGUI();
@@ -57,13 +62,13 @@ public class TVMCommand implements CommandExecutor {
                         return true;
                     }
                 }
-                if (args[0].equalsIgnoreCase("go")) {
+                if (args.length > 0 && args[0].equalsIgnoreCase("go")) {
                     if (args.length < 2) {
                         player.sendMessage(plugin.getPluginName() + "You need to specify a save name!");
                         return true;
                     }
                     // check save exists
-                    TVMResultSetWarpByName rsw = new TVMResultSetWarpByName(plugin, args[1]);
+                    TVMResultSetWarpByName rsw = new TVMResultSetWarpByName(plugin, uuid, args[1]);
                     if (!rsw.resultSet()) {
                         player.sendMessage(plugin.getPluginName() + "Save does not exist!");
                         return true;
@@ -73,9 +78,15 @@ public class TVMCommand implements CommandExecutor {
                     while (!l.getChunk().isLoaded()) {
                         l.getChunk().load();
                     }
+                    int required = plugin.getConfig().getInt("tachyon_use.saved");
+                    if (!TVMUtils.checkTachyonLevel(uuid, required)) {
+                        player.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
+                        return true;
+                    }
                     TVMUtils.movePlayer(player, l, player.getLocation().getWorld());
                     // remove tachyons
-                    new TVMQueryFactory(plugin).alterTachyons(player.getUniqueId().toString(), -plugin.getConfig().getInt("tachyon_use.saved"));
+                    new TVMQueryFactory(plugin).alterTachyons(uuid, -required);
+                    return true;
                 }
                 // set parameters
                 List<FLAG> flags = new ArrayList<FLAG>();
@@ -151,7 +162,7 @@ public class TVMCommand implements CommandExecutor {
                         l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                         break;
                 }
-                if (!TVMUtils.checkTachyonLevel(player.getUniqueId().toString(), required)) {
+                if (!TVMUtils.checkTachyonLevel(uuid, required)) {
                     player.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
                     return true;
                 }
@@ -162,7 +173,7 @@ public class TVMCommand implements CommandExecutor {
                     }
                     TVMUtils.movePlayer(player, l, player.getLocation().getWorld());
                     // remove tachyons
-                    new TVMQueryFactory(plugin).alterTachyons(player.getUniqueId().toString(), -required);
+                    new TVMQueryFactory(plugin).alterTachyons(uuid, -required);
                 } else {
                     //close(player);
                     player.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
