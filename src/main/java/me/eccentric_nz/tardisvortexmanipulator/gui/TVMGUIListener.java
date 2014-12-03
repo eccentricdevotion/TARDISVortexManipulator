@@ -245,10 +245,14 @@ public class TVMGUIListener implements Listener {
                         break;
                     case 41:
                         // hash
-                        updateDisplay(inv, hash[th]);
-                        th++;
-                        if (th == hash.length) {
-                            th = 0;
+                        if (letters.contains(which)) {
+                            updateDisplay(inv, hash[th]);
+                            th++;
+                            if (th == hash.length) {
+                                th = 0;
+                            }
+                        } else {
+                            updateDisplay(inv, '-');
                         }
                         break;
                     case 43:
@@ -385,7 +389,8 @@ public class TVMGUIListener implements Listener {
         if (pname.isEmpty()) {
             p.sendMessage(plugin.getPluginName() + "Nearby entities:");
             // scan nearby entities
-            List<Entity> ents = p.getNearbyEntities(16d, 16d, 16d);
+            double d = plugin.getConfig().getDouble("lifesign_scan_distance");
+            List<Entity> ents = p.getNearbyEntities(d, d, d);
             if (ents.size() > 0) {
                 // record nearby entities
                 final HashMap<EntityType, Integer> scannedentities = new HashMap<EntityType, Integer>();
@@ -438,7 +443,7 @@ public class TVMGUIListener implements Listener {
             float hunger = (scanned.getFoodLevel() / 20F) * 100;
             int air = scanned.getRemainingAir();
             p.sendMessage(plugin.getPluginName() + pname + "'s lifesigns:");
-            p.sendMessage("Has been alive for: " + convertTicksToTime(scanned.getTicksLived()));
+            p.sendMessage("Has been alive for: " + TVMUtils.convertTicksToTime(scanned.getTicksLived()));
             p.sendMessage("Health: " + String.format("%.1f", health / 2) + " hearts");
             p.sendMessage("Hunger bar: " + String.format("%.2f", hunger) + "%");
             p.sendMessage("Air: ~" + (air / 20) + " seconds remaining");
@@ -666,18 +671,5 @@ public class TVMGUIListener implements Listener {
                 event.setCancelled(true);
             }
         }
-    }
-
-    private String convertTicksToTime(int time) {
-        // convert to seconds
-        int seconds = time / 20;
-        int h = seconds / 3600;
-        int remainder = seconds - (h * 3600);
-        int m = remainder / 60;
-        int s = remainder - (m * 60);
-        String gh = (h > 1 || h == 0) ? " hours " : " hour ";
-        String gm = (m > 1 || m == 0) ? " minutes " : " minute ";
-        String gs = (s > 1 || s == 0) ? " seconds" : " second";
-        return h + gh + m + gm + s + gs;
     }
 }
