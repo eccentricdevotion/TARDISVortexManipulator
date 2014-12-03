@@ -31,6 +31,10 @@ public class TVMCommand implements CommandExecutor {
     @Override
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vm")) {
+            if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
+                plugin.getServer().dispatchCommand(sender, "vmh");
+                return true;
+            }
             Player player = null;
             if (sender instanceof Player) {
                 player = (Player) sender;
@@ -41,10 +45,6 @@ public class TVMCommand implements CommandExecutor {
             }
             if (!player.hasPermission("vm.teleport")) {
                 player.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
-                return true;
-            }
-            if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
-                plugin.getServer().dispatchCommand(sender, "vmh");
                 return true;
             }
             ItemStack is = player.getItemInHand();
