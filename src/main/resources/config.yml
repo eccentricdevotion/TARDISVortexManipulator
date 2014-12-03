@@ -28,6 +28,7 @@ tachyon_use:
         saved: 50
     lifesigns: 15
     beacon: 1000
+    message: 5
 storage:
   database: sqlite
   mysql:
@@ -35,6 +36,7 @@ storage:
     user: bukkit
     password: mysecurepassword
 date_format: dd/mn/YY HH:mm
+lifesign_scan_distance: 16
 respect:
     worldborder: true
     worldguard: true

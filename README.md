@@ -30,7 +30,7 @@ A first release should be simple, but don't stop there. Add as much as you think
 
 * `/vm help` - This would display help and commands for the plugin
 * `/vm {worldname}` - Teleport to a random location in the specified world
-* `/vm {worldname} {X,Y,Z}` - Teleport to specific location in the specified world
+* `/vm {worldname} {X} {Y} {Z}` - Teleport to specific location in the specified world
 * `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
 * `/vm go {custom}` - Teleport to saved location
 
@@ -44,9 +44,10 @@ _Other things that should be added, either on initial release or later:_
 ####Messaging
 
 * `/vmm {player} {message}` - Send message to other user with a device
-* `/vmm {new/old} list` - See new or old messages
-* `/vmm {new/old} read {#}` - Read specific message
-* `/vmm {new/old} clear` - Clearing "new" sends to old, and clearing "old" deletes all stored messages
+* `/vmm {in/out} [page]` - See received or sent messages
+* `/vmm read {#}` - Read specific message
+* `/vmm delete {#}` - Delete specific message
+* `/vmm {in/out} clear` - Clearing "new" sends to old, and clearing "old" deletes all stored messages
 
 ####Lifesigns
 
