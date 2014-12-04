@@ -35,7 +35,7 @@ storage:
     url: mysql://localhost:3306/TARDIS
     user: bukkit
     password: mysecurepassword
-date_format: dd/mn/YY HH:mm
+date_format: dd/MM/YY HH:mm
 lifesign_scan_distance: 16
 respect:
     worldborder: true
