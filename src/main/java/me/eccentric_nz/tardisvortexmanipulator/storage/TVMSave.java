@@ -17,6 +17,7 @@ public class TVMSave {
     private float z;
     private float yaw;
     private float pitch;
+    private String env;
 
     public int getId() {
         return id;
@@ -80,5 +81,13 @@ public class TVMSave {
 
     public void setPitch(float pitch) {
         this.pitch = pitch;
+    }
+
+    public String getEnv() {
+        return env;
+    }
+
+    public void setEnv(String env) {
+        this.env = env;
     }
 }

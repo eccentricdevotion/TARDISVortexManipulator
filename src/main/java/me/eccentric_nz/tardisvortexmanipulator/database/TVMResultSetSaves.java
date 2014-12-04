@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
+import org.bukkit.World;
 
 /**
  *
@@ -53,10 +54,13 @@ public class TVMResultSetSaves {
                     TVMSave tvms = new TVMSave();
                     tvms.setId(rs.getInt("save_id"));
                     tvms.setName(rs.getString("save_name"));
-                    tvms.setWorld(rs.getString("world"));
+                    String w = rs.getString("world");
+                    tvms.setWorld(w);
                     tvms.setX(rs.getFloat("x"));
                     tvms.setY(rs.getFloat("y"));
                     tvms.setZ(rs.getFloat("z"));
+                    World world = plugin.getServer().getWorld(w);
+                    tvms.setEnv((world != null) ? world.getEnvironment().toString() : "NORMAL");
                     saves.add(tvms);
                 }
             } else {

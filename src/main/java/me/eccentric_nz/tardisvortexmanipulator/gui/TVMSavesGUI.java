@@ -4,6 +4,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
@@ -22,12 +23,16 @@ public class TVMSavesGUI {
     private final int start, finish;
     private final String uuid;
     private final ItemStack[] gui;
+    private final HashMap<String, Material> blocks = new HashMap<String, Material>();
 
     public TVMSavesGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid) {
         this.plugin = plugin;
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
+        this.blocks.put("NORMAL", Material.DIRT);
+        this.blocks.put("NETHER", Material.NETHERRACK);
+        this.blocks.put("THE_END", Material.ENDER_STONE);
         this.gui = getItemStack();
     }
 
@@ -46,29 +51,36 @@ public class TVMSavesGUI {
             List<TVMSave> saves = rs.getSaves();
             for (TVMSave s : saves) {
                 // save
-                ItemStack save = new ItemStack(Material.WOOL, 1, (byte) 5);
+                ItemStack save = new ItemStack(blocks.get(s.getEnv()), 1);
                 ItemMeta warp = save.getItemMeta();
                 warp.setDisplayName(s.getName());
-                warp.setLore(Arrays.asList("World: " + s.getWorld(), "x: " + s.getX(), "y: " + s.getY(), "z: " + s.getZ()));
+                warp.setLore(Arrays.asList("World: " + s.getWorld(), "x: " + oneDecimal(s.getX()), "y: " + s.getY(), "z: " + oneDecimal(s.getZ())));
                 save.setItemMeta(warp);
                 stack[i] = save;
                 i++;
             }
         }
 
+        int n = start / 44 + 1;
+        // page number
+        ItemStack page = new ItemStack(Material.BOWL, 1);
+        ItemMeta num = page.getItemMeta();
+        num.setDisplayName("Page " + n);
+        page.setItemMeta(num);
+        stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
         win.setDisplayName("Close");
         close.setItemMeta(win);
-        stack[45] = close;
+        stack[46] = close;
         // previous screen (only if needed)
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
             een.setDisplayName("Previous Page");
             prev.setItemMeta(een);
-            stack[47] = prev;
+            stack[48] = prev;
         }
         // next screen (only if needed)
         if (finish > 44) {
@@ -76,14 +88,14 @@ public class TVMSavesGUI {
             ItemMeta scr = next.getItemMeta();
             scr.setDisplayName("Next Page");
             next.setItemMeta(scr);
-            stack[48] = next;
+            stack[49] = next;
         }
         // delete
         ItemStack del = new ItemStack(Material.BOWL, 1);
         ItemMeta ete = del.getItemMeta();
         ete.setDisplayName("Delete");
         del.setItemMeta(ete);
-        stack[50] = del;
+        stack[51] = del;
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta to = warp.getItemMeta();
@@ -96,5 +108,9 @@ public class TVMSavesGUI {
 
     public ItemStack[] getGUI() {
         return gui;
+    }
+
+    private String oneDecimal(double d) {
+        return String.format("%f.1", d);
     }
 }

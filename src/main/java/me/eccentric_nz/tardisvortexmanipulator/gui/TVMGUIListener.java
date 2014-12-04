@@ -36,7 +36,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TVMGUIListener implements Listener {
+public class TVMGUIListener extends TVMGUICommon implements Listener {
 
     private final TARDISVortexManipulator plugin;
     List<String> titles = Arrays.asList("§4Vortex Manipulator", "§4VM Messages", "§4VM Saves");
@@ -67,6 +67,7 @@ public class TVMGUIListener implements Listener {
     TVMQueryFactory qf;
 
     public TVMGUIListener(TARDISVortexManipulator plugin) {
+        super(plugin);
         this.plugin = plugin;
         // init string positions
         this.pos = new int[6];
@@ -641,21 +642,6 @@ public class TVMGUIListener implements Listener {
             //close(p);
             p.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
         }
-    }
-
-    /**
-     * Closes the inventory.
-     *
-     * @param p the player using the GUI
-     */
-    public void close(final Player p) {
-        components = Arrays.asList("", "", "", "", "");
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                p.closeInventory();
-            }
-        }, 1L);
     }
 
     @EventHandler(ignoreCancelled = true)

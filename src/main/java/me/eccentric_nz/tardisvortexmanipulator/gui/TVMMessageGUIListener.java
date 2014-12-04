@@ -23,12 +23,13 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TVMMessageGUIListener implements Listener {
+public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
 
     private final TARDISVortexManipulator plugin;
     int selectedSlot = -1;
 
     public TVMMessageGUIListener(TARDISVortexManipulator plugin) {
+        super(plugin);
         this.plugin = plugin;
     }
 
@@ -141,27 +142,5 @@ public class TVMMessageGUIListener implements Listener {
         } else {
             p.sendMessage(plugin.getPluginName() + "Select a message!");
         }
-    }
-
-    /**
-     * Closes the inventory.
-     *
-     * @param p the player using the GUI
-     */
-    public void close(final Player p) {
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                p.closeInventory();
-            }
-        }, 1L);
-    }
-
-    private int getPageNumber(Inventory inv) {
-        ItemStack is = inv.getItem(45);
-        ItemMeta im = is.getItemMeta();
-        String[] split = im.getDisplayName().split(" ");
-        int page = TARDIS.plugin.getUtils().parseInt(split[1]);
-        return page;
     }
 }

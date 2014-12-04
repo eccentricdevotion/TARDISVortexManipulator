@@ -1,0 +1,46 @@
+/*
+ *  Copyright 2014 eccentric_nz.
+ */
+package me.eccentric_nz.tardisvortexmanipulator.gui;
+
+import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+/**
+ *
+ * @author eccentric_nz
+ */
+public class TVMGUICommon {
+
+    private final TARDISVortexManipulator plugin;
+
+    public TVMGUICommon(TARDISVortexManipulator plugin) {
+        this.plugin = plugin;
+    }
+
+    /**
+     * Closes the inventory.
+     *
+     * @param p the player using the GUI
+     */
+    public void close(final Player p) {
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                p.closeInventory();
+            }
+        }, 1L);
+    }
+
+    public int getPageNumber(Inventory inv) {
+        ItemStack is = inv.getItem(45);
+        ItemMeta im = is.getItemMeta();
+        String[] split = im.getDisplayName().split(" ");
+        int page = TARDIS.plugin.getUtils().parseInt(split[1]);
+        return page;
+    }
+}
