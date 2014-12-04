@@ -48,9 +48,9 @@ public class TVMMessageGUI {
             List<TVMMessage> messages = rs.getMail();
             for (TVMMessage m : messages) {
                 // message
-                ItemStack mess = new ItemStack(Material.WOOL, 1, (byte) 5);
+                ItemStack mess = new ItemStack(Material.BOOK, 1);
                 ItemMeta age = mess.getItemMeta();
-                age.setDisplayName("#" + (i + start));
+                age.setDisplayName("#" + (i + start + 1));
                 String from = plugin.getServer().getOfflinePlayer(m.getWho()).getName();
                 age.setLore(Arrays.asList("From: " + from, "Date: " + m.getDate(), "" + m.getId()));
                 mess.setItemMeta(age);
@@ -59,19 +59,26 @@ public class TVMMessageGUI {
             }
         }
 
+        int n = start / 44 + 1;
+        // page number
+        ItemStack page = new ItemStack(Material.BOWL, 1);
+        ItemMeta num = page.getItemMeta();
+        num.setDisplayName("Page " + n);
+        page.setItemMeta(num);
+        stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
         win.setDisplayName("Close");
         close.setItemMeta(win);
-        stack[45] = close;
+        stack[46] = close;
         // previous screen (only if needed)
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
             een.setDisplayName("Previous Page");
             prev.setItemMeta(een);
-            stack[47] = prev;
+            stack[48] = prev;
         }
         // next screen (only if needed)
         if (finish > 44) {
@@ -79,14 +86,14 @@ public class TVMMessageGUI {
             ItemMeta scr = next.getItemMeta();
             scr.setDisplayName("Next Page");
             next.setItemMeta(scr);
-            stack[48] = next;
+            stack[49] = next;
         }
         // read
         ItemStack read = new ItemStack(Material.BOWL, 1);
         ItemMeta daer = read.getItemMeta();
         daer.setDisplayName("Read");
         read.setItemMeta(daer);
-        stack[50] = read;
+        stack[51] = read;
         // delete
         ItemStack del = new ItemStack(Material.BOWL, 1);
         ItemMeta ete = del.getItemMeta();

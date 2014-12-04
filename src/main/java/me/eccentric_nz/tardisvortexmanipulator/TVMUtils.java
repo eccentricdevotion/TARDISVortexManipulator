@@ -118,7 +118,7 @@ public class TVMUtils {
     }
 
     /**
-     * Send a list of received messages to a player.
+     * Send a list of sent messages to a player.
      *
      * @param p the player to message
      * @param rso the ResultSet containing the message information
@@ -129,6 +129,17 @@ public class TVMUtils {
         for (TVMMessage m : rso.getMail()) {
             p.sendMessage(m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12));
         }
+    }
+
+    /**
+     * Show a message to a player.
+     *
+     * @param p the player to message
+     * @param m the message to read
+     */
+    public static void readMessage(Player p, TVMMessage m) {
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + TARDISVortexManipulator.plugin.getServer().getOfflinePlayer(m.getWho()).getName() + " - " + m.getDate());
+        p.sendMessage(m.getMessage());
     }
 
     /**

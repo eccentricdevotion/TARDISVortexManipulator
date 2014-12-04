@@ -18,6 +18,8 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
+import me.eccentric_nz.tardisvortexmanipulator.gui.TVMMessageGUIListener;
+import me.eccentric_nz.tardisvortexmanipulator.gui.TVMSavesGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMCraftListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMDeathListener;
@@ -99,12 +101,14 @@ public class TARDISVortexManipulator extends JavaPlugin {
     }
 
     private void registerListeners() {
-        pm.registerEvents(new TVMGUIListener(this), this);
         pm.registerEvents(new TVMBlockListener(this), this);
-        pm.registerEvents(new TVMMoveListener(this), this);
         pm.registerEvents(new TVMCraftListener(this), this);
-        pm.registerEvents(new TVMEquipListener(this), this);
         pm.registerEvents(new TVMDeathListener(this), this);
+        pm.registerEvents(new TVMEquipListener(this), this);
+        pm.registerEvents(new TVMGUIListener(this), this);
+        pm.registerEvents(new TVMMessageGUIListener(this), this);
+        pm.registerEvents(new TVMMoveListener(this), this);
+        pm.registerEvents(new TVMSavesGUIListener(this), this);
     }
 
     private void registerCommands() {
