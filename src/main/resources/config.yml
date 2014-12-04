@@ -3,8 +3,6 @@ allow:
     messaging: true
     lifesigns: true
     beacon: true
-worlds:
-    world: true
 recipe:
     shape: BBG,WOC,III
     ingredients:
