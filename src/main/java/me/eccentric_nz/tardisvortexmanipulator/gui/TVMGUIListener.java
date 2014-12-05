@@ -354,6 +354,11 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         ItemStack display = inv.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
+        String name = lore.get(0);
+        if (name.isEmpty()) {
+            p.sendMessage(plugin.getPluginName() + "You need to enter a save name!");
+            return;
+        }
         Location l = p.getLocation();
         HashMap<String, Object> set = new HashMap<String, Object>();
         set.put("uuid", p.getUniqueId().toString());

@@ -10,7 +10,7 @@ We like a challenge :)
 Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipulator in your hand, put in your desired location, and GO!
 
 ##Dependencies
-This plugin utilises the [TARDIS](http://dev.bukkit.org/bukkit-plugins/tardis/) plugin API, so you must have TARDIS installed as well.
+This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARDIS/) plugin API, so you must have TARDIS installed as well.
 
 ##Crafting
 Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for this crafted item would be a wonderful addition, as well.
