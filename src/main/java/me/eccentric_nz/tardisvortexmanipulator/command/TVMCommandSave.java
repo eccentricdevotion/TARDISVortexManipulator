@@ -57,7 +57,7 @@ public class TVMCommandSave implements CommandExecutor {
                         return true;
                     }
                     int start = (page * 10) - 10;
-                    int limit = start * 10;
+                    int limit = page * 10;
                     TVMResultSetSaves rss = new TVMResultSetSaves(plugin, uuid, start, limit);
                     if (rss.resultSet()) {
                         TVMUtils.sendSaveList(p, rss, page);

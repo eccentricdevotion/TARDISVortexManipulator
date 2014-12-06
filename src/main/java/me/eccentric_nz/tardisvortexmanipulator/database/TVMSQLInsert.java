@@ -74,8 +74,12 @@ public class TVMSQLInsert implements Runnable {
                 } else {
                     if (entry.getValue().getClass().getName().contains("Double")) {
                         ps.setDouble(i, plugin.getTardisAPI().getUtils().parseDouble(entry.getValue().toString()));
-                    } else if (entry.getValue().getClass().getName().contains("Float")) {
+                    }
+                    if (entry.getValue().getClass().getName().contains("Float")) {
                         ps.setFloat(i, plugin.getTardisAPI().getUtils().parseFloat(entry.getValue().toString()));
+                    }
+                    if (entry.getValue().getClass().getName().contains("Long")) {
+                        ps.setLong(i, plugin.getTardisAPI().getUtils().parseLong(entry.getValue().toString()));
                     } else {
                         ps.setInt(i, plugin.getTardisAPI().getUtils().parseInt(entry.getValue().toString()));
                     }

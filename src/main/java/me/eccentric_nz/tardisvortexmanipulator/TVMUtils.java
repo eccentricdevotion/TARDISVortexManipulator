@@ -111,7 +111,7 @@ public class TVMUtils {
      * @param page the page number of this list
      */
     public static void sendInboxList(Player p, TVMResultSetInbox rsi, int page) {
-        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + ":");
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + "):");
         for (TVMMessage m : rsi.getMail()) {
             ChatColor colour = (m.isRead()) ? ChatColor.DARK_GRAY : ChatColor.GRAY;
             p.sendMessage(colour + "" + m.getId() + ": " + m.getDate() + " - " + m.getMessage().substring(0, 12));
@@ -126,7 +126,7 @@ public class TVMUtils {
      * @param page the page number of this list
      */
     public static void sendOutboxList(Player p, TVMResultSetOutbox rso, int page) {
-        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + ":");
+        p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + "):");
         for (TVMMessage m : rso.getMail()) {
             p.sendMessage(m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12));
         }

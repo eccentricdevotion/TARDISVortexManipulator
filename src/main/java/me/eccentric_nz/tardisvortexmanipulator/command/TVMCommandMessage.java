@@ -82,12 +82,18 @@ public class TVMCommandMessage implements CommandExecutor {
                                     TVMResultSetOutbox rso = new TVMResultSetOutbox(plugin, uuid, 0, 10);
                                     if (rso.resultSet()) {
                                         TVMUtils.sendOutboxList(p, rso, 1);
+                                    } else {
+                                        p.sendMessage(plugin.getPluginName() + "There are no messages in your outbox.");
+                                        return true;
                                     }
                                 } else {
                                     // list inbox
                                     TVMResultSetInbox rsi = new TVMResultSetInbox(plugin, uuid, 0, 10);
                                     if (rsi.resultSet()) {
                                         TVMUtils.sendInboxList(p, rsi, 1);
+                                    } else {
+                                        p.sendMessage(plugin.getPluginName() + "There are no messages in your inbox.");
+                                        return true;
                                     }
                                 }
                                 break;
@@ -102,18 +108,24 @@ public class TVMCommandMessage implements CommandExecutor {
                                 return true;
                             }
                             int start = (page * 10) - 10;
-                            int limit = start * 10;
+                            int limit = page * 10;
                             if (args[1].equalsIgnoreCase("out")) {
                                 // outbox
                                 TVMResultSetOutbox rso = new TVMResultSetOutbox(plugin, uuid, start, limit);
                                 if (rso.resultSet()) {
                                     TVMUtils.sendOutboxList(p, rso, page);
+                                } else {
+                                    p.sendMessage(plugin.getPluginName() + "There are no messages in your outbox.");
+                                    return true;
                                 }
                             } else {
                                 // inbox
                                 TVMResultSetInbox rsi = new TVMResultSetInbox(plugin, uuid, start, limit);
                                 if (rsi.resultSet()) {
                                     TVMUtils.sendInboxList(p, rsi, page);
+                                } else {
+                                    p.sendMessage(plugin.getPluginName() + "There are no messages in your inbox.");
+                                    return true;
                                 }
                             }
                             break;
@@ -154,12 +166,15 @@ public class TVMCommandMessage implements CommandExecutor {
                             }
                             TVMQueryFactory qf = new TVMQueryFactory(plugin);
                             HashMap<String, Object> where = new HashMap<String, Object>();
+                            String which = "Outbox";
                             if (args[1].equalsIgnoreCase("out")) {
                                 where.put("uuid_from", p.getUniqueId().toString());
                             } else {
                                 where.put("uuid_to", p.getUniqueId().toString());
+                                which = "Inbox";
                             }
                             qf.doDelete("messages", where);
+                            p.sendMessage(plugin.getPluginName() + which + " cleared.");
                             break;
                     }
                 } catch (IllegalArgumentException e) {

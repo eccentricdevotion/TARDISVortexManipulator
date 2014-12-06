@@ -89,6 +89,9 @@ public class TVMQueryFactory {
                     if (entry.getValue().getClass().getName().contains("Double")) {
                         ps.setDouble(i, plugin.getTardisAPI().getUtils().parseDouble(entry.getValue().toString()));
                     }
+                    if (entry.getValue().getClass().getName().contains("Float")) {
+                        ps.setFloat(i, plugin.getTardisAPI().getUtils().parseFloat(entry.getValue().toString()));
+                    }
                     if (entry.getValue().getClass().getName().contains("Long")) {
                         ps.setLong(i, plugin.getTardisAPI().getUtils().parseLong(entry.getValue().toString()));
                     } else {
