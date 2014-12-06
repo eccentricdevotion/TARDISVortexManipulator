@@ -90,12 +90,13 @@ public class TVMCommandMessage implements CommandExecutor {
                                         TVMUtils.sendInboxList(p, rsi, 1);
                                     }
                                 }
+                                break;
                             }
                             if (args.length < 3) {
                                 p.sendMessage(plugin.getPluginName() + "You need to specify a page number!");
                                 return true;
                             }
-                            int page = parseNum(args[1]);
+                            int page = parseNum(args[2]);
                             if (page == -1) {
                                 p.sendMessage(plugin.getPluginName() + "Invalid page number!");
                                 return true;

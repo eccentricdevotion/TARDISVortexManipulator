@@ -132,6 +132,10 @@
                     <groupId>me.confuser</groupId>
                     <artifactId>BarAPI</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.comphenix.protocol</groupId>
+                    <artifactId>ProtocolLib</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
     </dependencies>
