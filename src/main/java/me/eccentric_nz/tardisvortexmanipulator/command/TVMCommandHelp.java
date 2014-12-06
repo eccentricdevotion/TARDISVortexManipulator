@@ -101,13 +101,13 @@ public class TVMCommandHelp implements CommandExecutor {
                     sender.sendMessage(ChatColor.GREEN + "Messaging");
                     sender.sendMessage("You can only message players who have a Vortex Manipulator.");
                     sender.sendMessage(ChatColor.GREEN + "------------");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm [player] [message]" + ChatColor.RESET + " - send a message to the specified player.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm in" + ChatColor.RESET + " - show the most recent page of received messages.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm in [page]" + ChatColor.RESET + " - show a specific page of received messages.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm in clear" + ChatColor.RESET + " - clears all received messages.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm out" + ChatColor.RESET + " - show the most recent page of sent messages.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm out [page]" + ChatColor.RESET + " - show a specific page of sent messages.");
-                    sender.sendMessage(ChatColor.GRAY + "/vmm out clear" + ChatColor.RESET + " - clears all sent messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm msg [player] [message]" + ChatColor.RESET + " - send a message to the specified player.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm list in" + ChatColor.RESET + " - show the most recent page of received messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm list in [page]" + ChatColor.RESET + " - show a specific page of received messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm clear in" + ChatColor.RESET + " - clears all received messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm list out" + ChatColor.RESET + " - show the most recent page of sent messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm list out [page]" + ChatColor.RESET + " - show a specific page of sent messages.");
+                    sender.sendMessage(ChatColor.GRAY + "/vmm clear out" + ChatColor.RESET + " - clears all sent messages.");
                     sender.sendMessage(ChatColor.GRAY + "/vmm read [#]" + ChatColor.RESET + " - read a specific message.");
                     sender.sendMessage(ChatColor.GRAY + "/vmm delete [#]" + ChatColor.RESET + " - deletes a specific message.");
                 }

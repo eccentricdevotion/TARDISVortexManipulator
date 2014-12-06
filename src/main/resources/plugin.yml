@@ -30,7 +30,7 @@ commands:
     vmm:
         aliases: [vmmsg,vmmessage]
         description: Message other Vortex Manipulator users.
-        usage: /<command> [player] [message], /<command> list [new|old], /<command> read [#], /<command> clear [new|old]
+        usage: /<command> msg [player] [message], /<command> list [in|out] {page}, /<command> read [#], /<command> delete [#], /<command> clear [in|out]
         permission: tvm.message
         permission-message: You don't have the permission <permission> to use this command
     vms:

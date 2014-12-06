@@ -26,14 +26,23 @@ import org.bukkit.command.TabCompleter;
 /**
  * TabCompleter for /tardisarea
  */
-public class TVMTabComplete extends TARDISCompleter implements TabCompleter {
+public class TVMTabCompleteMessage extends TARDISCompleter implements TabCompleter {
 
-    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("start", "end", "remove", "show", "yard");
+    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("msg", "list", "read", "delete", "clear");
+    private final ImmutableList<String> INOUT_SUBS = ImmutableList.of("in", "out");
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length <= 1) {
             return partial(args[0], ROOT_SUBS);
+        }
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("msg")) {
+                return null;
+            }
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("clear")) {
+                return partial(args[1], INOUT_SUBS);
+            }
         }
         return ImmutableList.of();
     }
