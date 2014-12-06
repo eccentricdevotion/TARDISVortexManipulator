@@ -113,7 +113,8 @@ public class TVMUtils {
     public static void sendInboxList(Player p, TVMResultSetInbox rsi, int page) {
         p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + ":");
         for (TVMMessage m : rsi.getMail()) {
-            p.sendMessage(m.getId() + ": " + m.getDate() + " - " + m.getMessage().substring(0, 12));
+            ChatColor colour = (m.isRead()) ? ChatColor.DARK_GRAY : ChatColor.GRAY;
+            p.sendMessage(colour + "" + m.getId() + ": " + m.getDate() + " - " + m.getMessage().substring(0, 12));
         }
     }
 

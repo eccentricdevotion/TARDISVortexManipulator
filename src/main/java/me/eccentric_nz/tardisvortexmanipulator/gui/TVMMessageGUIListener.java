@@ -5,7 +5,6 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
@@ -40,7 +39,6 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         if (name.equals("§4VM Messages")) {
             event.setCancelled(true);
             final Player player = (Player) event.getWhoClicked();
-            UUID uuid = player.getUniqueId();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
@@ -83,7 +81,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString(), false);
+                    TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
                     ItemStack[] gui = tvmm.getGUI();
                     Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
                     vmg.setContents(gui);
@@ -100,7 +98,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString(), false);
+                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
                 ItemStack[] gui = tvmm.getGUI();
                 Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
                 vmg.setContents(gui);
@@ -119,6 +117,8 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             if (rsm.resultSet()) {
                 close(p);
                 TVMUtils.readMessage(p, rsm.getMessage());
+                // update read status
+                new TVMQueryFactory(plugin).setReadStatus(message_id);
             }
         } else {
             p.sendMessage(plugin.getPluginName() + "Select a message!");

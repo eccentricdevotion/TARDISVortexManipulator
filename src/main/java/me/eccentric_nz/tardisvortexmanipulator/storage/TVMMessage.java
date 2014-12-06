@@ -15,6 +15,7 @@ public class TVMMessage {
     private UUID who;
     private String message;
     private String date;
+    private boolean read;
 
     public int getId() {
         return id;
@@ -46,5 +47,13 @@ public class TVMMessage {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }

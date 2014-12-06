@@ -479,7 +479,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, p.getUniqueId().toString(), false);
+                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, p.getUniqueId().toString());
                 ItemStack[] gui = tvmm.getGUI();
                 Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
                 vmg.setContents(gui);

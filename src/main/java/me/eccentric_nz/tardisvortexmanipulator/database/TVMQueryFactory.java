@@ -218,4 +218,15 @@ public class TVMQueryFactory {
         TVMAlterTachyon alter = new TVMAlterTachyon(plugin, amount, uuid);
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, alter);
     }
+
+    /**
+     * Update message read status. This method executes the SQL in a separate
+     * thread.
+     *
+     * @param id the message_id to alter
+     */
+    public void setReadStatus(int id) {
+        TVMSetReadStatus set = new TVMSetReadStatus(plugin, id);
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, set);
+    }
 }

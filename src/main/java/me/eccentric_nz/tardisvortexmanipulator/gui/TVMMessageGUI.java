@@ -22,14 +22,12 @@ public class TVMMessageGUI {
     private final int start, finish;
     private final String uuid;
     private final ItemStack[] gui;
-    private final boolean box;
 
-    public TVMMessageGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid, boolean box) {
+    public TVMMessageGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid) {
         this.plugin = plugin;
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        this.box = box;
         this.gui = getItemStack();
     }
 
@@ -43,12 +41,17 @@ public class TVMMessageGUI {
         ItemStack[] stack = new ItemStack[54];
         int i = 0;
         // get the player's messages
-        TVMResultSetInbox rs = new TVMResultSetInbox(plugin, uuid, box, start, 44);
+        TVMResultSetInbox rs = new TVMResultSetInbox(plugin, uuid, start, 44);
         if (rs.resultSet()) {
             List<TVMMessage> messages = rs.getMail();
             for (TVMMessage m : messages) {
                 // message
-                ItemStack mess = new ItemStack(Material.BOOK, 1);
+                ItemStack mess;
+                if (m.isRead()) {
+                    mess = new ItemStack(Material.BOOK, 1);
+                } else {
+                    mess = new ItemStack(Material.BOOK_AND_QUILL, 1);
+                }
                 ItemMeta age = mess.getItemMeta();
                 age.setDisplayName("#" + (i + start + 1));
                 String from = plugin.getServer().getOfflinePlayer(m.getWho()).getName();

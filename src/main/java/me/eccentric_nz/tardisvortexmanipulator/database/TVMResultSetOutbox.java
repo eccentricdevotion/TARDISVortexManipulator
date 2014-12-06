@@ -25,11 +25,14 @@ public class TVMResultSetOutbox {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String where;
-    private List<TVMMessage> mail = new ArrayList<TVMMessage>();
+    private final int start, limit;
+    private final List<TVMMessage> mail = new ArrayList<TVMMessage>();
 
-    public TVMResultSetOutbox(TARDISVortexManipulator plugin, String where) {
+    public TVMResultSetOutbox(TARDISVortexManipulator plugin, String where, int start, int limit) {
         this.plugin = plugin;
         this.where = where;
+        this.start = start;
+        this.limit = limit;
     }
 
     /**
@@ -42,7 +45,7 @@ public class TVMResultSetOutbox {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM messages WHERE uuid_from = ? ORDER BY date DESC";
+        String query = String.format("SELECT * FROM messages WHERE uuid_from = ? ORDER BY date DESC LIMIT %d, %d", start, start + limit);
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
@@ -55,6 +58,7 @@ public class TVMResultSetOutbox {
                     tvmm.setWho(UUID.fromString(rs.getString("uuid_to")));
                     tvmm.setMessage(rs.getString("message"));
                     tvmm.setDate(getFormattedDate(rs.getLong("date")));
+//                    tvmm.setRead(rs.getBoolean("read"));
                     mail.add(tvmm);
                 }
             } else {

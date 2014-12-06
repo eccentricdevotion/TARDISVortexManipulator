@@ -25,46 +25,42 @@ import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
  *
  * @author eccentric_nz
  */
-public class TVMAlterTachyon implements Runnable {
+public class TVMSetReadStatus implements Runnable {
 
     private final TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
-    private final int amount;
-    private final String uuid;
+    private final int id;
 
     /**
-     * Adds or removes tachyons from a database table. This method builds an SQL
-     * query string from the parameters supplied and then executes the query.
+     * Sets the read status of a message. This method builds an SQL query string
+     * from the parameters supplied and then executes the query.
      *
      * @param plugin an instance of the main plugin class
-     * @param amount the amount of energy to add or remove (use a negative
-     * value)
-     * @param uuid a player's UUID.
+     * @param id the message_id to set the status of
      */
-    public TVMAlterTachyon(TARDISVortexManipulator plugin, int amount, String uuid) {
+    public TVMSetReadStatus(TARDISVortexManipulator plugin, int id) {
         this.plugin = plugin;
-        this.amount = amount;
-        this.uuid = uuid;
+        this.id = id;
     }
 
     @Override
     public void run() {
         Statement statement = null;
-        String query = "UPDATE manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" + uuid + "'";
+        String query = "UPDATE messages SET read = 1 WHERE message_id = " + id;
         try {
             service.testConnection(connection);
             statement = connection.createStatement();
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            plugin.debug("Tachyon update error! " + e.getMessage());
+            plugin.debug("Read status update error! " + e.getMessage());
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                plugin.debug("Tachyon error closing manipulator table! " + e.getMessage());
+                plugin.debug("Read status error closing messages table! " + e.getMessage());
             }
         }
     }
