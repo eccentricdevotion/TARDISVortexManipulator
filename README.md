@@ -13,13 +13,13 @@ Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipul
 This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARDIS/) plugin API, so you must have TARDIS installed as well.
 
 ##Crafting
-Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for this crafted item would be a wonderful addition, as well.
+Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
 
 ![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulator.jpg)
 ![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
 
-##Multiworld support
-This should work with Multiverse, remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Border (plugin and the 1.8 default if possible). Towny/Faction integration isn't necessary as it's time traveling.
+##Multi-world support
+The plugin works with Multiverse (or other multi-word plugin), remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Borders (plugin and the 1.8 default if possible). Towny/Faction/WorldGuard/GriefPrevention suport can be enabled via the config.
 
 ##Configuration
 There are configuration options that allow for energy usage, recharging, and other things. The various features use different levels of energy, while charging is on a timer, gaining so much charge every minute or so.
@@ -73,12 +73,11 @@ debug: false
 
 
 ##GUI
-Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI should be provided as well.
+Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI is provided as well.
 
 ![GUI](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulatorGUI.jpg)
 
 ##Commands
-A first release should be simple, but don't stop there. Add as much as you think you are able!
 
 ####Help
 * `/vmh {subject}` or `/vm help`  - This will display help and commands for the plugin
@@ -99,11 +98,11 @@ _Other things that should be added, either on initial release or later:_
 
 ####Messaging
 
-* `/vmm {player} {message}` - Send message to other user with a device
-* `/vmm {in/out} [page]` - See received or sent messages
+* `/vmm msg {player} {message}` - Send message to other user with a device
+* `/vmm list {in/out} [page]` - See received or sent messages
 * `/vmm read {#}` - Read specific message
 * `/vmm delete {#}` - Delete specific message
-* `/vmm {in/out} clear` - Clearing "new" sends to old, and clearing "old" deletes all stored messages
+* `/vmm clear {in/out}` - Clearing "in" deletes all inbox messages, and clearing "out" deletes all outbox messages
 
 ####Lifesigns
 

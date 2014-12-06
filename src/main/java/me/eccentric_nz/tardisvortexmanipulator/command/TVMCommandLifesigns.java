@@ -25,6 +25,7 @@ public class TVMCommandLifesigns implements CommandExecutor {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vml")) {
             Player p = null;
