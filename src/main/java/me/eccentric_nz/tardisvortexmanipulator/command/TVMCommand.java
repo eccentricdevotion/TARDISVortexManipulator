@@ -117,6 +117,11 @@ public class TVMCommand implements CommandExecutor {
                     case 1:
                     case 2:
                     case 3:
+                        // check world is an actual world
+                        if (plugin.getServer().getWorld(args[0]) == null) {
+                            player.sendMessage(plugin.getPluginName() + "World does not exist!");
+                            return true;
+                        }
                         required = plugin.getConfig().getInt("tachyon_use.travel.world");
                         // only world specified (or incomplete setting)
                         worlds.add(args[0]);
