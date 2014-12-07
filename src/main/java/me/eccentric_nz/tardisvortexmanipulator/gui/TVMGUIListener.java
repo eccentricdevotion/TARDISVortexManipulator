@@ -584,6 +584,12 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             case 3:
                 required = plugin.getConfig().getInt("tachyon_use.travel.world");
                 // only world specified (or incomplete setting)
+                // check world is an actual world
+                if (plugin.getServer().getWorld(dest.get(0)) == null) {
+                    close(p);
+                    p.sendMessage(plugin.getPluginName() + "World does not exist!");
+                    return;
+                }
                 worlds.add(dest.get(0));
                 l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
                 break;
