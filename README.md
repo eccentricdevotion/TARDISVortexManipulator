@@ -13,7 +13,7 @@ Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipul
 This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARDIS/) plugin API, so you must have TARDIS installed as well.
 
 ##Crafting
-Crafting should be a little complicated, as it's an advanced piece of technology. Requirements for crafting should be (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
+Crafting is a little complicated, as it's an advanced piece of technology. Requirements for crafting are (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
 
 ![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulator.jpg)
 ![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
