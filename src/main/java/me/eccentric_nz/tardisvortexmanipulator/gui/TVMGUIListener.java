@@ -642,11 +642,20 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         }
         if (l != null) {
             close(p);
+            List<Player> players = new ArrayList<Player>();
+            players.add(p);
+            if (plugin.getConfig().getBoolean("allow.multiple")) {
+                for (Entity e : p.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                    if (e instanceof Player && !e.getUniqueId().equals(p.getUniqueId())) {
+                        players.add((Player) e);
+                    }
+                }
+            }
             p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
             while (!l.getChunk().isLoaded()) {
                 l.getChunk().load();
             }
-            TVMUtils.movePlayer(p, l, p.getLocation().getWorld());
+            TVMUtils.movePlayers(players, l, p.getLocation().getWorld());
             // remove tachyons
             qf.alterTachyons(p.getUniqueId().toString(), -required);
         } else {

@@ -16,6 +16,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -78,12 +79,21 @@ public class TVMCommand implements CommandExecutor {
                     while (!l.getChunk().isLoaded()) {
                         l.getChunk().load();
                     }
-                    int required = plugin.getConfig().getInt("tachyon_use.saved");
+                    List<Player> players = new ArrayList<Player>();
+                    players.add(player);
+                    if (plugin.getConfig().getBoolean("allow.multiple")) {
+                        for (Entity e : player.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                            if (e instanceof Player && !e.getUniqueId().equals(player.getUniqueId())) {
+                                players.add((Player) e);
+                            }
+                        }
+                    }
+                    int required = plugin.getConfig().getInt("tachyon_use.saved") * players.size();
                     if (!TVMUtils.checkTachyonLevel(uuid, required)) {
                         player.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
                         return true;
                     }
-                    TVMUtils.movePlayer(player, l, player.getLocation().getWorld());
+                    TVMUtils.movePlayers(players, l, player.getLocation().getWorld());
                     // remove tachyons
                     new TVMQueryFactory(plugin).alterTachyons(uuid, -required);
                     return true;
@@ -167,8 +177,18 @@ public class TVMCommand implements CommandExecutor {
                         l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                         break;
                 }
-                if (!TVMUtils.checkTachyonLevel(uuid, required)) {
-                    player.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
+                List<Player> players = new ArrayList<Player>();
+                players.add(player);
+                if (plugin.getConfig().getBoolean("allow.multiple")) {
+                    for (Entity e : player.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                        if (e instanceof Player && !e.getUniqueId().equals(player.getUniqueId())) {
+                            players.add((Player) e);
+                        }
+                    }
+                }
+                int actual = required * players.size();
+                if (!TVMUtils.checkTachyonLevel(uuid, actual)) {
+                    player.sendMessage(plugin.getPluginName() + "You need at least " + actual + " tachyons to travel!");
                     return true;
                 }
                 if (l != null) {
@@ -176,9 +196,9 @@ public class TVMCommand implements CommandExecutor {
                     while (!l.getChunk().isLoaded()) {
                         l.getChunk().load();
                     }
-                    TVMUtils.movePlayer(player, l, player.getLocation().getWorld());
+                    TVMUtils.movePlayers(players, l, player.getLocation().getWorld());
                     // remove tachyons
-                    new TVMQueryFactory(plugin).alterTachyons(uuid, -required);
+                    new TVMQueryFactory(plugin).alterTachyons(uuid, -actual);
                 } else {
                     //close(player);
                     player.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");

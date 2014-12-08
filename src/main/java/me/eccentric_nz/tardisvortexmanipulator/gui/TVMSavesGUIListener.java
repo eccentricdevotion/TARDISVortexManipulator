@@ -3,13 +3,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetWarpByName;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +41,6 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         if (name.equals("§4VM Saves")) {
             event.setCancelled(true);
             final Player player = (Player) event.getWhoClicked();
-            UUID uuid = player.getUniqueId();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 if (inv.getItem(slot) != null) {
@@ -130,24 +131,33 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
 
     private void doWarp(Inventory inv, Player p) {
         if (selectedSlot != -1) {
-            int required = plugin.getConfig().getInt("tachyon_use.travel.saved");
-            if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
-                close(p);
-                p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
-                return;
-            }
             ItemStack is = inv.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             String save_name = im.getDisplayName();
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
                 close(p);
+                List<Player> players = new ArrayList<Player>();
+                players.add(p);
+                if (plugin.getConfig().getBoolean("allow.multiple")) {
+                    for (Entity e : p.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                        if (e instanceof Player && !e.getUniqueId().equals(p.getUniqueId())) {
+                            players.add((Player) e);
+                        }
+                    }
+                }
+                int required = plugin.getConfig().getInt("tachyon_use.travel.saved") * players.size();
+                if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
+                    close(p);
+                    p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
+                    return;
+                }
                 Location l = rss.getWarp();
                 p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
                 while (!l.getChunk().isLoaded()) {
                     l.getChunk().load();
                 }
-                TVMUtils.movePlayer(p, l, p.getLocation().getWorld());
+                TVMUtils.movePlayers(players, l, p.getLocation().getWorld());
                 // remove tachyons
                 new TVMQueryFactory(plugin).alterTachyons(p.getUniqueId().toString(), -required);
             }

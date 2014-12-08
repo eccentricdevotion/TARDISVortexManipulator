@@ -3,6 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
+import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
@@ -24,19 +25,7 @@ import org.bukkit.entity.Player;
  */
 public class TVMUtils {
 
-    public static void movePlayer(Player p, Location l, World from) {
-
-        final Player thePlayer = p;
-        TARDISVortexManipulator.plugin.getTravellers().add(p.getUniqueId());
-        // set location to centre of block
-        l.setX(l.getBlockX() + 0.5);
-        l.setY(l.getY() + 0.2);
-        l.setZ(l.getBlockZ() + 0.5);
-        final Location theLocation = l;
-
-        final World to = theLocation.getWorld();
-        final boolean allowFlight = thePlayer.getAllowFlight();
-        final boolean crossWorlds = from != to;
+    public static void movePlayers(List<Player> players, Location l, World from) {
 
         // try loading chunk
         World world = l.getWorld();
@@ -44,34 +33,45 @@ public class TVMUtils {
         while (!world.isChunkLoaded(chunk)) {
             world.loadChunk(chunk);
         }
+        // set location to centre of block
+        l.setX(l.getBlockX() + 0.5);
+        l.setY(l.getY() + 0.2);
+        l.setZ(l.getBlockZ() + 0.5);
+        final Location theLocation = l;
+        final World to = theLocation.getWorld();
+        final boolean crossWorlds = from != to;
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-            @Override
-            public void run() {
-                thePlayer.teleport(theLocation);
-                thePlayer.getWorld().playSound(theLocation, Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-            }
-        }, 10L);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-            @Override
-            public void run() {
-                thePlayer.teleport(theLocation);
-                if (TARDISVortexManipulator.plugin.getConfig().getBoolean("no_damage")) {
-                    thePlayer.setNoDamageTicks(TARDISVortexManipulator.plugin.getConfig().getInt("no_damage_time") * 20);
+        for (Player p : players) {
+            final Player thePlayer = p;
+            TARDISVortexManipulator.plugin.getTravellers().add(p.getUniqueId());
+            final boolean allowFlight = thePlayer.getAllowFlight();
+
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    thePlayer.teleport(theLocation);
+                    thePlayer.getWorld().playSound(theLocation, Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
                 }
-                if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
-                    thePlayer.setAllowFlight(true);
+            }, 10L);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    thePlayer.teleport(theLocation);
+                    thePlayer.setNoDamageTicks(200);
+                    if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
+                        thePlayer.setAllowFlight(true);
+                    }
                 }
-            }
-        }, 15L);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (TARDISVortexManipulator.plugin.getTravellers().contains(thePlayer.getUniqueId())) {
-                    TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId());
+            }, 15L);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    if (TARDISVortexManipulator.plugin.getTravellers().contains(thePlayer.getUniqueId())) {
+                        TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId());
+                    }
                 }
-            }
-        }, 100L);
+            }, 100L);
+        }
     }
 
     /**
