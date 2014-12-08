@@ -54,7 +54,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        PluginDescriptionFile pdfFile = getDescription();
+        pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
         saveDefaultConfig();
+        new TVMConfig(this).checkConfig();
         pm = getServer().getPluginManager();
         /* Get TARDIS */
         Plugin p = pm.getPlugin("TARDIS");
@@ -64,8 +67,6 @@ public class TARDISVortexManipulator extends JavaPlugin {
         }
         tardis = (TARDIS) p;
         tardisapi = tardis.getTardisAPI();
-        PluginDescriptionFile pdfFile = getDescription();
-        pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
         loadDatabase();
         registerListeners();
         registerCommands();

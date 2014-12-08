@@ -31,7 +31,7 @@ tachyon_use:
 storage:
   database: sqlite
   mysql:
-    url: mysql://localhost:3306/TARDIS
+    url: mysql://localhost:3306/TVM
     user: bukkit
     password: mysecurepassword
 date_format: dd/MM/YY HH:mm
