@@ -39,6 +39,9 @@ public class TVMTachyonRunnable implements Runnable {
                     if (t.getLevel() + recharge <= max) {
                         // recharge them if they are not full
                         qf.alterTachyons(t.getUuid().toString(), recharge);
+                    } else {
+                        // catch slightly off levels ie 98%
+                        qf.alterTachyons(t.getUuid().toString(), max - t.getLevel());
                     }
                 }
             }
