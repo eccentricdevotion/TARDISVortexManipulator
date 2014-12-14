@@ -67,3 +67,8 @@ commands:
         usage: /<command> [player]
         permission: tardis.admin
         permission-message: You don't have the permission <permission> to use this command
+    vmg:
+        description: Give Tachyon energy to a player's Vortex Manipulator.
+        usage: /<command> [uuid] [amount]
+        permission: tardis.admin
+        permission-message: You don't have the permission <permission> to use this command

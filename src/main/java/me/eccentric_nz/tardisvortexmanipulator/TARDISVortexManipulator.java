@@ -9,6 +9,7 @@ import me.eccentric_nz.TARDIS.api.TardisAPI;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandActivate;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandBeacon;
+import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandGive;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandHelp;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandLifesigns;
 import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandMessage;
@@ -125,6 +126,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         getCommand("vmm").setTabCompleter(new TVMTabCompleteMessage());
         getCommand("vmr").setExecutor(new TVMCommandRemove(this));
         getCommand("vms").setExecutor(new TVMCommandSave(this));
+        getCommand("vmg").setExecutor(new TVMCommandGive(this));
     }
 
     private void startRecharger() {
