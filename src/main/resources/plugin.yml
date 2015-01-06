@@ -4,7 +4,7 @@ main: me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator
 name: TARDISVortexManipulator
 load: POSTWORLD
 depend: [TARDIS]
-version: '1.0'
+version: '1.1'
 website: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 dev-url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
@@ -25,25 +25,25 @@ commands:
         aliases: [vortexmainpulator,tvm,vmg,vmgo]
         description: Cheap and nasty time travel. Very bad for you.
         usage: /<command> [world] [x] [y] [z]
-        permission: tvm.teleport
+        permission: vm.teleport
         permission-message: You don't have the permission <permission> to use this command
     vmm:
         aliases: [vmmsg,vmmessage]
         description: Message other Vortex Manipulator users.
         usage: /<command> msg [player] [message], /<command> list [in|out] {page}, /<command> read [#], /<command> delete [#], /<command> clear [in|out]
-        permission: tvm.message
+        permission: vm.message
         permission-message: You don't have the permission <permission> to use this command
     vms:
         aliases: [vmsave]
         description: Save Vortex Manipulator location.
         usage: /<command> [save_name]
-        permission: tvm.teleport
+        permission: vm.teleport
         permission-message: You don't have the permission <permission> to use this command
     vmr:
         aliases: [vmremove]
         description: Remove Vortex Manipulator save.
         usage: /<command> [save_name]
-        permission: tvm.teleport
+        permission: vm.teleport
         permission-message: You don't have the permission <permission> to use this command
     vmh:
         aliases: [vmhelp]
@@ -53,13 +53,13 @@ commands:
         aliases: [vmlife,vmlifesigns]
         description: Get Vortex Manipulator entity information.
         usage: /<command> [save_name]
-        permission: tvm.lifesigns
+        permission: vm.lifesigns
         permission-message: You don't have the permission <permission> to use this command
     vmb:
         aliases: [vmbeacon]
         description: Send out a Vortex Manipulator beacon signal.
         usage: /<command> [colour]
-        permission: tvm.beacon
+        permission: vm.beacon
         permission-message: You don't have the permission <permission> to use this command
     vma:
         aliases: [vmactivate]
