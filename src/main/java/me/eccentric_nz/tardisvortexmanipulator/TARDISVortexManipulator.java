@@ -62,8 +62,9 @@ public class TARDISVortexManipulator extends JavaPlugin {
         pm = getServer().getPluginManager();
         /* Get TARDIS */
         Plugin p = pm.getPlugin("TARDIS");
-        if (p == null) {
-            System.err.println("Cannot find TARDIS!");
+        if (p == null || !pm.isPluginEnabled("TARDIS")) {
+            System.err.println("[TARDISVortexManipulator] Cannot find TARDIS!");
+            pm.disablePlugin(this);
             return;
         }
         tardis = (TARDIS) p;
