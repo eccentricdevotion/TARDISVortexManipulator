@@ -3,7 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -40,7 +40,7 @@ public class TVMGUICommon {
         ItemStack is = inv.getItem(45);
         ItemMeta im = is.getItemMeta();
         String[] split = im.getDisplayName().split(" ");
-        int page = TARDIS.plugin.getUtils().parseInt(split[1]);
+        int page = TARDISNumberParsers.parseInt(split[1]);
         return page;
     }
 }

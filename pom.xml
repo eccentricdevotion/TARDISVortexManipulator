@@ -70,7 +70,7 @@
         <dependency>
             <groupId>me.eccentric_nz.TARDIS</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>3.2.7</version>
+            <version>3.2.10</version>
             <type>jar</type>
             <scope>compile</scope>
             <exclusions>

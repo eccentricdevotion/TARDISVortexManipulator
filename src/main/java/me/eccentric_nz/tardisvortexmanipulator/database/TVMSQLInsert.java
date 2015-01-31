@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
@@ -73,13 +74,13 @@ public class TVMSQLInsert implements Runnable {
                     ps.setString(i, entry.getValue().toString());
                 } else {
                     if (entry.getValue().getClass().getName().contains("Double")) {
-                        ps.setDouble(i, plugin.getTardisAPI().getUtils().parseDouble(entry.getValue().toString()));
+                        ps.setDouble(i, TARDISNumberParsers.parseDouble(entry.getValue().toString()));
                     } else if (entry.getValue().getClass().getName().contains("Float")) {
-                        ps.setFloat(i, plugin.getTardisAPI().getUtils().parseFloat(entry.getValue().toString()));
+                        ps.setFloat(i, TARDISNumberParsers.parseFloat(entry.getValue().toString()));
                     } else if (entry.getValue().getClass().getName().contains("Long")) {
-                        ps.setLong(i, plugin.getTardisAPI().getUtils().parseLong(entry.getValue().toString()));
+                        ps.setLong(i, TARDISNumberParsers.parseLong(entry.getValue().toString()));
                     } else {
-                        ps.setInt(i, plugin.getTardisAPI().getUtils().parseInt(entry.getValue().toString()));
+                        ps.setInt(i, TARDISNumberParsers.parseInt(entry.getValue().toString()));
                     }
                 }
                 i++;

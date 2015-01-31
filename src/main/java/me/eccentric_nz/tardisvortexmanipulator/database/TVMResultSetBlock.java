@@ -51,7 +51,7 @@ public class TVMResultSetBlock {
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     TVMBlock tvmb = new TVMBlock();
-                    Location l = plugin.getTardisAPI().getUtils().getLocationFromBukkitString(rs.getString("location"));
+                    Location l = plugin.getTardisAPI().getLocationUtils().getLocationFromBukkitString(rs.getString("location"));
                     Material m = Material.valueOf(rs.getString("block_type"));
                     byte d = rs.getByte("data");
                     Block b = l.getBlock();

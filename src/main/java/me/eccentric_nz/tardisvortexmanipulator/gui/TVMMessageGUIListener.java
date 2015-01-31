@@ -5,7 +5,7 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import java.util.HashMap;
 import java.util.List;
-import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
@@ -112,7 +112,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             ItemStack is = inv.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<String> lore = im.getLore();
-            int message_id = TARDIS.plugin.getUtils().parseInt(lore.get(2));
+            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(p);
@@ -130,7 +130,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             ItemStack is = inv.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<String> lore = im.getLore();
-            int message_id = TARDIS.plugin.getUtils().parseInt(lore.get(2));
+            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(p);
