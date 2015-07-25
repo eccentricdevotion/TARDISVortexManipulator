@@ -132,6 +132,11 @@ public class TVMCommand implements CommandExecutor {
                             player.sendMessage(plugin.getPluginName() + "World does not exist!");
                             return true;
                         }
+// check world is enabled for travel
+                        if (!plugin.getTardisAPI().getWorlds().contains(args[0])) {
+                            player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
+                            return true;
+                        }
                         required = plugin.getConfig().getInt("tachyon_use.travel.world");
                         // only world specified (or incomplete setting)
                         worlds.add(args[0]);
@@ -148,6 +153,11 @@ public class TVMCommand implements CommandExecutor {
                             w = plugin.getServer().getWorld(args[0]);
                             if (w == null) {
                                 player.sendMessage(plugin.getPluginName() + "World does not exist!");
+                                return true;
+                            }
+                            // check world is enabled for travel
+                            if (!plugin.getTardisAPI().getWorlds().contains(args[0])) {
+                                player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
                                 return true;
                             }
                         }
