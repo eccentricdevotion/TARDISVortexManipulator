@@ -165,9 +165,21 @@ public class TVMCommand implements CommandExecutor {
                         double y;
                         double z;
                         try {
-                            x = Double.parseDouble(args[1]);
-                            y = Double.parseDouble(args[2]);
-                            z = Double.parseDouble(args[3]);
+                            if (args[1].startsWith("~")) {
+                                // get players current location
+                                Location tl = player.getLocation();
+                                double tx = tl.getX();
+                                double ty = tl.getY();
+                                double tz = tl.getZ();
+                                // strip off the initial "~" and add to current position
+                                x = tx + Double.parseDouble(args[1].substring(1));
+                                y = ty + Double.parseDouble(args[2].substring(1));
+                                z = tz + Double.parseDouble(args[3].substring(1));
+                            } else {
+                                x = Double.parseDouble(args[1]);
+                                y = Double.parseDouble(args[2]);
+                                z = Double.parseDouble(args[3]);
+                            }
                         } catch (NumberFormatException e) {
                             player.sendMessage(plugin.getPluginName() + "Could not parse coordinates!");
                             return true;

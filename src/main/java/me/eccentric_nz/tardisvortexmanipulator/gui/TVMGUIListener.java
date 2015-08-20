@@ -132,7 +132,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         resetTrackers();
                         break;
                     case 18:
-                        // save
+                        // lifesigns
                         which = 5;
                         resetTrackers();
                         break;
@@ -246,7 +246,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         break;
                     case 41:
                         // hash
-                        if (letters.contains(which)) {
+                        if (letters.contains(which) || components.get(0).startsWith("~")) {
                             updateDisplay(inv, hash[th]);
                             th++;
                             if (th == hash.length) {
@@ -284,7 +284,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                             // save
                             saveCurrentLocation(player, inv);
                         } else if (which == 5) {
-                            // save
+                            // scan
                             scanLifesigns(player, inv);
                         } else {
                             // warp
@@ -624,9 +624,21 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                 double y;
                 double z;
                 try {
-                    x = Double.parseDouble(dest.get(1));
-                    y = Double.parseDouble(dest.get(2));
-                    z = Double.parseDouble(dest.get(3));
+                    if (dest.get(1).startsWith("~")) {
+                        // get players current location
+                        Location tl = p.getLocation();
+                        double tx = tl.getX();
+                        double ty = tl.getY();
+                        double tz = tl.getZ();
+                        // strip off the initial "~" and add to current position
+                        x = tx + Double.parseDouble(dest.get(1).substring(1));
+                        y = ty + Double.parseDouble(dest.get(2).substring(1));
+                        z = tz + Double.parseDouble(dest.get(3).substring(1));
+                    } else {
+                        x = Double.parseDouble(dest.get(1));
+                        y = Double.parseDouble(dest.get(2));
+                        z = Double.parseDouble(dest.get(3));
+                    }
                 } catch (NumberFormatException e) {
                     close(p);
                     p.sendMessage(plugin.getPluginName() + "Could not parse coordinates!");
@@ -647,7 +659,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                 l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                 break;
         }
-        if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
+        UUID uuid = p.getUniqueId();
+        if (!TVMUtils.checkTachyonLevel(uuid.toString(), required)) {
             close(p);
             p.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
             return;
@@ -658,10 +671,15 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             players.add(p);
             if (plugin.getConfig().getBoolean("allow.multiple")) {
                 for (Entity e : p.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
-                    if (e instanceof Player && !e.getUniqueId().equals(p.getUniqueId())) {
+                    if (e instanceof Player && !e.getUniqueId().equals(uuid)) {
                         players.add((Player) e);
                     }
                 }
+            }
+            int actual = required * players.size();
+            if (!TVMUtils.checkTachyonLevel(uuid.toString(), actual)) {
+                p.sendMessage(plugin.getPluginName() + "You need at least " + actual + " tachyons to travel!");
+                return;
             }
             p.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
             while (!l.getChunk().isLoaded()) {
@@ -669,7 +687,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             }
             TVMUtils.movePlayers(players, l, p.getLocation().getWorld());
             // remove tachyons
-            qf.alterTachyons(p.getUniqueId().toString(), -required);
+            qf.alterTachyons(uuid.toString(), -actual);
         } else {
             //close(p);
             p.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");

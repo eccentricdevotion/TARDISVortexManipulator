@@ -30,6 +30,7 @@ public class TVMConfig {
         // boolean
         boolOptions.put("allow.beacon", true);
         boolOptions.put("allow.lifesigns", true);
+        boolOptions.put("allow.look_at_block", true);
         boolOptions.put("allow.messaging", true);
         boolOptions.put("allow.multiple", true);
         boolOptions.put("allow.teleport", true);
@@ -41,6 +42,7 @@ public class TVMConfig {
         boolOptions.put("respect.worldguard", true);
         // integer
         intOptions.put("lifesign_scan_distance", 16);
+        intOptions.put("max_look_at_distance", 50);
         intOptions.put("recipe.amount", 1);
         intOptions.put("tachyon_use.beacon", 1000);
         intOptions.put("tachyon_use.lifesigns", 15);
@@ -51,6 +53,7 @@ public class TVMConfig {
         intOptions.put("tachyon_use.travel.coords", 200);
         intOptions.put("tachyon_use.travel.random", 100);
         intOptions.put("tachyon_use.travel.saved", 50);
+        intOptions.put("tachyon_use.travel.to_block", 75);
         intOptions.put("tachyon_use.travel.world", 150);
         // string
         strOptions.put("date_format", "dd/MM/YY HH:mm");

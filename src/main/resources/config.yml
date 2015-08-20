@@ -4,6 +4,7 @@ allow:
     lifesigns: true
     beacon: true
     multiple: true
+    look_at_block: true
 recipe:
     shape: BBG,WOC,III
     ingredients:
@@ -28,6 +29,7 @@ tachyon_use:
     lifesigns: 15
     beacon: 1000
     message: 5
+    to_block: 75
 storage:
   database: sqlite
   mysql:
@@ -36,6 +38,7 @@ storage:
     password: mysecurepassword
 date_format: dd/MM/YY HH:mm
 lifesign_scan_distance: 16
+max_look_at_distance: 50
 respect:
     worldborder: true
     worldguard: true
