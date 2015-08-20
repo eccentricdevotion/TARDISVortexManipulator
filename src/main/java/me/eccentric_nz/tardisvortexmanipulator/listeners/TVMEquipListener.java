@@ -70,7 +70,7 @@ public class TVMEquipListener implements Listener {
                     Inventory vmg = plugin.getServer().createInventory(player, 54, "§4Vortex Manipulator");
                     vmg.setContents(gui);
                     player.openInventory(vmg);
-                } else if (action.equals(Action.LEFT_CLICK_AIR) && plugin.getConfig().getBoolean("allow.look_at_block")) {
+                } else if (action.equals(Action.LEFT_CLICK_AIR) && plugin.getConfig().getBoolean("allow.look_at_block") && player.hasPermission("vm.lookatblock")) {
                     UUID uuid = player.getUniqueId();
                     int maxDistance = plugin.getConfig().getInt("max_look_at_distance");
                     Location bl = player.getTargetBlock(transparent, maxDistance).getLocation();
