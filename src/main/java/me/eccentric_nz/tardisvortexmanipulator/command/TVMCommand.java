@@ -132,7 +132,7 @@ public class TVMCommand implements CommandExecutor {
                             player.sendMessage(plugin.getPluginName() + "World does not exist!");
                             return true;
                         }
-// check world is enabled for travel
+                        // check world is enabled for travel
                         if (!plugin.getTardisAPI().getWorlds().contains(args[0])) {
                             player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
                             return true;
