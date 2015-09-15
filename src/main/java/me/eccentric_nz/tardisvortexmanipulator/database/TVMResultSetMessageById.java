@@ -24,10 +24,12 @@ public class TVMResultSetMessageById {
     private final TARDISVortexManipulator plugin;
     private final int id;
     private TVMMessage message;
+    private final String prefix;
 
     public TVMResultSetMessageById(TARDISVortexManipulator plugin, int id) {
         this.plugin = plugin;
         this.id = id;
+        this.prefix = this.plugin.getPrefix();
     }
 
     /**
@@ -40,7 +42,7 @@ public class TVMResultSetMessageById {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM messages WHERE message_id = ?";
+        String query = "SELECT * FROM " + prefix + "messages WHERE message_id = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);

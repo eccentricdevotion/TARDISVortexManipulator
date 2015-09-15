@@ -36,6 +36,7 @@ storage:
     url: mysql://localhost:3306/TVM
     user: bukkit
     password: mysecurepassword
+    prefix: 
 date_format: dd/MM/YY HH:mm
 lifesign_scan_distance: 16
 max_look_at_distance: 50

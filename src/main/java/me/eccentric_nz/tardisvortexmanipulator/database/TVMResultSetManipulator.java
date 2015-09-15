@@ -22,10 +22,12 @@ public class TVMResultSetManipulator {
     private final String u;
     private UUID uuid;
     private int tachyonLevel;
+    private final String prefix;
 
     public TVMResultSetManipulator(TARDISVortexManipulator plugin, String u) {
         this.plugin = plugin;
         this.u = u;
+        this.prefix = this.plugin.getPrefix();
     }
 
     /**
@@ -38,7 +40,7 @@ public class TVMResultSetManipulator {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM manipulator WHERE uuid = ?";
+        String query = "SELECT * FROM " + prefix + "manipulator WHERE uuid = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);

@@ -23,9 +23,11 @@ public class TVMResultSetTachyon {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final List<TVMTachyon> vms = new ArrayList<TVMTachyon>();
+    private final String prefix;
 
     public TVMResultSetTachyon(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
+        this.prefix = this.plugin.getPrefix();
     }
 
     /**
@@ -38,7 +40,7 @@ public class TVMResultSetTachyon {
     public boolean resultSet() {
         Statement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM manipulator";
+        String query = "SELECT * FROM " + prefix + "manipulator";
         try {
             service.testConnection(connection);
             statement = connection.createStatement();

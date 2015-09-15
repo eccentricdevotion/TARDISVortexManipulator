@@ -39,9 +39,11 @@ public class TVMQueryFactory {
     private final TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
     Connection connection = service.getConnection();
+    private final String prefix;
 
     public TVMQueryFactory(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
+        this.prefix = this.plugin.getPrefix();
     }
 
     /**
@@ -81,21 +83,19 @@ public class TVMQueryFactory {
         questions = sbq.toString().substring(0, sbq.length() - 1);
         try {
             service.testConnection(connection);
-            ps = connection.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + questions + ")", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO " + prefix + table + " (" + fields + ") VALUES (" + questions + ")", PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
             for (Map.Entry<String, Object> entry : data.entrySet()) {
                 if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
                     ps.setString(i, entry.getValue().toString());
+                } else if (entry.getValue().getClass().getName().contains("Double")) {
+                    ps.setDouble(i, TARDISNumberParsers.parseDouble(entry.getValue().toString()));
+                } else if (entry.getValue().getClass().getName().contains("Float")) {
+                    ps.setFloat(i, TARDISNumberParsers.parseFloat(entry.getValue().toString()));
+                } else if (entry.getValue().getClass().getName().contains("Long")) {
+                    ps.setLong(i, TARDISNumberParsers.parseLong(entry.getValue().toString()));
                 } else {
-                    if (entry.getValue().getClass().getName().contains("Double")) {
-                        ps.setDouble(i, TARDISNumberParsers.parseDouble(entry.getValue().toString()));
-                    } else if (entry.getValue().getClass().getName().contains("Float")) {
-                        ps.setFloat(i, TARDISNumberParsers.parseFloat(entry.getValue().toString()));
-                    } else if (entry.getValue().getClass().getName().contains("Long")) {
-                        ps.setLong(i, TARDISNumberParsers.parseLong(entry.getValue().toString()));
-                    } else {
-                        ps.setInt(i, TARDISNumberParsers.parseInt(entry.getValue().toString()));
-                    }
+                    ps.setInt(i, TARDISNumberParsers.parseInt(entry.getValue().toString()));
                 }
                 i++;
             }
@@ -171,7 +171,7 @@ public class TVMQueryFactory {
         }
         where.clear();
         values = sbw.toString().substring(0, sbw.length() - 5);
-        String query = "DELETE FROM " + table + " WHERE " + values;
+        String query = "DELETE FROM " + prefix + table + " WHERE " + values;
         try {
             service.testConnection(connection);
             statement = connection.createStatement();

@@ -31,6 +31,7 @@ public class TVMSetReadStatus implements Runnable {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final int id;
+    private final String prefix;
 
     /**
      * Sets the read status of a message. This method builds an SQL query string
@@ -42,12 +43,13 @@ public class TVMSetReadStatus implements Runnable {
     public TVMSetReadStatus(TARDISVortexManipulator plugin, int id) {
         this.plugin = plugin;
         this.id = id;
+        this.prefix = this.plugin.getPrefix();
     }
 
     @Override
     public void run() {
         Statement statement = null;
-        String query = "UPDATE messages SET read = 1 WHERE message_id = " + id;
+        String query = "UPDATE " + prefix + "messages SET read = 1 WHERE message_id = " + id;
         try {
             service.testConnection(connection);
             statement = connection.createStatement();

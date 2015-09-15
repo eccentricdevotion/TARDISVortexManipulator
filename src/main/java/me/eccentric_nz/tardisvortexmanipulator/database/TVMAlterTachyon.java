@@ -32,6 +32,7 @@ public class TVMAlterTachyon implements Runnable {
     private final Connection connection = service.getConnection();
     private final int amount;
     private final String uuid;
+    private final String prefix;
 
     /**
      * Adds or removes tachyons from a database table. This method builds an SQL
@@ -46,12 +47,13 @@ public class TVMAlterTachyon implements Runnable {
         this.plugin = plugin;
         this.amount = amount;
         this.uuid = uuid;
+        this.prefix = this.plugin.getPrefix();
     }
 
     @Override
     public void run() {
         Statement statement = null;
-        String query = "UPDATE manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" + uuid + "'";
+        String query = "UPDATE " + prefix + "manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" + uuid + "'";
         try {
             service.testConnection(connection);
             statement = connection.createStatement();

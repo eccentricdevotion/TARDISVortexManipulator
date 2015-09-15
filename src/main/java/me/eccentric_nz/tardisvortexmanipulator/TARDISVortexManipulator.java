@@ -46,6 +46,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private final List<UUID> beaconSetters = new ArrayList<UUID>();
     private final List<UUID> travellers = new ArrayList<UUID>();
     private PluginManager pm;
+    private String prefix;
 
     @Override
     public void onDisable() {
@@ -60,7 +61,9 @@ public class TARDISVortexManipulator extends JavaPlugin {
         saveDefaultConfig();
         new TVMConfig(this).checkConfig();
         pm = getServer().getPluginManager();
-        /* Get TARDIS */
+        /*
+         * Get TARDIS
+         */
         Plugin p = pm.getPlugin("TARDIS");
         if (p == null || !pm.isPluginEnabled("TARDIS")) {
             System.err.println("[TARDISVortexManipulator] Cannot find TARDIS!");
@@ -69,6 +72,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         }
         tardis = (TARDIS) p;
         tardisapi = tardis.getTardisAPI();
+        prefix = getConfig().getString("storage.mysql.prefix");
         loadDatabase();
         registerListeners();
         registerCommands();
@@ -82,6 +86,10 @@ public class TARDISVortexManipulator extends JavaPlugin {
 
     public TardisAPI getTardisAPI() {
         return tardisapi;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     /**

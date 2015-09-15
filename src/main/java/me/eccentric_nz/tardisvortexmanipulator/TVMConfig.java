@@ -70,13 +70,12 @@ public class TVMConfig {
         strOptions.put("storage.mysql.password", "mysecurepassword");
         strOptions.put("storage.mysql.url", "mysql://localhost:3306/TVM");
         strOptions.put("storage.mysql.user", "bukkit");
+        strOptions.put("storage.mysql.prefix", "");
     }
 
     /**
-     * Checks that the config file contains all the required entries. If entries
-     * are missing, then they are added with default values. Also checks that
-     * all current server worlds are added to the config, and any deleted worlds
-     * are removed.
+     * Checks that the configuration file contains all the required entries. If
+     * entries are missing, then they are added with default values.
      */
     public void checkConfig() {
         int i = 0;

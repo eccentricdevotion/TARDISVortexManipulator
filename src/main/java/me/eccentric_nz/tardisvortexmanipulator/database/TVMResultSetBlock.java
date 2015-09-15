@@ -26,10 +26,12 @@ public class TVMResultSetBlock {
     private final TARDISVortexManipulator plugin;
     private final String uuid;
     private final List<TVMBlock> blocks = new ArrayList<TVMBlock>();
+    private final String prefix;
 
     public TVMResultSetBlock(TARDISVortexManipulator plugin, String uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
+        this.prefix = this.plugin.getPrefix();
     }
 
     /**
@@ -42,7 +44,7 @@ public class TVMResultSetBlock {
     public boolean resultSet() {
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM beacons WHERE uuid = ?";
+        String query = "SELECT * FROM " + prefix + "beacons WHERE uuid = ?";
         try {
             service.testConnection(connection);
             statement = connection.prepareStatement(query);
