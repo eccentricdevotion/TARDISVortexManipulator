@@ -133,7 +133,7 @@ public class TVMCommand implements CommandExecutor {
                             return true;
                         }
                         // check world is enabled for travel
-                        if (!plugin.getTardisAPI().getWorlds().contains(args[0])) {
+                        if (!containsIgnoreCase(args[0], plugin.getTardisAPI().getWorlds())) {
                             player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
                             return true;
                         }
@@ -156,7 +156,7 @@ public class TVMCommand implements CommandExecutor {
                                 return true;
                             }
                             // check world is enabled for travel
-                            if (!plugin.getTardisAPI().getWorlds().contains(args[0])) {
+                            if (!containsIgnoreCase(args[0], plugin.getTardisAPI().getWorlds())) {
                                 player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
                                 return true;
                             }
@@ -229,6 +229,15 @@ public class TVMCommand implements CommandExecutor {
                 return true;
             } else {
                 player.sendMessage(plugin.getPluginName() + "You don't have a Vortex Manipulator in your hand!");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsIgnoreCase(String str, List<String> list) {
+        for (String s : list) {
+            if (s.equalsIgnoreCase(str)) {
                 return true;
             }
         }
