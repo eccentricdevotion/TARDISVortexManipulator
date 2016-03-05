@@ -50,7 +50,7 @@ public class TVMUtils {
                 @Override
                 public void run() {
                     thePlayer.teleport(theLocation);
-                    thePlayer.getWorld().playSound(theLocation, Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+                    thePlayer.getWorld().playSound(theLocation, Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
                 }
             }, 10L);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {

@@ -2,21 +2,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisvortexmanipulator</groupId>
     <artifactId>TARDISVortexManipulator</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <name>TARDISVortexManipulator</name>
     <repositories>
         <repository>
             <id>Spigot</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
-        <repository>
+        <!--<repository>
             <id>macgeek</id>
             <url>http://tardisjenkins.duckdns.org:8888</url>
         </repository>
         <repository>
             <id>Bromley Massive</id>
             <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
-        </repository>
+        </repository>-->
     </repositories>
     <build>
         <finalName>TARDISVortexManipulator</finalName>
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.9-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
             <exclusions>
