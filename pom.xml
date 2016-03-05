@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisvortexmanipulator</groupId>
     <artifactId>TARDISVortexManipulator</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.1</version>
     <name>TARDISVortexManipulator</name>
     <repositories>
         <repository>
