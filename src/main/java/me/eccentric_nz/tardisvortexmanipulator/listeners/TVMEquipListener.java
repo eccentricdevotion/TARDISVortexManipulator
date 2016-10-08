@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
+import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
@@ -72,6 +73,7 @@ public class TVMEquipListener implements Listener {
                     player.openInventory(vmg);
                 } else if (action.equals(Action.LEFT_CLICK_AIR) && plugin.getConfig().getBoolean("allow.look_at_block") && player.hasPermission("vm.lookatblock")) {
                     UUID uuid = player.getUniqueId();
+
                     int maxDistance = plugin.getConfig().getInt("max_look_at_distance");
                     Location bl = player.getTargetBlock(transparent, maxDistance).getLocation();
                     bl.add(0.0d, 1.0d, 0.0d);
@@ -91,6 +93,20 @@ public class TVMEquipListener implements Listener {
                         return;
                     }
                     player.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
+
+                    // Random malfunction
+                    if (Math.random() < plugin.getConfig().getInt("block_travel_malfunction_chance") / 100) {
+                        Parameters params = new Parameters(player, TVMUtils.getProtectionFlags());
+                        Location _bl = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
+
+                        // check to ensure we have a valid alternate location before triggering the malfunction
+                        // for this reason the actual malfunction rate may be lower than configured
+                        if (_bl != null) {
+                            player.sendMessage(plugin.getPluginName() + "Vortex travel malfunction. Attempting to land in safe location..");
+                            bl = _bl;
+                        }
+                    }
+
                     TVMUtils.movePlayers(players, bl, player.getLocation().getWorld());
                     // remove tachyons
                     new TVMQueryFactory(plugin).alterTachyons(uuid.toString(), -actual);

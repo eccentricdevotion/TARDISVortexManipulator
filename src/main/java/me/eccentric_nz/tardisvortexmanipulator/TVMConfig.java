@@ -55,6 +55,7 @@ public class TVMConfig {
         intOptions.put("tachyon_use.travel.saved", 50);
         intOptions.put("tachyon_use.travel.to_block", 75);
         intOptions.put("tachyon_use.travel.world", 150);
+        intOptions.put("block_travel_malfunction_chance", 0);
         // string
         strOptions.put("date_format", "dd/MM/YY HH:mm");
         strOptions.put("recipe.ingredients.B", "STONE_BUTTON");

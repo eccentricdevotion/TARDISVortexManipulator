@@ -98,28 +98,8 @@ public class TVMCommand implements CommandExecutor {
                     new TVMQueryFactory(plugin).alterTachyons(uuid, -required);
                     return true;
                 }
-                // set parameters
-                List<FLAG> flags = new ArrayList<FLAG>();
-                flags.add(FLAG.PERMS_AREA);
-                flags.add(FLAG.PERMS_NETHER);
-                flags.add(FLAG.PERMS_THEEND);
-                flags.add(FLAG.PERMS_WORLD);
-                if (plugin.getConfig().getBoolean("respect.factions")) {
-                    flags.add(FLAG.RESPECT_FACTIONS);
-                }
-                if (plugin.getConfig().getBoolean("respect.griefprevention")) {
-                    flags.add(FLAG.RESPECT_GRIEFPREVENTION);
-                }
-                if (plugin.getConfig().getBoolean("respect.towny")) {
-                    flags.add(FLAG.RESPECT_TOWNY);
-                }
-                if (plugin.getConfig().getBoolean("respect.worldborder")) {
-                    flags.add(FLAG.RESPECT_WORLDBORDER);
-                }
-                if (plugin.getConfig().getBoolean("respect.worldguard")) {
-                    flags.add(FLAG.RESPECT_WORLDGUARD);
-                }
-                Parameters params = new Parameters(player, flags);
+
+                Parameters params = new Parameters(player, TVMUtils.getProtectionFlags());
                 int required;
                 List<String> worlds = new ArrayList<String>();
                 Location l;

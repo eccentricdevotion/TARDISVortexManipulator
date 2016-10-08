@@ -3,7 +3,9 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
+import java.util.ArrayList;
 import java.util.List;
+import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
@@ -72,6 +74,35 @@ public class TVMUtils {
                 }
             }, 100L);
         }
+    }
+
+    /**
+     * Get world protection flags
+     *
+     * @return List of flags with parameters
+     */
+    public static List<FLAG> getProtectionFlags() {
+        List<FLAG> flags = new ArrayList<FLAG>();
+        flags.add(FLAG.PERMS_AREA);
+        flags.add(FLAG.PERMS_NETHER);
+        flags.add(FLAG.PERMS_THEEND);
+        flags.add(FLAG.PERMS_WORLD);
+        if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.factions")) {
+            flags.add(FLAG.RESPECT_FACTIONS);
+        }
+        if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.griefprevention")) {
+            flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+        }
+        if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.towny")) {
+            flags.add(FLAG.RESPECT_TOWNY);
+        }
+        if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.worldborder")) {
+            flags.add(FLAG.RESPECT_WORLDBORDER);
+        }
+        if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.worldguard")) {
+            flags.add(FLAG.RESPECT_WORLDGUARD);
+        }
+        return flags;
     }
 
     /**
