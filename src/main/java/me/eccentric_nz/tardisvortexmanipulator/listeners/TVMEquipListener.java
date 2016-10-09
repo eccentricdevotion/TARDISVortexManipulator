@@ -6,6 +6,7 @@ package me.eccentric_nz.tardisvortexmanipulator.listeners;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
@@ -95,16 +96,28 @@ public class TVMEquipListener implements Listener {
                     player.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
 
                     // Random malfunction
-                    if (Math.random() < plugin.getConfig().getInt("block_travel_malfunction_chance") / 100) {
+                    Random rnd  = new Random();
+                    if (rnd.nextInt(100) < plugin.getConfig().getInt("block_travel_malfunction_chance")) {
+                        plugin.debug(player.getDisplayName() + " has malfunctioned");
                         Parameters params = new Parameters(player, TVMUtils.getProtectionFlags());
-                        Location _bl = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
-
+                        Location _bl = null;
+                        
+                        // since the TARDIS api is a little funky at times, retry up to ten times if a location isn't found
+                        // this will exponentially increase the accuracy of the configured chance
+                        int retries = 0;
+                        while (_bl == null) {
+                            _bl = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
+                            retries++;
+                            if (retries >= 10) break;
+                        }
+                        
                         // check to ensure we have a valid alternate location before triggering the malfunction
                         // for this reason the actual malfunction rate may be lower than configured
                         if (_bl != null) {
                             player.sendMessage(plugin.getPluginName() + "Vortex travel malfunction. Attempting to land in safe location..");
                             bl = _bl;
                         }
+                    } else {
                     }
 
                     TVMUtils.movePlayers(players, bl, player.getLocation().getWorld());
