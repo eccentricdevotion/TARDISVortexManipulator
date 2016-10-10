@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.9.2-R0.1-SNAPSHOT</version>
+            <version>1.10.2-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
             <exclusions>
@@ -138,16 +138,8 @@
                     <artifactId>Towny</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>me.eccentric_nz.tardishelper</groupId>
-                    <artifactId>TARDISHelper</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>me.eccentric_nz.tardischunkgenerator</groupId>
                     <artifactId>TARDISChunkGenerator</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.comphenix.protocol</groupId>
-                    <artifactId>ProtocolLib-Spigot</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.onarandombox.multiverseinventories</groupId>
@@ -172,10 +164,6 @@
                 <exclusion>
                     <groupId>me.ryanhamshire</groupId>
                     <artifactId>GriefPrevention</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>me.confuser</groupId>
-                    <artifactId>BarAPI</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.comphenix.protocol</groupId>
