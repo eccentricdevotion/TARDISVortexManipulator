@@ -37,7 +37,7 @@ public class TVMCommandActivate implements CommandExecutor {
             // check for existing record
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
             if (!rs.resultSet()) {
-                HashMap<String, Object> set = new HashMap<String, Object>();
+                HashMap<String, Object> set = new HashMap<>();
                 set.put("uuid", uuid);
                 new TVMQueryFactory(plugin).doInsert("manipulator", set);
                 sender.sendMessage(plugin.getPluginName() + "Vortex Manipulator activated!");

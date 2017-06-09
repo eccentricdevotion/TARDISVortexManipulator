@@ -11,7 +11,6 @@ import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetWarpByName;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -82,15 +81,12 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         if (page > 1) {
             final int start = (page * 44) - 44;
             close(p);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, p.getUniqueId().toString());
-                    ItemStack[] gui = tvms.getGUI();
-                    Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
-                    vmg.setContents(gui);
-                    p.openInventory(vmg);
-                }
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, p.getUniqueId().toString());
+                ItemStack[] gui = tvms.getGUI();
+                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
+                vmg.setContents(gui);
+                p.openInventory(vmg);
             }, 2L);
         }
     }
@@ -99,15 +95,12 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         int page = getPageNumber(inv);
         final int start = (page * 44) + 44;
         close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvms.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, p.getUniqueId().toString());
+            ItemStack[] gui = tvms.getGUI();
+            Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
+            vmg.setContents(gui);
+            p.openInventory(vmg);
         }, 2L);
     }
 
@@ -119,7 +112,7 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
                 close(p);
-                HashMap<String, Object> where = new HashMap<String, Object>();
+                HashMap<String, Object> where = new HashMap<>();
                 where.put("save_id", rss.getId());
                 new TVMQueryFactory(plugin).doDelete("saves", where);
                 p.sendMessage(plugin.getPluginName() + "Save deleted.");
@@ -137,14 +130,14 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
                 close(p);
-                List<Player> players = new ArrayList<Player>();
+                List<Player> players = new ArrayList<>();
                 players.add(p);
                 if (plugin.getConfig().getBoolean("allow.multiple")) {
-                    for (Entity e : p.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                    p.getNearbyEntities(0.5d, 0.5d, 0.5d).forEach((e) -> {
                         if (e instanceof Player && !e.getUniqueId().equals(p.getUniqueId())) {
                             players.add((Player) e);
                         }
-                    }
+                    });
                 }
                 int required = plugin.getConfig().getInt("tachyon_use.travel.saved") * players.size();
                 if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {

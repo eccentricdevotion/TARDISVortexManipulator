@@ -22,7 +22,7 @@ public class TVMResultSetTachyon {
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
-    private final List<TVMTachyon> vms = new ArrayList<TVMTachyon>();
+    private final List<TVMTachyon> vms = new ArrayList<>();
     private final String prefix;
 
     public TVMResultSetTachyon(TARDISVortexManipulator plugin) {

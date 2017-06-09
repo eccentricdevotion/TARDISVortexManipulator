@@ -42,9 +42,9 @@ public class TARDISVortexManipulator extends JavaPlugin {
     private TARDIS tardis;
     public static TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
-    private final List<Location> blocks = new ArrayList<Location>();
-    private final List<UUID> beaconSetters = new ArrayList<UUID>();
-    private final List<UUID> travellers = new ArrayList<UUID>();
+    private final List<Location> blocks = new ArrayList<>();
+    private final List<UUID> beaconSetters = new ArrayList<>();
+    private final List<UUID> travellers = new ArrayList<>();
     private PluginManager pm;
     private String prefix;
 

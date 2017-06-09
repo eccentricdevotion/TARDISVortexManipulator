@@ -38,7 +38,7 @@ public class TVMCommandMessage implements CommandExecutor {
                 p.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
-            ItemStack is = p.getItemInHand();
+            ItemStack is = p.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 if (args.length < 2) {
                     p.sendMessage(plugin.getPluginName() + "Incorrect command usage!");
@@ -66,7 +66,7 @@ public class TVMCommandMessage implements CommandExecutor {
                                 sb.append(args[i]).append(" ");
                             }
                             String message = sb.toString();
-                            HashMap<String, Object> whereofp = new HashMap<String, Object>();
+                            HashMap<String, Object> whereofp = new HashMap<>();
                             whereofp.put("uuid_to", ofp_uuid);
                             whereofp.put("uuid_from", p.getUniqueId().toString());
                             whereofp.put("message", message);

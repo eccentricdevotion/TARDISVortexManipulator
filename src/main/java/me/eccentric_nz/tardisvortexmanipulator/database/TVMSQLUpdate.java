@@ -63,17 +63,17 @@ public class TVMSQLUpdate implements Runnable {
         String wheres;
         StringBuilder sbu = new StringBuilder();
         StringBuilder sbw = new StringBuilder();
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
+        data.entrySet().forEach((entry) -> {
             sbu.append(entry.getKey()).append(" = ?,");
-        }
-        for (Map.Entry<String, Object> entry : where.entrySet()) {
+        });
+        where.entrySet().forEach((entry) -> {
             sbw.append(entry.getKey()).append(" = ");
             if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
                 sbw.append("'").append(entry.getValue()).append("' AND ");
             } else {
                 sbw.append(entry.getValue()).append(" AND ");
             }
-        }
+        });
         where.clear();
         updates = sbu.toString().substring(0, sbu.length() - 1);
         wheres = sbw.toString().substring(0, sbw.length() - 5);

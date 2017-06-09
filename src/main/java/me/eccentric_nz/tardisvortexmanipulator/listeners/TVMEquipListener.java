@@ -16,7 +16,6 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,7 +32,7 @@ import org.bukkit.inventory.ItemStack;
 public class TVMEquipListener implements Listener {
 
     private final TARDISVortexManipulator plugin;
-    private final HashSet<Material> transparent = new HashSet<Material>();
+    private final HashSet<Material> transparent = new HashSet<>();
 
     public TVMEquipListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
@@ -61,7 +60,7 @@ public class TVMEquipListener implements Listener {
         if (!player.hasPermission("vm.teleport")) {
             return;
         }
-        ItemStack is = player.getItemInHand();
+        ItemStack is = player.getInventory().getItemInMainHand();
         if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
             // get tachyon level
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
@@ -78,14 +77,14 @@ public class TVMEquipListener implements Listener {
                     int maxDistance = plugin.getConfig().getInt("max_look_at_distance");
                     Location bl = player.getTargetBlock(transparent, maxDistance).getLocation();
                     bl.add(0.0d, 1.0d, 0.0d);
-                    List<Player> players = new ArrayList<Player>();
+                    List<Player> players = new ArrayList<>();
                     players.add(player);
                     if (plugin.getConfig().getBoolean("allow.multiple")) {
-                        for (Entity e : player.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                        player.getNearbyEntities(0.5d, 0.5d, 0.5d).forEach((e) -> {
                             if (e instanceof Player && !e.getUniqueId().equals(uuid)) {
                                 players.add((Player) e);
                             }
-                        }
+                        });
                     }
                     int required = plugin.getConfig().getInt("tachyon_use.travel.to_block");
                     int actual = required * players.size();
@@ -96,21 +95,23 @@ public class TVMEquipListener implements Listener {
                     player.sendMessage(plugin.getPluginName() + "Standby for Vortex travel...");
 
                     // Random malfunction
-                    Random rnd  = new Random();
+                    Random rnd = new Random();
                     if (rnd.nextInt(100) < plugin.getConfig().getInt("block_travel_malfunction_chance")) {
                         plugin.debug(player.getDisplayName() + " has malfunctioned");
                         Parameters params = new Parameters(player, TVMUtils.getProtectionFlags());
                         Location _bl = null;
-                        
+
                         // since the TARDIS api is a little funky at times, retry up to ten times if a location isn't found
                         // this will exponentially increase the accuracy of the configured chance
                         int retries = 0;
                         while (_bl == null) {
                             _bl = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                             retries++;
-                            if (retries >= 10) break;
+                            if (retries >= 10) {
+                                break;
+                            }
                         }
-                        
+
                         // check to ensure we have a valid alternate location before triggering the malfunction
                         // for this reason the actual malfunction rate may be lower than configured
                         if (_bl != null) {

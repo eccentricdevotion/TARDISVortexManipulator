@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -40,7 +41,8 @@ public class TVMRecipe {
             im.setLore(Arrays.asList(plugin.getConfig().getString("recipe.lore").split("~")));
         }
         is.setItemMeta(im);
-        ShapedRecipe r = new ShapedRecipe(is);
+        NamespacedKey key = new NamespacedKey(plugin, "Vortex_Manipulator");
+        ShapedRecipe r = new ShapedRecipe(key, is);
         // get shape
         try {
             String[] shape_tmp = plugin.getConfig().getString("recipe.shape").split(",");
@@ -50,7 +52,7 @@ public class TVMRecipe {
             }
             r.shape(shape[0], shape[1], shape[2]);
             Set<String> ingredients = plugin.getConfig().getConfigurationSection("recipe.ingredients").getKeys(false);
-            for (String g : ingredients) {
+            ingredients.forEach((g) -> {
                 char c = g.charAt(0);
                 String[] recipe_iddata = plugin.getConfig().getString("recipe.ingredients." + g).split(":");
                 Material m = Material.valueOf(recipe_iddata[0]);
@@ -60,7 +62,7 @@ public class TVMRecipe {
                 } else {
                     r.setIngredient(c, m);
                 }
-            }
+            });
         } catch (IllegalArgumentException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + ChatColor.RED + "Recipe failed! " + ChatColor.RESET + "Check the config file!");
         }

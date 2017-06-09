@@ -5,7 +5,6 @@ import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetBlock;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMBlock;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,13 +31,13 @@ public class TVMMoveListener implements Listener {
             // remove beacon
             TVMResultSetBlock rs = new TVMResultSetBlock(plugin, uuid.toString());
             if (rs.resultSet()) {
-                for (TVMBlock tvmb : rs.getBlocks()) {
+                rs.getBlocks().forEach((tvmb) -> {
                     tvmb.getBlock().setType(tvmb.getType());
                     tvmb.getBlock().setData(tvmb.getData());
                     // remove protection
                     plugin.getBlocks().remove(tvmb.getBlock().getLocation());
-                }
-                HashMap<String, Object> where = new HashMap<String, Object>();
+                });
+                HashMap<String, Object> where = new HashMap<>();
                 where.put("uuid", uuid.toString());
                 new TVMQueryFactory(plugin).doDelete("beacons", where);
             }

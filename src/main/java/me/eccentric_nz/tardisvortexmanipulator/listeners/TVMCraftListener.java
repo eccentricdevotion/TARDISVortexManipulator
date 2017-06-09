@@ -39,7 +39,7 @@ public class TVMCraftListener implements Listener {
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
             if (!rs.resultSet()) {
                 // make a record
-                HashMap<String, Object> set = new HashMap<String, Object>();
+                HashMap<String, Object> set = new HashMap<>();
                 set.put("uuid", uuid);
                 new TVMQueryFactory(plugin).doInsert("manipulator", set);
             }

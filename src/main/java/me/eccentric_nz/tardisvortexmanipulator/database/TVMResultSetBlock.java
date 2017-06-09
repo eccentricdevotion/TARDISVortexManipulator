@@ -25,7 +25,7 @@ public class TVMResultSetBlock {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String uuid;
-    private final List<TVMBlock> blocks = new ArrayList<TVMBlock>();
+    private final List<TVMBlock> blocks = new ArrayList<>();
     private final String prefix;
 
     public TVMResultSetBlock(TARDISVortexManipulator plugin, String uuid) {

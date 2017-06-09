@@ -42,7 +42,7 @@ public class TVMCommandBeacon implements CommandExecutor {
                 p.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
-            ItemStack is = p.getItemInHand();
+            ItemStack is = p.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 int required = plugin.getConfig().getInt("tachyon_use.lifesigns");
                 if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
@@ -53,7 +53,7 @@ public class TVMCommandBeacon implements CommandExecutor {
                 String ustr = uuid.toString();
                 Location l = p.getLocation();
                 // potential griefing, we need to check the location first!
-                List<FLAG> flags = new ArrayList<FLAG>();
+                List<FLAG> flags = new ArrayList<>();
                 if (plugin.getConfig().getBoolean("respect.factions")) {
                     flags.add(FLAG.RESPECT_FACTIONS);
                 }
@@ -82,10 +82,10 @@ public class TVMCommandBeacon implements CommandExecutor {
                 qf.saveBeaconBlock(ustr, down);
                 down.setType(Material.IRON_BLOCK);
                 List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
-                for (BlockFace f : faces) {
+                faces.forEach((f) -> {
                     qf.saveBeaconBlock(ustr, down.getRelative(f));
                     down.getRelative(f).setType(Material.IRON_BLOCK);
-                }
+                });
                 plugin.getBeaconSetters().add(uuid);
                 // remove tachyons
                 qf.alterTachyons(ustr, -required);

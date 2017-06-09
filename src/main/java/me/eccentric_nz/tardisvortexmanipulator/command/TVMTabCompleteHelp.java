@@ -41,6 +41,6 @@ public class TVMTabCompleteHelp implements TabCompleter {
     }
 
     public List<String> partial(String token, Collection<String> from) {
-        return StringUtil.copyPartialMatches(token, from, new ArrayList<String>(from.size()));
+        return StringUtil.copyPartialMatches(token, from, new ArrayList<>(from.size()));
     }
 }

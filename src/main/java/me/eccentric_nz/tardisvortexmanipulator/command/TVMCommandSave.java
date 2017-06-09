@@ -36,7 +36,7 @@ public class TVMCommandSave implements CommandExecutor {
                 p.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
-            ItemStack is = p.getItemInHand();
+            ItemStack is = p.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 String uuid = p.getUniqueId().toString();
                 if (args.length == 0) {
@@ -71,7 +71,7 @@ public class TVMCommandSave implements CommandExecutor {
                         return true;
                     }
                     Location l = p.getLocation();
-                    HashMap<String, Object> set = new HashMap<String, Object>();
+                    HashMap<String, Object> set = new HashMap<>();
                     set.put("uuid", uuid);
                     set.put("save_name", args[0]);
                     set.put("world", l.getWorld().getName());

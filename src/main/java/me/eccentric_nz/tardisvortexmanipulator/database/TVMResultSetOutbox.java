@@ -26,7 +26,7 @@ public class TVMResultSetOutbox {
     private final TARDISVortexManipulator plugin;
     private final String where;
     private final int start, limit;
-    private final List<TVMMessage> mail = new ArrayList<TVMMessage>();
+    private final List<TVMMessage> mail = new ArrayList<>();
     private final String prefix;
 
     public TVMResultSetOutbox(TARDISVortexManipulator plugin, String where, int start, int limit) {

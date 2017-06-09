@@ -56,8 +56,8 @@ public class TVMCommandLifesigns implements CommandExecutor {
                     List<Entity> ents = p.getNearbyEntities(d, d, d);
                     if (ents.size() > 0) {
                         // record nearby entities
-                        final HashMap<EntityType, Integer> scannedentities = new HashMap<EntityType, Integer>();
-                        final List<String> playernames = new ArrayList<String>();
+                        final HashMap<EntityType, Integer> scannedentities = new HashMap<>();
+                        final List<String> playernames = new ArrayList<>();
                         for (Entity k : ents) {
                             EntityType et = k.getType();
                             if (TARDISConstants.ENTITY_TYPES.contains(et)) {
@@ -80,9 +80,9 @@ public class TVMCommandLifesigns implements CommandExecutor {
                             String message = "";
                             StringBuilder buf = new StringBuilder();
                             if (entry.getKey().equals(EntityType.PLAYER) && playernames.size() > 0) {
-                                for (String pn : playernames) {
+                                playernames.forEach((pn) -> {
                                     buf.append(", ").append(pn);
-                                }
+                                });
                                 message = " (" + buf.toString().substring(2) + ")";
                             }
                             p.sendMessage("    " + entry.getKey() + ": " + entry.getValue() + message);

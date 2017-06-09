@@ -59,9 +59,9 @@ public class TVMCommandGive implements CommandExecutor {
                         amount += tachyon_level;
                     }
                 }
-                HashMap<String, Object> set = new HashMap<String, Object>();
+                HashMap<String, Object> set = new HashMap<>();
                 set.put("tachyon_level", amount);
-                HashMap<String, Object> where = new HashMap<String, Object>();
+                HashMap<String, Object> where = new HashMap<>();
                 where.put("uuid", args[0]);
                 new TVMQueryFactory(plugin).doUpdate("manipulator", set, where);
                 sender.sendMessage(plugin.getPluginName() + "Tachyon level set to " + amount);

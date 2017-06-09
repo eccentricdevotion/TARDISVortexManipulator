@@ -5,7 +5,6 @@ package me.eccentric_nz.tardisvortexmanipulator;
 
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetTachyon;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMTachyon;
 import org.bukkit.entity.Player;
 
 /**
@@ -31,7 +30,7 @@ public class TVMTachyonRunnable implements Runnable {
         // get Vortex manipulators
         TVMResultSetTachyon rs = new TVMResultSetTachyon(plugin);
         if (rs.resultSet()) {
-            for (TVMTachyon t : rs.getMaipulators()) {
+            rs.getMaipulators().forEach((t) -> {
                 // player must be online to recharge
                 Player p = plugin.getServer().getPlayer(t.getUuid());
                 if (p != null && p.isOnline()) {
@@ -44,7 +43,7 @@ public class TVMTachyonRunnable implements Runnable {
                         qf.alterTachyons(t.getUuid().toString(), max - t.getLevel());
                     }
                 }
-            }
+            });
         }
     }
 }

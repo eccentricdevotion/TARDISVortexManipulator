@@ -77,81 +77,81 @@ public class Main {
                 console.println("***** ERROR: Could not connect to SQLite database!");
                 return;
             }
-            BufferedWriter bw = new BufferedWriter(new FileWriter(mysql, false));
-            bw.write("-- TARDISVortexManipulator SQL Dump");
-            bw.newLine();
-            bw.newLine();
-            bw.write("SET SQL_MODE = \"NO_AUTO_VALUE_ON_ZERO\";");
-            bw.newLine();
-            bw.newLine();
-            Statement statement = connection.createStatement();
-            int i = 0;
-            for (SQL.TABLE table : SQL.TABLE.values()) {
-                console.println("Reading and writing " + table.toString() + " table");
-                bw.write(SQL.SEPARATOR);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(mysql, false))) {
+                bw.write("-- TARDISVortexManipulator SQL Dump");
                 bw.newLine();
                 bw.newLine();
-                bw.write(SQL.COMMENT);
-                bw.newLine();
-                bw.write(SQL.STRUCTURE + table.toString());
-                bw.newLine();
-                bw.write(SQL.COMMENT);
+                bw.write("SET SQL_MODE = \"NO_AUTO_VALUE_ON_ZERO\";");
                 bw.newLine();
                 bw.newLine();
-                bw.write(String.format(SQL.CREATES.get(i), prefix));
-                bw.newLine();
-                bw.newLine();
-                String count = "SELECT COUNT(*) AS count FROM " + table.toString();
-                ResultSet rsc = statement.executeQuery(count);
-                if (rsc.isBeforeFirst()) {
-                    rsc.next();
-                    int c = rsc.getInt("count");
-                    console.println("Found " + c + " " + table.toString() + " records");
-                    String query = "SELECT * FROM " + table.toString();
-                    ResultSet rs = statement.executeQuery(query);
-                    if (rs.isBeforeFirst()) {
-                        int b = 1;
-                        bw.write(SQL.COMMENT);
-                        bw.newLine();
-                        bw.write(SQL.DUMP + table.toString());
-                        bw.newLine();
-                        bw.write(SQL.COMMENT);
-                        bw.newLine();
-                        bw.newLine();
-                        bw.write(String.format(SQL.INSERTS.get(i), prefix));
-                        bw.newLine();
-                        while (rs.next()) {
-                            String end = (b == c) ? ";" : ",";
-                            b++;
-                            String str;
-                            switch (table) {
-                                case beacons:
-                                    str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) + end;
-                                    bw.write(str);
-                                    break;
-                                case manipulator:
-                                    str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) + end;
-                                    bw.write(str);
-                                    break;
-                                case messages:
-                                    str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) + end;
-                                    bw.write(str);
-                                    break;
-                                case saves:
-                                    str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) + end;
-                                    bw.write(str);
-                                    break;
-                                default:
-                                    break;
-                            }
+                Statement statement = connection.createStatement();
+                int i = 0;
+                for (SQL.TABLE table : SQL.TABLE.values()) {
+                    console.println("Reading and writing " + table.toString() + " table");
+                    bw.write(SQL.SEPARATOR);
+                    bw.newLine();
+                    bw.newLine();
+                    bw.write(SQL.COMMENT);
+                    bw.newLine();
+                    bw.write(SQL.STRUCTURE + table.toString());
+                    bw.newLine();
+                    bw.write(SQL.COMMENT);
+                    bw.newLine();
+                    bw.newLine();
+                    bw.write(String.format(SQL.CREATES.get(i), prefix));
+                    bw.newLine();
+                    bw.newLine();
+                    String count = "SELECT COUNT(*) AS count FROM " + table.toString();
+                    ResultSet rsc = statement.executeQuery(count);
+                    if (rsc.isBeforeFirst()) {
+                        rsc.next();
+                        int c = rsc.getInt("count");
+                        console.println("Found " + c + " " + table.toString() + " records");
+                        String query = "SELECT * FROM " + table.toString();
+                        ResultSet rs = statement.executeQuery(query);
+                        if (rs.isBeforeFirst()) {
+                            int b = 1;
+                            bw.write(SQL.COMMENT);
                             bw.newLine();
+                            bw.write(SQL.DUMP + table.toString());
+                            bw.newLine();
+                            bw.write(SQL.COMMENT);
+                            bw.newLine();
+                            bw.newLine();
+                            bw.write(String.format(SQL.INSERTS.get(i), prefix));
+                            bw.newLine();
+                            while (rs.next()) {
+                                String end = (b == c) ? ";" : ",";
+                                b++;
+                                String str;
+                                switch (table) {
+                                    case beacons:
+                                        str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) + end;
+                                        bw.write(str);
+                                        break;
+                                    case manipulator:
+                                        str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) + end;
+                                        bw.write(str);
+                                        break;
+                                    case messages:
+                                        str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) + end;
+                                        bw.write(str);
+                                        break;
+                                    case saves:
+                                        str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) + end;
+                                        bw.write(str);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                bw.newLine();
+                            }
                         }
                     }
+                    i++;
                 }
-                i++;
+                bw.write(SQL.SEPARATOR);
             }
-            bw.write(SQL.SEPARATOR);
-            bw.close();
         } catch (SQLException ex) {
             console.println("***** SQL ERROR: " + ex.getMessage());
             return;

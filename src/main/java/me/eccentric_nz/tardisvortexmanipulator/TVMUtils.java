@@ -11,7 +11,6 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -43,37 +42,29 @@ public class TVMUtils {
         final World to = theLocation.getWorld();
         final boolean crossWorlds = from != to;
 
-        for (Player p : players) {
+        players.stream().map((p) -> {
             final Player thePlayer = p;
             TARDISVortexManipulator.plugin.getTravellers().add(p.getUniqueId());
             final boolean allowFlight = thePlayer.getAllowFlight();
-
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    thePlayer.teleport(theLocation);
-                    thePlayer.getWorld().playSound(theLocation, Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
-                }
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
+                thePlayer.teleport(theLocation);
+                thePlayer.getWorld().playSound(theLocation, Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
             }, 10L);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    thePlayer.teleport(theLocation);
-                    thePlayer.setNoDamageTicks(200);
-                    if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
-                        thePlayer.setAllowFlight(true);
-                    }
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
+                thePlayer.teleport(theLocation);
+                thePlayer.setNoDamageTicks(200);
+                if (thePlayer.getGameMode() == GameMode.CREATIVE || (allowFlight && crossWorlds)) {
+                    thePlayer.setAllowFlight(true);
                 }
             }, 15L);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    if (TARDISVortexManipulator.plugin.getTravellers().contains(thePlayer.getUniqueId())) {
-                        TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId());
-                    }
+            return thePlayer;
+        }).forEachOrdered((thePlayer) -> {
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
+                if (TARDISVortexManipulator.plugin.getTravellers().contains(thePlayer.getUniqueId())) {
+                    TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId());
                 }
             }, 100L);
-        }
+        });
     }
 
     /**
@@ -82,7 +73,7 @@ public class TVMUtils {
      * @return List of flags with parameters
      */
     public static List<FLAG> getProtectionFlags() {
-        List<FLAG> flags = new ArrayList<FLAG>();
+        List<FLAG> flags = new ArrayList<>();
         flags.add(FLAG.PERMS_AREA);
         flags.add(FLAG.PERMS_NETHER);
         flags.add(FLAG.PERMS_THEEND);
@@ -129,9 +120,9 @@ public class TVMUtils {
      */
     public static void sendSaveList(Player p, TVMResultSetSaves rss, int page) {
         p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Saves (page " + page + ":");
-        for (TVMSave s : rss.getSaves()) {
+        rss.getSaves().forEach((s) -> {
             p.sendMessage(s.getName() + " - " + s.getWorld() + ":" + s.getX() + ":" + s.getY() + ":" + s.getZ());
-        }
+        });
     }
 
     /**
@@ -143,10 +134,10 @@ public class TVMUtils {
      */
     public static void sendInboxList(Player p, TVMResultSetInbox rsi, int page) {
         p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + "):");
-        for (TVMMessage m : rsi.getMail()) {
+        rsi.getMail().forEach((m) -> {
             ChatColor colour = (m.isRead()) ? ChatColor.DARK_GRAY : ChatColor.GRAY;
             p.sendMessage(colour + "" + m.getId() + ": " + m.getDate() + " - " + m.getMessage().substring(0, 12));
-        }
+        });
     }
 
     /**
@@ -158,9 +149,9 @@ public class TVMUtils {
      */
     public static void sendOutboxList(Player p, TVMResultSetOutbox rso, int page) {
         p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + "):");
-        for (TVMMessage m : rso.getMail()) {
+        rso.getMail().forEach((m) -> {
             p.sendMessage(m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12));
-        }
+        });
     }
 
     /**

@@ -78,15 +78,12 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         if (page > 1) {
             final int start = (page * 44) - 44;
             close(p);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
-                    ItemStack[] gui = tvmm.getGUI();
-                    Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-                    vmg.setContents(gui);
-                    p.openInventory(vmg);
-                }
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
+                ItemStack[] gui = tvmm.getGUI();
+                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
+                vmg.setContents(gui);
+                p.openInventory(vmg);
             }, 2L);
         }
     }
@@ -95,15 +92,12 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         int page = getPageNumber(inv);
         final int start = (page * 44) + 44;
         close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvmm.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
+            ItemStack[] gui = tvmm.getGUI();
+            Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
+            vmg.setContents(gui);
+            p.openInventory(vmg);
         }, 2L);
     }
 
@@ -134,7 +128,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(p);
-                HashMap<String, Object> where = new HashMap<String, Object>();
+                HashMap<String, Object> where = new HashMap<>();
                 where.put("message_id", message_id);
                 new TVMQueryFactory(plugin).doDelete("messages", where);
                 p.sendMessage(plugin.getPluginName() + "Message deleted.");

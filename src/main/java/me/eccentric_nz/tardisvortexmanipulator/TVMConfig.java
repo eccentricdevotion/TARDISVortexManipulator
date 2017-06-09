@@ -16,9 +16,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class TVMConfig {
 
-    HashMap<String, String> strOptions = new HashMap<String, String>();
-    HashMap<String, Integer> intOptions = new HashMap<String, Integer>();
-    HashMap<String, Boolean> boolOptions = new HashMap<String, Boolean>();
+    HashMap<String, String> strOptions = new HashMap<>();
+    HashMap<String, Integer> intOptions = new HashMap<>();
+    HashMap<String, Boolean> boolOptions = new HashMap<>();
     private FileConfiguration config = null;
     private File configFile = null;
     private final TARDISVortexManipulator plugin;

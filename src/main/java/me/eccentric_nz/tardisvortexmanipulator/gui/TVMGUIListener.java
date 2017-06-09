@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDISConstants;
@@ -19,6 +18,7 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -280,15 +280,19 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         resetTrackers();
                         break;
                     case 53:
-                        if (which == 4) {
-                            // save
-                            saveCurrentLocation(player, inv);
-                        } else if (which == 5) {
-                            // scan
-                            scanLifesigns(player, inv);
-                        } else {
-                            // warp
-                            doWarp(player, inv);
+                        switch (which) {
+                            case 4:
+                                // save
+                                saveCurrentLocation(player, inv);
+                                break;
+                            case 5:
+                                // scan
+                                scanLifesigns(player, inv);
+                                break;
+                            default:
+                                // warp
+                                doWarp(player, inv);
+                                break;
                         }
                         break;
                     default:
@@ -360,7 +364,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             return;
         }
         Location l = p.getLocation();
-        HashMap<String, Object> set = new HashMap<String, Object>();
+        HashMap<String, Object> set = new HashMap<>();
         set.put("uuid", p.getUniqueId().toString());
         set.put("save_name", lore.get(0));
         set.put("world", l.getWorld().getName());
@@ -399,9 +403,9 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             List<Entity> ents = p.getNearbyEntities(d, d, d);
             if (ents.size() > 0) {
                 // record nearby entities
-                final HashMap<EntityType, Integer> scannedentities = new HashMap<EntityType, Integer>();
-                final List<String> playernames = new ArrayList<String>();
-                for (Entity k : ents) {
+                final HashMap<EntityType, Integer> scannedentities = new HashMap<>();
+                final List<String> playernames = new ArrayList<>();
+                ents.forEach((k) -> {
                     EntityType et = k.getType();
                     if (TARDISConstants.ENTITY_TYPES.contains(et)) {
                         Integer entity_count = (scannedentities.containsKey(et)) ? scannedentities.get(et) : 0;
@@ -418,18 +422,18 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                             scannedentities.put(et, entity_count + 1);
                         }
                     }
-                }
-                for (Map.Entry<EntityType, Integer> entry : scannedentities.entrySet()) {
+                });
+                scannedentities.entrySet().forEach((entry) -> {
                     String message = "";
                     StringBuilder buf = new StringBuilder();
                     if (entry.getKey().equals(EntityType.PLAYER) && playernames.size() > 0) {
-                        for (String pn : playernames) {
+                        playernames.forEach((pn) -> {
                             buf.append(", ").append(pn);
-                        }
+                        });
                         message = " (" + buf.toString().substring(2) + ")";
                     }
                     p.sendMessage("    " + entry.getKey() + ": " + entry.getValue() + message);
-                }
+                });
                 scannedentities.clear();
             } else {
                 p.sendMessage("No nearby entities.");
@@ -445,7 +449,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                 return;
             }
             // getHealth() / getMaxHealth() * getHealthScale()
-            double health = scanned.getHealth() / scanned.getMaxHealth() * scanned.getHealthScale();
+            double mh = scanned.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+            double health = scanned.getHealth() / mh * scanned.getHealthScale();
             float hunger = (scanned.getFoodLevel() / 20F) * 100;
             int air = scanned.getRemainingAir();
             p.sendMessage(plugin.getPluginName() + pname + "'s lifesigns:");
@@ -458,15 +463,12 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
 
     private void loadSaves(final Player p) {
         close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMSavesGUI tvms = new TVMSavesGUI(plugin, 0, 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvms.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            TVMSavesGUI tvms = new TVMSavesGUI(plugin, 0, 44, p.getUniqueId().toString());
+            ItemStack[] gui = tvms.getGUI();
+            Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Saves");
+            vmg.setContents(gui);
+            p.openInventory(vmg);
         }, 2L);
     }
 
@@ -476,15 +478,12 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             p.sendMessage(plugin.getPluginName() + "You don't have permission to use Vortex messages!");
             return;
         }
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvmm.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, p.getUniqueId().toString());
+            ItemStack[] gui = tvmm.getGUI();
+            Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
+            vmg.setContents(gui);
+            p.openInventory(vmg);
         }, 2L);
     }
 
@@ -501,7 +500,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             String ustr = uuid.toString();
             Location l = p.getLocation();
             // potential griefing, we need to check the location first!
-            List<FLAG> flags = new ArrayList<FLAG>();
+            List<FLAG> flags = new ArrayList<>();
             if (plugin.getConfig().getBoolean("respect.factions")) {
                 flags.add(FLAG.RESPECT_FACTIONS);
             }
@@ -530,10 +529,10 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             qf.saveBeaconBlock(ustr, down);
             down.setType(Material.IRON_BLOCK);
             List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
-            for (BlockFace f : faces) {
+            faces.forEach((f) -> {
                 qf.saveBeaconBlock(ustr, down.getRelative(f));
                 down.getRelative(f).setType(Material.IRON_BLOCK);
-            }
+            });
             plugin.getBeaconSetters().add(uuid);
             message = "Beacon signal set, don't move!";
             // remove tachyons
@@ -551,12 +550,12 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         if (!lore.get(0).trim().isEmpty()) {
             dest = Arrays.asList(lore.get(0).trim().split(" "));
         } else {
-            dest = new ArrayList<String>();
+            dest = new ArrayList<>();
         }
-        List<String> worlds = new ArrayList<String>();
+        List<String> worlds = new ArrayList<>();
         Location l;
         // set parameters
-        List<FLAG> flags = new ArrayList<FLAG>();
+        List<FLAG> flags = new ArrayList<>();
         flags.add(FLAG.PERMS_AREA);
         flags.add(FLAG.PERMS_NETHER);
         flags.add(FLAG.PERMS_THEEND);
@@ -667,14 +666,14 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         }
         if (l != null) {
             close(p);
-            List<Player> players = new ArrayList<Player>();
+            List<Player> players = new ArrayList<>();
             players.add(p);
             if (plugin.getConfig().getBoolean("allow.multiple")) {
-                for (Entity e : p.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
+                p.getNearbyEntities(0.5d, 0.5d, 0.5d).forEach((e) -> {
                     if (e instanceof Player && !e.getUniqueId().equals(uuid)) {
                         players.add((Player) e);
                     }
-                }
+                });
             }
             int actual = required * players.size();
             if (!TVMUtils.checkTachyonLevel(uuid.toString(), actual)) {
@@ -702,10 +701,10 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             return;
         }
         Set<Integer> slots = event.getRawSlots();
-        for (Integer slot : slots) {
+        slots.forEach((slot) -> {
             if ((slot >= 0 && slot < 81)) {
                 event.setCancelled(true);
             }
-        }
+        });
     }
 }

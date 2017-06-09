@@ -3,7 +3,6 @@ package me.eccentric_nz.tardisvortexmanipulator.command;
 import java.util.ArrayList;
 import java.util.List;
 import me.eccentric_nz.TARDIS.api.Parameters;
-import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
@@ -48,7 +47,7 @@ public class TVMCommand implements CommandExecutor {
                 player.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
-            ItemStack is = player.getItemInHand();
+            ItemStack is = player.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 String uuid = player.getUniqueId().toString();
                 if (args.length > 0 && args[0].equalsIgnoreCase("gui")) {
@@ -79,7 +78,7 @@ public class TVMCommand implements CommandExecutor {
                     while (!l.getChunk().isLoaded()) {
                         l.getChunk().load();
                     }
-                    List<Player> players = new ArrayList<Player>();
+                    List<Player> players = new ArrayList<>();
                     players.add(player);
                     if (plugin.getConfig().getBoolean("allow.multiple")) {
                         for (Entity e : player.getNearbyEntities(0.5d, 0.5d, 0.5d)) {
@@ -101,7 +100,7 @@ public class TVMCommand implements CommandExecutor {
 
                 Parameters params = new Parameters(player, TVMUtils.getProtectionFlags());
                 int required;
-                List<String> worlds = new ArrayList<String>();
+                List<String> worlds = new ArrayList<>();
                 Location l;
                 switch (args.length) {
                     case 1:
@@ -179,7 +178,7 @@ public class TVMCommand implements CommandExecutor {
                         l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
                         break;
                 }
-                List<Player> players = new ArrayList<Player>();
+                List<Player> players = new ArrayList<>();
                 players.add(player);
                 if (plugin.getConfig().getBoolean("allow.multiple")) {
                     for (Entity e : player.getNearbyEntities(0.5d, 0.5d, 0.5d)) {

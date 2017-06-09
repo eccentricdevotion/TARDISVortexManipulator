@@ -24,7 +24,7 @@ public class TVMResultSetSaves {
     private final TARDISVortexManipulator plugin;
     private final String uuid;
     private final int start, limit;
-    private final List<TVMSave> saves = new ArrayList<TVMSave>();
+    private final List<TVMSave> saves = new ArrayList<>();
     private final String prefix;
 
     public TVMResultSetSaves(TARDISVortexManipulator plugin, String uuid, int start, int limit) {

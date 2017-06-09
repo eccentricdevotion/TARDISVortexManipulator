@@ -23,7 +23,7 @@ public class TVMSavesGUI {
     private final int start, finish;
     private final String uuid;
     private final ItemStack[] gui;
-    private final HashMap<String, Material> blocks = new HashMap<String, Material>();
+    private final HashMap<String, Material> blocks = new HashMap<>();
 
     public TVMSavesGUI(TARDISVortexManipulator plugin, int start, int finish, String uuid) {
         this.plugin = plugin;

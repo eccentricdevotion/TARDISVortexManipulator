@@ -75,10 +75,10 @@ public class TVMQueryFactory {
         String questions;
         StringBuilder sbf = new StringBuilder();
         StringBuilder sbq = new StringBuilder();
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
+        data.entrySet().forEach((entry) -> {
             sbf.append(entry.getKey()).append(",");
             sbq.append("?,");
-        }
+        });
         fields = sbf.toString().substring(0, sbf.length() - 1);
         questions = sbq.toString().substring(0, sbq.length() - 1);
         try {
@@ -161,14 +161,14 @@ public class TVMQueryFactory {
         Statement statement = null;
         String values;
         StringBuilder sbw = new StringBuilder();
-        for (Map.Entry<String, Object> entry : where.entrySet()) {
+        where.entrySet().forEach((entry) -> {
             sbw.append(entry.getKey()).append(" = ");
             if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
                 sbw.append("'").append(entry.getValue()).append("' AND ");
             } else {
                 sbw.append(entry.getValue()).append(" AND ");
             }
-        }
+        });
         where.clear();
         values = sbw.toString().substring(0, sbw.length() - 5);
         String query = "DELETE FROM " + prefix + table + " WHERE " + values;
@@ -202,7 +202,7 @@ public class TVMQueryFactory {
         plugin.getBlocks().add(loc);
         String type = b.getType().toString();
         byte data = b.getData();
-        HashMap<String, Object> set = new HashMap<String, Object>();
+        HashMap<String, Object> set = new HashMap<>();
         set.put("uuid", uuid);
         set.put("location", loc.toString());
         set.put("block_type", type);

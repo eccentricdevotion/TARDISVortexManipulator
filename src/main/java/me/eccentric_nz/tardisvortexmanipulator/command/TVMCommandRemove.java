@@ -33,7 +33,7 @@ public class TVMCommandRemove implements CommandExecutor {
                 p.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
             }
-            ItemStack is = p.getItemInHand();
+            ItemStack is = p.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 if (args.length < 1) {
                     p.sendMessage(plugin.getPluginName() + "You need to specify a save name!");
@@ -46,7 +46,7 @@ public class TVMCommandRemove implements CommandExecutor {
                     p.sendMessage(plugin.getPluginName() + "No save with that name exists! Try using /vms to list saves.");
                     return true;
                 }
-                HashMap<String, Object> where = new HashMap<String, Object>();
+                HashMap<String, Object> where = new HashMap<>();
                 where.put("uuid", uuid);
                 where.put("save_name", args[0]);
                 new TVMQueryFactory(plugin).doDelete("saves", where);
