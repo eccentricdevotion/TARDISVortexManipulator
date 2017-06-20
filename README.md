@@ -15,7 +15,7 @@ This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARD
 ##Crafting
 Crafting is a little complicated, as it's an advanced piece of technology. Requirements for crafting are (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
 
-![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulator.jpg)
+![Vortex Manipulator crafting recipe](https://www.dropbox.com/s/q9mpoqwqzrrtg0f/vortexmanipulator.jpg?dl=1)
 ![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
 
 ##Multi-world support
@@ -73,7 +73,7 @@ There are configuration options that allow for energy usage, recharging, and oth
 ##GUI
 Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI is provided as well.
 
-![GUI](https://dl.dropboxusercontent.com/u/53758864/vortexmanipulatorGUI.jpg)
+![GUI](https://www.dropbox.com/s/5leuk3rat62a3k0/vortexmanipulatorGUI.jpg?dl=1)
 
 ##Commands
 
