@@ -1,27 +1,27 @@
-#TARDIS Vortex Manipulator
+# TARDIS Vortex Manipulator
 
 Plugin request: [http://forums.bukkit.org/threads/request-vortex-manipulator.323227/](http://forums.bukkit.org/threads/request-vortex-manipulator.323227/), initiator: roracle
 
 We like a challenge :)
 
-##What it is
+## What it is
 "Vortex manipulator. Cheap and nasty time travel. Very bad for you. I'm trying to give it up."
 
 Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipulator in your hand, put in your desired location, and GO!
 
-##Dependencies
+## Dependencies
 This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARDIS/) plugin API, so you must have TARDIS installed as well.
 
-##Crafting
+## Crafting
 Crafting is a little complicated, as it's an advanced piece of technology. Requirements for crafting are (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
 
 ![Vortex Manipulator crafting recipe](https://www.dropbox.com/s/q9mpoqwqzrrtg0f/vortexmanipulator.jpg?dl=1)
 ![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
 
-##Multi-world support
+## Multi-world support
 The plugin works with Multiverse (or other multi-word plugin), remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Borders (plugin and the 1.8 default if possible). Towny/Faction/WorldGuard/GriefPrevention suport can be enabled via the config.
 
-##Configuration
+## Configuration
 There are configuration options that allow for energy usage, recharging, and other things. The various features use different levels of energy, while charging is on a timer, gaining so much charge every minute or so.
 
     allow:
@@ -70,29 +70,29 @@ There are configuration options that allow for energy usage, recharging, and oth
     debug: false
 
 
-##GUI
+## GUI
 Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI is provided as well.
 
 ![GUI](https://www.dropbox.com/s/5leuk3rat62a3k0/vortexmanipulatorGUI.jpg?dl=1)
 
-##Commands
+## Commands
 
-####Help
+#### Help
 * `/vmh {subject}` or `/vm help`  - This will display help and commands for the plugin
 
-####Travel
+#### Travel
 
 * `/vm {worldname}` - Teleport to a random location in the specified world
 * `/vm {worldname} {X} {Y} {Z}` - Teleport to specific location in the specified world
 * `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
 * `/vm go {custom}` - Teleport to saved location
 
-####Saves
+#### Saves
 
 * `/vms {custom}` - Save a specific location
 * `/vmr {custom}` - Remove saved location
 
-####Messaging
+#### Messaging
 
 * `/vmm msg {player} {message}` - Send message to other user with a device
 * `/vmm list {in/out} [page]` - See received or sent messages
@@ -100,22 +100,22 @@ Because the device in the TV show has buttons and a lot of pushing of them, it w
 * `/vmm delete {#}` - Delete specific message
 * `/vmm clear {in/out}` - Clearing "in" deletes all inbox messages, and clearing "out" deletes all outbox messages
 
-####Lifesigns
+#### Lifesigns
 
 * `/vml` - list entities nearby, mobs and players
 * `/vml` {player} - Gets health and hunger of a player, possibly oxygen level too.
 
-####Beacon
+#### Beacon
 
 * `/vmb` - send out a beacon signal that lasts until the player moves
 
-##Permissions: 
+## Permissions: 
 * `vm.teleport` - allow crafting and using of a Vortex Manipulator
 * `vm.message` - for messaging system
 * `vm.lifesigns` - detect lifesigns and info on players
 * `vm.beacon` - activate the beacon feature
 
-##When it'll be released
+## When it'll be released
 Time is a funny thing isn't it?
 
 Development builds are available from the [TARDIS Jenkins Server](http://tardisjenkins.duckdns.org:8080/job/TARDISVortexManipulator/lastSuccessfulBuild/me.eccentric_nz.tardisvortexmanipulator$TARDISVortexManipulator/)
