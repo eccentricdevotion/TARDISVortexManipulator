@@ -24,6 +24,7 @@ public class TVMCommandMessage implements CommandExecutor {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vmm")) {
             Player p = null;
@@ -148,7 +149,7 @@ public class TVMCommandMessage implements CommandExecutor {
                             if (delete_id != -1) {
                                 TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, delete_id);
                                 if (rsm.resultSet()) {
-                                    HashMap<String, Object> where = new HashMap<String, Object>();
+                                    HashMap<String, Object> where = new HashMap<>();
                                     where.put("message_id", delete_id);
                                     new TVMQueryFactory(plugin).doDelete("messages", where);
                                     p.sendMessage(plugin.getPluginName() + "Message deleted.");
@@ -165,7 +166,7 @@ public class TVMCommandMessage implements CommandExecutor {
                                 return true;
                             }
                             TVMQueryFactory qf = new TVMQueryFactory(plugin);
-                            HashMap<String, Object> where = new HashMap<String, Object>();
+                            HashMap<String, Object> where = new HashMap<>();
                             String which = "Outbox";
                             if (args[1].equalsIgnoreCase("out")) {
                                 where.put("uuid_from", p.getUniqueId().toString());

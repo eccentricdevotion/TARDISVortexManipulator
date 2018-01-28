@@ -50,7 +50,7 @@ public class TVMMessageGUI {
                 if (m.isRead()) {
                     mess = new ItemStack(Material.BOOK, 1);
                 } else {
-                    mess = new ItemStack(Material.BOOK_AND_QUILL, 1);
+                    mess = new ItemStack(Material.WRITABLE_BOOK, 1);
                 }
                 ItemMeta age = mess.getItemMeta();
                 age.setDisplayName("#" + (i + start + 1));

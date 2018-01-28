@@ -18,6 +18,7 @@ public class TVMCommandActivate implements CommandExecutor {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vma")) {
             if (!sender.hasPermission("tardis.admin")) {

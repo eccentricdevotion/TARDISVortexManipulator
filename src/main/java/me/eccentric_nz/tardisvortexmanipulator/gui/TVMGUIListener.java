@@ -378,6 +378,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         p.sendMessage(plugin.getPluginName() + "Current location saved.");
     }
 
+    @SuppressWarnings("deprecation")
     private void scanLifesigns(Player p, Inventory inv) {
         close(p);
         if (!p.hasPermission("vm.lifesigns")) {

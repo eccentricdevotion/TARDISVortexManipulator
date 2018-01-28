@@ -24,7 +24,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 /**
- * TabCompleter for /tardisarea
+ * TabCompleter for /vmm
  */
 public class TVMTabCompleteMessage extends TARDISCompleter implements TabCompleter {
 

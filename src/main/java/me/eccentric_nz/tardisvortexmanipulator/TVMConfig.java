@@ -63,9 +63,9 @@ public class TVMConfig {
         strOptions.put("recipe.ingredients.G", "GLASS");
         strOptions.put("recipe.ingredients.I", "IRON_INGOT");
         strOptions.put("recipe.ingredients.O", "GOLD_INGOT");
-        strOptions.put("recipe.ingredients.W", "WATCH");
+        strOptions.put("recipe.ingredients.W", "CLOCK");
         strOptions.put("recipe.lore", "Cheap and nasty time travel");
-        strOptions.put("recipe.result", "WATCH");
+        strOptions.put("recipe.result", "CLOCK");
         strOptions.put("recipe.shape", "BBG,WOC,III");
         strOptions.put("storage.database", "sqlite");
         strOptions.put("storage.mysql.password", "mysecurepassword");
@@ -100,6 +100,11 @@ public class TVMConfig {
                 plugin.getConfig().set(entry.getKey(), entry.getValue());
                 i++;
             }
+        }
+        if (config.getString("recipe.ingredients.W").equals("WATCH")) {
+            plugin.getConfig().set("recipe.ingredients.W", "CLOCK");
+            plugin.getConfig().set("recipe.result", "CLOCK");
+            i++;
         }
         if (i > 0) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "Added " + ChatColor.AQUA + i + ChatColor.RESET + " new items to config");

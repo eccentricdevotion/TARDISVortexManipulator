@@ -32,7 +32,7 @@ public class TVMSavesGUI {
         this.uuid = uuid;
         this.blocks.put("NORMAL", Material.DIRT);
         this.blocks.put("NETHER", Material.NETHERRACK);
-        this.blocks.put("THE_END", Material.ENDER_STONE);
+        this.blocks.put("THE_END", Material.END_STONE);
         this.gui = getItemStack();
     }
 

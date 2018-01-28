@@ -37,17 +37,30 @@ public class TVMEquipListener implements Listener {
     public TVMEquipListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
         this.transparent.add(Material.AIR);
+        this.transparent.add(Material.ALLIUM);
+        this.transparent.add(Material.AZURE_BLUET);
+        this.transparent.add(Material.BLUE_ORCHID);
         this.transparent.add(Material.BROWN_MUSHROOM);
+        this.transparent.add(Material.DANDELION);
         this.transparent.add(Material.DEAD_BUSH);
-        this.transparent.add(Material.DOUBLE_PLANT);
+        this.transparent.add(Material.FERN);
         this.transparent.add(Material.GRASS);
-        this.transparent.add(Material.LONG_GRASS);
+        this.transparent.add(Material.LARGE_FERN);
+        this.transparent.add(Material.LILAC);
+        this.transparent.add(Material.ORANGE_TULIP);
+        this.transparent.add(Material.OXEYE_DAISY);
+        this.transparent.add(Material.PEONY);
+        this.transparent.add(Material.PINK_TULIP);
+        this.transparent.add(Material.POPPY);
         this.transparent.add(Material.REDSTONE_WIRE);
         this.transparent.add(Material.RED_MUSHROOM);
-        this.transparent.add(Material.RED_ROSE);
+        this.transparent.add(Material.RED_TULIP);
+        this.transparent.add(Material.ROSE_BUSH);
         this.transparent.add(Material.SNOW);
+        this.transparent.add(Material.SUNFLOWER);
+        this.transparent.add(Material.TALL_GRASS);
         this.transparent.add(Material.VINE);
-        this.transparent.add(Material.YELLOW_FLOWER);
+        this.transparent.add(Material.WHITE_TULIP);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

@@ -10,11 +10,11 @@ recipe:
     ingredients:
         B: STONE_BUTTON
         G: GLASS
-        W: WATCH
+        W: CLOCK
         O: GOLD_INGOT
         C: COMPASS
         I: IRON_INGOT
-    result: WATCH
+    result: CLOCK
     amount: 1
     lore: "Cheap and nasty time travel"
 tachyon_use:
@@ -36,7 +36,7 @@ storage:
     url: mysql://localhost:3306/TVM
     user: bukkit
     password: mysecurepassword
-    prefix: 
+    prefix:
 date_format: dd/MM/YY HH:mm
 lifesign_scan_distance: 16
 max_look_at_distance: 50
