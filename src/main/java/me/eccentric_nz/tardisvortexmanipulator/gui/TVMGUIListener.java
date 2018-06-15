@@ -263,6 +263,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                     case 45:
                         // close
                         close(player);
+                        components = Arrays.asList("", "", "", "", "", "");
                         break;
                     case 48:
                         // previous cursor
