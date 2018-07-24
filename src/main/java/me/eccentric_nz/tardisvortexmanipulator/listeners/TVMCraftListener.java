@@ -3,7 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
-import java.util.HashMap;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
@@ -16,8 +15,9 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
+import java.util.HashMap;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMCraftListener implements Listener {

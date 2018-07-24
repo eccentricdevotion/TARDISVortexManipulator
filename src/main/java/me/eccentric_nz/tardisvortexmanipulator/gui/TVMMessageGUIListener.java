@@ -3,8 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.HashMap;
-import java.util.List;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
@@ -18,8 +16,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
@@ -38,7 +38,7 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         String name = inv.getTitle();
         if (name.equals("§4VM Messages")) {
             event.setCancelled(true);
-            final Player player = (Player) event.getWhoClicked();
+            Player player = (Player) event.getWhoClicked();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
@@ -73,10 +73,10 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doPrev(Inventory inv, final Player p) {
+    private void doPrev(Inventory inv, Player p) {
         int page = getPageNumber(inv);
         if (page > 1) {
-            final int start = (page * 44) - 44;
+            int start = (page * 44) - 44;
             close(p);
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
@@ -88,9 +88,9 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doNext(Inventory inv, final Player p) {
+    private void doNext(Inventory inv, Player p) {
         int page = getPageNumber(inv);
-        final int start = (page * 44) + 44;
+        int start = (page * 44) + 44;
         close(p);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());

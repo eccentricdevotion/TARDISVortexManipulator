@@ -3,18 +3,16 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.storage;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMBlock {
 
     private Block block;
-    private Material type;
-    private byte data;
+    private BlockData blockData;
 
     public Block getBlock() {
         return block;
@@ -24,19 +22,11 @@ public class TVMBlock {
         this.block = block;
     }
 
-    public Material getType() {
-        return type;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
-    public void setType(Material type) {
-        this.type = type;
-    }
-
-    public byte getData() {
-        return data;
-    }
-
-    public void setData(byte data) {
-        this.data = data;
+    public void setBlockData(BlockData blockData) {
+        this.blockData = blockData;
     }
 }

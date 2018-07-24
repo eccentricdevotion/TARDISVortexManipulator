@@ -3,7 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
-import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,8 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import java.util.UUID;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMDeathListener implements Listener {

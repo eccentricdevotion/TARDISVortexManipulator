@@ -3,9 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
@@ -13,8 +10,11 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMSavesGUI {
@@ -30,10 +30,10 @@ public class TVMSavesGUI {
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        this.blocks.put("NORMAL", Material.DIRT);
-        this.blocks.put("NETHER", Material.NETHERRACK);
-        this.blocks.put("THE_END", Material.END_STONE);
-        this.gui = getItemStack();
+        blocks.put("NORMAL", Material.DIRT);
+        blocks.put("NETHER", Material.NETHERRACK);
+        blocks.put("THE_END", Material.END_STONE);
+        gui = getItemStack();
     }
 
     /**

@@ -16,18 +16,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Do basic SQL INSERT, UPDATE and DELETE queries.
@@ -38,21 +35,19 @@ public class TVMQueryFactory {
 
     private final TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
-    Connection connection = service.getConnection();
     private final String prefix;
+    Connection connection = service.getConnection();
 
     public TVMQueryFactory(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Inserts data into an SQLite database table. This method executes the SQL
-     * in a separate thread.
+     * Inserts data into an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param data a HashMap<String, Object> of table fields and values to
-     * insert.
+     * @param data  a HashMap<String, Object> of table fields and values to insert.
      */
     public void doInsert(String table, HashMap<String, Object> data) {
         TVMSQLInsert insert = new TVMSQLInsert(plugin, table, data);
@@ -60,12 +55,11 @@ public class TVMQueryFactory {
     }
 
     /**
-     * Inserts data into an SQLite database table. This method builds a prepared
-     * SQL statement from the parameters supplied and then executes the insert.
+     * Inserts data into an SQLite database table. This method builds a prepared SQL statement from the parameters
+     * supplied and then executes the insert.
      *
      * @param table the database table name to insert the data into.
-     * @param data a HashMap<String, Object> of table fields and values to
-     * insert.
+     * @param data  a HashMap<String, Object> of table fields and values to insert.
      * @return the primary key of the record that was inserted
      */
     public int doSyncInsert(String table, HashMap<String, Object> data) {
@@ -121,13 +115,11 @@ public class TVMQueryFactory {
     }
 
     /**
-     * Updates data in an SQLite database table. This method executes the SQL in
-     * a separate thread.
+     * Updates data in an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to update.
-     * @param data a HashMap<String, Object> of table fields and values update.
-     * @param where a HashMap<String, Object> of table fields and values to
-     * select the records to update.
+     * @param data  a HashMap<String, Object> of table fields and values update.
+     * @param where a HashMap<String, Object> of table fields and values to select the records to update.
      */
     public void doUpdate(String table, HashMap<String, Object> data, HashMap<String, Object> where) {
         TVMSQLUpdate update = new TVMSQLUpdate(plugin, table, data, where);
@@ -135,12 +127,10 @@ public class TVMQueryFactory {
     }
 
     /**
-     * Deletes rows from an SQLite database table. This method executes the SQL
-     * in a separate thread.
+     * Deletes rows from an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param where a HashMap<String, Object> of table fields and values to
-     * select the records to delete.
+     * @param where a HashMap<String, Object> of table fields and values to select the records to delete.
      */
     public void doDelete(String table, HashMap<String, Object> where) {
         TVMSQLDelete delete = new TVMSQLDelete(plugin, table, where);
@@ -148,14 +138,11 @@ public class TVMQueryFactory {
     }
 
     /**
-     * Deletes rows from an SQLite database table. This method executes the SQL
-     * in a separate thread.
+     * Deletes rows from an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param where a HashMap<String, Object> of table fields and values to
-     * select the records to delete.
-     * @return true or false depending on whether the data was deleted
-     * successfully
+     * @param where a HashMap<String, Object> of table fields and values to select the records to delete.
+     * @return true or false depending on whether the data was deleted successfully
      */
     public boolean doSyncDelete(String table, HashMap<String, Object> where) {
         Statement statement = null;
@@ -194,26 +181,23 @@ public class TVMQueryFactory {
      * Save a beacon block.
      *
      * @param uuid the uuid of the player who has set the beacon
-     * @param b the block to save
+     * @param b    the block to save
      */
-    @SuppressWarnings("deprecation")
     public void saveBeaconBlock(String uuid, Block b) {
         Location loc = b.getLocation();
         plugin.getBlocks().add(loc);
-        String type = b.getType().toString();
-        byte data = b.getData();
+        String data = b.getBlockData().getAsString();
         HashMap<String, Object> set = new HashMap<>();
         set.put("uuid", uuid);
         set.put("location", loc.toString());
-        set.put("block_type", type);
-        set.put("data", data);
+        set.put("block_type", data);
         doSyncInsert("beacons", set);
     }
 
     /**
      * Alter tachyon levels. This method executes the SQL in a separate thread.
      *
-     * @param uuid the player's string UUID
+     * @param uuid   the player's string UUID
      * @param amount the amount add tachyons to add or remove
      */
     public void alterTachyons(String uuid, int amount) {
@@ -222,8 +206,7 @@ public class TVMQueryFactory {
     }
 
     /**
-     * Update message read status. This method executes the SQL in a separate
-     * thread.
+     * Update message read status. This method executes the SQL in a separate thread.
      *
      * @param id the message_id to alter
      */

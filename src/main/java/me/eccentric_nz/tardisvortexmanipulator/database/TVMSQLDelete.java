@@ -16,15 +16,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.UUID;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMSQLDelete implements Runnable {
@@ -37,19 +37,18 @@ public class TVMSQLDelete implements Runnable {
     private final String prefix;
 
     /**
-     * Deletes rows from an SQLite database table. This method builds an SQL
-     * query string from the parameters supplied and then executes the delete.
+     * Deletes rows from an SQLite database table. This method builds an SQL query string from the parameters supplied
+     * and then executes the delete.
      *
      * @param plugin an instance of the main plugin class
-     * @param table the database table name to insert the data into.
-     * @param where a HashMap<String, Object> of table fields and values to
-     * select the records to delete.
+     * @param table  the database table name to insert the data into.
+     * @param where  a HashMap<String, Object> of table fields and values to select the records to delete.
      */
     public TVMSQLDelete(TARDISVortexManipulator plugin, String table, HashMap<String, Object> where) {
         this.plugin = plugin;
         this.table = table;
         this.where = where;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     @Override

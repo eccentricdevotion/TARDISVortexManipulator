@@ -16,44 +16,43 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMSQLUpdate implements Runnable {
 
     private final TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
-    Connection connection = service.getConnection();
     private final String table;
     private final HashMap<String, Object> data;
     private final HashMap<String, Object> where;
     private final String prefix;
+    Connection connection = service.getConnection();
 
     /**
-     * Updates data in an SQLite database table. This method builds an SQL query
-     * string from the parameters supplied and then executes the update.
+     * Updates data in an SQLite database table. This method builds an SQL query string from the parameters supplied and
+     * then executes the update.
      *
      * @param plugin an instance of the main plugin class
-     * @param table the database table name to update.
-     * @param data a HashMap<String, Object> of table fields and values update.
-     * @param where a HashMap<String, Object> of table fields and values to
-     * select the records to update.
+     * @param table  the database table name to update.
+     * @param data   a HashMap<String, Object> of table fields and values update.
+     * @param where  a HashMap<String, Object> of table fields and values to select the records to update.
      */
     public TVMSQLUpdate(TARDISVortexManipulator plugin, String table, HashMap<String, Object> data, HashMap<String, Object> where) {
         this.plugin = plugin;
         this.table = table;
         this.data = data;
         this.where = where;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     @Override

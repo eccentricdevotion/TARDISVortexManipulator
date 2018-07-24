@@ -3,15 +3,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.Arrays;
-import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMGUI {
@@ -23,7 +23,7 @@ public class TVMGUI {
     public TVMGUI(TARDISVortexManipulator plugin, int tachyonLevel) {
         this.plugin = plugin;
         this.tachyonLevel = tachyonLevel;
-        this.gui = getItemStack();
+        gui = getItemStack();
     }
 
     /**
@@ -186,12 +186,12 @@ public class TVMGUI {
         prev.setItemMeta(let);
 
         ItemStack[] is = {
-            null, null, null, null, dis, null, null, null, null,
-            tach, null, world, one, two, three, null, save, null,
-            life, null, x, four, five, six, null, load, null,
-            null, null, y, seven, eight, nine, null, mess, null,
-            null, null, z, star, zero, hash, null, bea, null,
-            close, null, null, prev, null, next, null, null, warp
+                null, null, null, null, dis, null, null, null, null,
+                tach, null, world, one, two, three, null, save, null,
+                life, null, x, four, five, six, null, load, null,
+                null, null, y, seven, eight, nine, null, mess, null,
+                null, null, z, star, zero, hash, null, bea, null,
+                close, null, null, prev, null, next, null, null, warp
         };
         return is;
     }

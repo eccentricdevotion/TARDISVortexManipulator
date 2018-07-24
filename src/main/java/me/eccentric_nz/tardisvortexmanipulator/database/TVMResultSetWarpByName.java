@@ -3,16 +3,16 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMResultSetWarpByName {
@@ -22,21 +22,20 @@ public class TVMResultSetWarpByName {
     private final TARDISVortexManipulator plugin;
     private final String uuid;
     private final String name;
+    private final String prefix;
     private int id;
     private Location warp;
-    private final String prefix;
 
     public TVMResultSetWarpByName(TARDISVortexManipulator plugin, String uuid, String name) {
         this.plugin = plugin;
         this.uuid = uuid;
         this.name = name;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Retrieves an SQL ResultSet from the messages table. This method builds an
-     * SQL query string from the parameters supplied and then executes the
-     * query. Use the getters to retrieve the results.
+     * Retrieves an SQL ResultSet from the messages table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query. Use the getters to retrieve the results.
      *
      * @return true or false depending on whether any data matches the query
      */

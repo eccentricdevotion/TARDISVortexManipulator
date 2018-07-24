@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMGUICommon {
@@ -27,7 +26,7 @@ public class TVMGUICommon {
      *
      * @param p the player using the GUI
      */
-    public void close(final Player p) {
+    public void close(Player p) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             p.closeInventory();
         }, 1L);

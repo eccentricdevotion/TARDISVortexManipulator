@@ -16,13 +16,13 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMAlterTachyon implements Runnable {
@@ -35,19 +35,18 @@ public class TVMAlterTachyon implements Runnable {
     private final String prefix;
 
     /**
-     * Adds or removes tachyons from a database table. This method builds an SQL
-     * query string from the parameters supplied and then executes the query.
+     * Adds or removes tachyons from a database table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query.
      *
      * @param plugin an instance of the main plugin class
-     * @param amount the amount of energy to add or remove (use a negative
-     * value)
-     * @param uuid a player's UUID.
+     * @param amount the amount of energy to add or remove (use a negative value)
+     * @param uuid   a player's UUID.
      */
     public TVMAlterTachyon(TARDISVortexManipulator plugin, int amount, String uuid) {
         this.plugin = plugin;
         this.amount = amount;
         this.uuid = uuid;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     @Override

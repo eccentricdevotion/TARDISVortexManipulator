@@ -3,30 +3,30 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMConfig {
 
+    private final TARDISVortexManipulator plugin;
     HashMap<String, String> strOptions = new HashMap<>();
     HashMap<String, Integer> intOptions = new HashMap<>();
     HashMap<String, Boolean> boolOptions = new HashMap<>();
     private FileConfiguration config = null;
     private File configFile = null;
-    private final TARDISVortexManipulator plugin;
 
     public TVMConfig(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.configFile = new File(plugin.getDataFolder(), "config.yml");
-        this.config = YamlConfiguration.loadConfiguration(configFile);
+        configFile = new File(plugin.getDataFolder(), "config.yml");
+        config = YamlConfiguration.loadConfiguration(configFile);
         // boolean
         boolOptions.put("allow.beacon", true);
         boolOptions.put("allow.lifesigns", true);
@@ -75,8 +75,8 @@ public class TVMConfig {
     }
 
     /**
-     * Checks that the configuration file contains all the required entries. If
-     * entries are missing, then they are added with default values.
+     * Checks that the configuration file contains all the required entries. If entries are missing, then they are added
+     * with default values.
      */
     public void checkConfig() {
         int i = 0;

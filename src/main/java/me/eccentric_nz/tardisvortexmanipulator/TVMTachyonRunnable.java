@@ -8,7 +8,6 @@ import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetTachyon;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMTachyonRunnable implements Runnable {
@@ -20,9 +19,9 @@ public class TVMTachyonRunnable implements Runnable {
 
     public TVMTachyonRunnable(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.recharge = this.plugin.getConfig().getInt("tachyon_use.recharge");
-        this.max = this.plugin.getConfig().getInt("tachyon_use.max");
-        this.qf = new TVMQueryFactory(this.plugin);
+        recharge = this.plugin.getConfig().getInt("tachyon_use.recharge");
+        max = this.plugin.getConfig().getInt("tachyon_use.max");
+        qf = new TVMQueryFactory(this.plugin);
     }
 
     @Override

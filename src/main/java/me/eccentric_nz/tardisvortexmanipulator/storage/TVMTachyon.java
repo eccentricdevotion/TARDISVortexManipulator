@@ -6,7 +6,6 @@ package me.eccentric_nz.tardisvortexmanipulator.storage;
 import java.util.UUID;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMTachyon {

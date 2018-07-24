@@ -16,13 +16,13 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMSetReadStatus implements Runnable {
@@ -34,16 +34,16 @@ public class TVMSetReadStatus implements Runnable {
     private final String prefix;
 
     /**
-     * Sets the read status of a message. This method builds an SQL query string
-     * from the parameters supplied and then executes the query.
+     * Sets the read status of a message. This method builds an SQL query string from the parameters supplied and then
+     * executes the query.
      *
      * @param plugin an instance of the main plugin class
-     * @param id the message_id to set the status of
+     * @param id     the message_id to set the status of
      */
     public TVMSetReadStatus(TARDISVortexManipulator plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     @Override

@@ -3,11 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
@@ -25,8 +20,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.*;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMEquipListener implements Listener {
@@ -36,31 +32,31 @@ public class TVMEquipListener implements Listener {
 
     public TVMEquipListener(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.transparent.add(Material.AIR);
-        this.transparent.add(Material.ALLIUM);
-        this.transparent.add(Material.AZURE_BLUET);
-        this.transparent.add(Material.BLUE_ORCHID);
-        this.transparent.add(Material.BROWN_MUSHROOM);
-        this.transparent.add(Material.DANDELION);
-        this.transparent.add(Material.DEAD_BUSH);
-        this.transparent.add(Material.FERN);
-        this.transparent.add(Material.GRASS);
-        this.transparent.add(Material.LARGE_FERN);
-        this.transparent.add(Material.LILAC);
-        this.transparent.add(Material.ORANGE_TULIP);
-        this.transparent.add(Material.OXEYE_DAISY);
-        this.transparent.add(Material.PEONY);
-        this.transparent.add(Material.PINK_TULIP);
-        this.transparent.add(Material.POPPY);
-        this.transparent.add(Material.REDSTONE_WIRE);
-        this.transparent.add(Material.RED_MUSHROOM);
-        this.transparent.add(Material.RED_TULIP);
-        this.transparent.add(Material.ROSE_BUSH);
-        this.transparent.add(Material.SNOW);
-        this.transparent.add(Material.SUNFLOWER);
-        this.transparent.add(Material.TALL_GRASS);
-        this.transparent.add(Material.VINE);
-        this.transparent.add(Material.WHITE_TULIP);
+        transparent.add(Material.AIR);
+        transparent.add(Material.ALLIUM);
+        transparent.add(Material.AZURE_BLUET);
+        transparent.add(Material.BLUE_ORCHID);
+        transparent.add(Material.BROWN_MUSHROOM);
+        transparent.add(Material.DANDELION);
+        transparent.add(Material.DEAD_BUSH);
+        transparent.add(Material.FERN);
+        transparent.add(Material.GRASS);
+        transparent.add(Material.LARGE_FERN);
+        transparent.add(Material.LILAC);
+        transparent.add(Material.ORANGE_TULIP);
+        transparent.add(Material.OXEYE_DAISY);
+        transparent.add(Material.PEONY);
+        transparent.add(Material.PINK_TULIP);
+        transparent.add(Material.POPPY);
+        transparent.add(Material.REDSTONE_WIRE);
+        transparent.add(Material.RED_MUSHROOM);
+        transparent.add(Material.RED_TULIP);
+        transparent.add(Material.ROSE_BUSH);
+        transparent.add(Material.SNOW);
+        transparent.add(Material.SUNFLOWER);
+        transparent.add(Material.TALL_GRASS);
+        transparent.add(Material.VINE);
+        transparent.add(Material.WHITE_TULIP);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -69,7 +65,7 @@ public class TVMEquipListener implements Listener {
         if (!action.equals(Action.RIGHT_CLICK_AIR) && !action.equals(Action.LEFT_CLICK_AIR)) {
             return;
         }
-        final Player player = event.getPlayer();
+        Player player = event.getPlayer();
         if (!player.hasPermission("vm.teleport")) {
             return;
         }

@@ -3,21 +3,21 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMSQLite {
 
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final Connection connection = service.getConnection();
-    private Statement statement = null;
     private final TARDISVortexManipulator plugin;
+    private Statement statement = null;
 
     public TVMSQLite(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
@@ -46,7 +46,6 @@ public class TVMSQLite {
             //  Table structure for table 'manipulator'
             String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid TEXT PRIMARY KEY NOT NULL, tachyon_level INTEGER DEFAULT 0)";
             statement.executeUpdate(queryManipulator);
-
         } catch (SQLException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "SQLite create table error: " + e);
         } finally {

@@ -1,9 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
@@ -16,6 +12,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TVMCommandLifesigns implements CommandExecutor {
 
     private final TARDISVortexManipulator plugin;
@@ -25,8 +26,7 @@ public class TVMCommandLifesigns implements CommandExecutor {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vml")) {
             Player p = null;
             if (sender instanceof Player) {
@@ -56,8 +56,8 @@ public class TVMCommandLifesigns implements CommandExecutor {
                     List<Entity> ents = p.getNearbyEntities(d, d, d);
                     if (ents.size() > 0) {
                         // record nearby entities
-                        final HashMap<EntityType, Integer> scannedentities = new HashMap<>();
-                        final List<String> playernames = new ArrayList<>();
+                        HashMap<EntityType, Integer> scannedentities = new HashMap<>();
+                        List<String> playernames = new ArrayList<>();
                         for (Entity k : ents) {
                             EntityType et = k.getType();
                             if (TARDISConstants.ENTITY_TYPES.contains(et)) {

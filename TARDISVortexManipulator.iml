@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.bukkit:bukkit:18w15a-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
     <orderEntry type="library" name="Maven: me.eccentric_nz.TARDIS:TARDIS:3.8-beta-1" level="project" />
   </component>

@@ -3,15 +3,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMResultSetManipulator {
@@ -20,20 +20,19 @@ public class TVMResultSetManipulator {
     private final Connection connection = service.getConnection();
     private final TARDISVortexManipulator plugin;
     private final String u;
+    private final String prefix;
     private UUID uuid;
     private int tachyonLevel;
-    private final String prefix;
 
     public TVMResultSetManipulator(TARDISVortexManipulator plugin, String u) {
         this.plugin = plugin;
         this.u = u;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Retrieves an SQL ResultSet from the manipulator table. This method builds
-     * an SQL query string from the parameters supplied and then executes the
-     * query. Use the getters to retrieve the results.
+     * Retrieves an SQL ResultSet from the manipulator table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query. Use the getters to retrieve the results.
      *
      * @return true or false depending on whether any data matches the query
      */
@@ -47,8 +46,8 @@ public class TVMResultSetManipulator {
             statement.setString(1, u);
             rs = statement.executeQuery();
             if (rs.next()) {
-                this.uuid = UUID.fromString(rs.getString("uuid"));
-                this.tachyonLevel = rs.getInt("tachyon_level");
+                uuid = UUID.fromString(rs.getString("uuid"));
+                tachyonLevel = rs.getInt("tachyon_level");
             } else {
                 return false;
             }

@@ -3,31 +3,25 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMDatabase {
 
     private static final TVMDatabase instance = new TVMDatabase();
+    public Connection connection = null;
+    public Statement statement = null;
     private boolean isMySQL;
 
     public static synchronized TVMDatabase getInstance() {
         return instance;
-    }
-    public Connection connection = null;
-    public Statement statement = null;
-
-    public void setConnection(String path) throws Exception {
-        Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:" + path);
-        connection.setAutoCommit(true);
     }
 
     public void setIsMySQL(boolean isMySQL) {
@@ -55,8 +49,13 @@ public class TVMDatabase {
         return connection;
     }
 
+    public void setConnection(String path) throws Exception {
+        Class.forName("org.sqlite.JDBC");
+        connection = DriverManager.getConnection("jdbc:sqlite:" + path);
+        connection.setAutoCommit(true);
+    }
+
     /**
-     *
      * @return an exception
      * @throws CloneNotSupportedException
      */
@@ -78,7 +77,7 @@ public class TVMDatabase {
                 statement.executeQuery("SELECT 1");
             } catch (SQLException e) {
                 try {
-                    this.setConnection();
+                    setConnection();
                 } catch (Exception ex) {
                     TARDISVortexManipulator.plugin.debug("Could not re-connect to database!");
                 }

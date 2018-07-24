@@ -3,6 +3,9 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMTachyon;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMTachyon;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMResultSetTachyon {
@@ -27,13 +27,12 @@ public class TVMResultSetTachyon {
 
     public TVMResultSetTachyon(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Retrieves an SQL ResultSet from the beacons table. This method builds an
-     * SQL query string from the parameters supplied and then executes the
-     * query. Use the getters to retrieve the results.
+     * Retrieves an SQL ResultSet from the beacons table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query. Use the getters to retrieve the results.
      *
      * @return true or false depending on whether any data matches the query
      */

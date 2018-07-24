@@ -3,8 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.Arrays;
-import java.util.List;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
@@ -12,8 +10,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMMessageGUI {
@@ -28,7 +28,7 @@ public class TVMMessageGUI {
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        this.gui = getItemStack();
+        gui = getItemStack();
     }
 
     /**

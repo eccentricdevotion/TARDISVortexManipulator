@@ -1,7 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.ArrayList;
-import java.util.List;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
@@ -20,6 +18,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TVMCommand implements CommandExecutor {
 
     private final TARDISVortexManipulator plugin;
@@ -29,7 +30,7 @@ public class TVMCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vm")) {
             if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
                 plugin.getServer().dispatchCommand(sender, "vmh");

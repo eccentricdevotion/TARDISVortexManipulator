@@ -3,12 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.FLAG;
@@ -21,6 +15,7 @@ import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -32,8 +27,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.*;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMGUIListener extends TVMGUICommon implements Listener {
@@ -70,9 +66,9 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         super(plugin);
         this.plugin = plugin;
         // init string positions
-        this.pos = new int[6];
+        pos = new int[6];
         for (int i = 0; i < 6; i++) {
-            this.pos[i] = 0;
+            pos[i] = 0;
         }
         qf = new TVMQueryFactory(this.plugin);
     }
@@ -83,7 +79,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         String name = inv.getTitle();
         if (name.equals("§4Vortex Manipulator")) {
             event.setCancelled(true);
-            final Player player = (Player) event.getWhoClicked();
+            Player player = (Player) event.getWhoClicked();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
@@ -379,7 +375,6 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         p.sendMessage(plugin.getPluginName() + "Current location saved.");
     }
 
-    @SuppressWarnings("deprecation")
     private void scanLifesigns(Player p, Inventory inv) {
         close(p);
         if (!p.hasPermission("vm.lifesigns")) {
@@ -405,8 +400,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             List<Entity> ents = p.getNearbyEntities(d, d, d);
             if (ents.size() > 0) {
                 // record nearby entities
-                final HashMap<EntityType, Integer> scannedentities = new HashMap<>();
-                final List<String> playernames = new ArrayList<>();
+                HashMap<EntityType, Integer> scannedentities = new HashMap<>();
+                List<String> playernames = new ArrayList<>();
                 ents.forEach((k) -> {
                     EntityType et = k.getType();
                     if (TARDISConstants.ENTITY_TYPES.contains(et)) {
@@ -463,7 +458,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void loadSaves(final Player p) {
+    private void loadSaves(Player p) {
         close(p);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             TVMSavesGUI tvms = new TVMSavesGUI(plugin, 0, 44, p.getUniqueId().toString());
@@ -474,7 +469,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         }, 2L);
     }
 
-    private void message(final Player p) {
+    private void message(Player p) {
         close(p);
         if (!p.hasPermission("vm.message")) {
             p.sendMessage(plugin.getPluginName() + "You don't have permission to use Vortex messages!");
@@ -526,14 +521,15 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             }
             Block b = l.getBlock().getRelative(BlockFace.DOWN);
             qf.saveBeaconBlock(ustr, b);
-            b.setType(Material.BEACON);
+            b.setBlockData(Material.BEACON.createBlockData());
             Block down = b.getRelative(BlockFace.DOWN);
             qf.saveBeaconBlock(ustr, down);
-            down.setType(Material.IRON_BLOCK);
+            BlockData iron = Material.IRON_BLOCK.createBlockData();
+            down.setBlockData(iron);
             List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
             faces.forEach((f) -> {
                 qf.saveBeaconBlock(ustr, down.getRelative(f));
-                down.getRelative(f).setType(Material.IRON_BLOCK);
+                down.getRelative(f).setBlockData(iron);
             });
             plugin.getBeaconSetters().add(uuid);
             message = "Beacon signal set, don't move!";
@@ -544,7 +540,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         p.sendMessage(plugin.getPluginName() + message);
     }
 
-    private void doWarp(final Player p, Inventory inv) {
+    private void doWarp(Player p, Inventory inv) {
         ItemStack display = inv.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();

@@ -1,33 +1,15 @@
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommand;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandActivate;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandBeacon;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandGive;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandHelp;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandLifesigns;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandMessage;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandRemove;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMCommandSave;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMTabCompleteHelp;
-import me.eccentric_nz.tardisvortexmanipulator.command.TVMTabCompleteMessage;
+import me.eccentric_nz.tardisvortexmanipulator.command.*;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMSQLite;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMMessageGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMSavesGUIListener;
-import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMBlockListener;
-import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMCraftListener;
-import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMDeathListener;
-import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMEquipListener;
-import me.eccentric_nz.tardisvortexmanipulator.listeners.TVMMoveListener;
+import me.eccentric_nz.tardisvortexmanipulator.listeners.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -35,16 +17,21 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class TARDISVortexManipulator extends JavaPlugin {
 
-    private String pluginName;
-    private TardisAPI tardisapi;
-    private TARDIS tardis;
     public static TARDISVortexManipulator plugin;
     private final TVMDatabase service = TVMDatabase.getInstance();
     private final List<Location> blocks = new ArrayList<>();
     private final List<UUID> beaconSetters = new ArrayList<>();
     private final List<UUID> travellers = new ArrayList<>();
+    private String pluginName;
+    private TardisAPI tardisapi;
+    private TARDIS tardis;
     private PluginManager pm;
     private String prefix;
 

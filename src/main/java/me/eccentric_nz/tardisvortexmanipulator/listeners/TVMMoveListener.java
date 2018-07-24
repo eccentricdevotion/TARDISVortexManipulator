@@ -1,7 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
-import java.util.HashMap;
-import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetBlock;
@@ -10,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class TVMMoveListener implements Listener {
 
@@ -20,7 +21,6 @@ public class TVMMoveListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    @SuppressWarnings("deprecation")
     public void onPlayerMove(PlayerMoveEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
         if (!plugin.getBeaconSetters().contains(uuid)) {
@@ -32,8 +32,7 @@ public class TVMMoveListener implements Listener {
             TVMResultSetBlock rs = new TVMResultSetBlock(plugin, uuid.toString());
             if (rs.resultSet()) {
                 rs.getBlocks().forEach((tvmb) -> {
-                    tvmb.getBlock().setType(tvmb.getType());
-                    tvmb.getBlock().setData(tvmb.getData());
+                    tvmb.getBlock().setBlockData(tvmb.getBlockData());
                     // remove protection
                     plugin.getBlocks().remove(tvmb.getBlock().getLocation());
                 });

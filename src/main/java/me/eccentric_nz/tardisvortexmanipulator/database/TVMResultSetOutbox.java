@@ -3,20 +3,16 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMResultSetOutbox {
@@ -34,13 +30,12 @@ public class TVMResultSetOutbox {
         this.where = where;
         this.start = start;
         this.limit = limit;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Retrieves an SQL ResultSet from the messages table. This method builds an
-     * SQL query string from the parameters supplied and then executes the
-     * query. Use the getters to retrieve the results.
+     * Retrieves an SQL ResultSet from the messages table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query. Use the getters to retrieve the results.
      *
      * @return true or false depending on whether any data matches the query
      */

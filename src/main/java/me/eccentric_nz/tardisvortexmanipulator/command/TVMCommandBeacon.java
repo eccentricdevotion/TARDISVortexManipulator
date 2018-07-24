@@ -1,9 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
@@ -13,11 +9,17 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class TVMCommandBeacon implements CommandExecutor {
 
@@ -28,7 +30,7 @@ public class TVMCommandBeacon implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vmb")) {
             Player p = null;
             if (sender instanceof Player) {
@@ -75,16 +77,17 @@ public class TVMCommandBeacon implements CommandExecutor {
                     return true;
                 }
                 Block b = l.getBlock().getRelative(BlockFace.DOWN);
-                TVMQueryFactory qf = new TVMQueryFactory(this.plugin);
+                TVMQueryFactory qf = new TVMQueryFactory(plugin);
                 qf.saveBeaconBlock(ustr, b);
-                b.setType(Material.BEACON);
+                b.setBlockData(Material.BEACON.createBlockData());
                 Block down = b.getRelative(BlockFace.DOWN);
                 qf.saveBeaconBlock(ustr, down);
-                down.setType(Material.IRON_BLOCK);
+                BlockData iron = Material.IRON_BLOCK.createBlockData();
+                down.setBlockData(iron);
                 List<BlockFace> faces = Arrays.asList(BlockFace.EAST, BlockFace.NORTH_EAST, BlockFace.NORTH, BlockFace.NORTH_WEST, BlockFace.WEST, BlockFace.SOUTH_WEST, BlockFace.SOUTH, BlockFace.SOUTH_EAST);
                 faces.forEach((f) -> {
                     qf.saveBeaconBlock(ustr, down.getRelative(f));
-                    down.getRelative(f).setType(Material.IRON_BLOCK);
+                    down.getRelative(f).setBlockData(iron);
                 });
                 plugin.getBeaconSetters().add(uuid);
                 // remove tachyons

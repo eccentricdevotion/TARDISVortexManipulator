@@ -3,18 +3,18 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
+import org.bukkit.World;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
-import org.bukkit.World;
 
 /**
- *
  * @author eccentric_nz
  */
 public class TVMResultSetSaves {
@@ -32,13 +32,12 @@ public class TVMResultSetSaves {
         this.uuid = uuid;
         this.start = start;
         this.limit = limit;
-        this.prefix = this.plugin.getPrefix();
+        prefix = this.plugin.getPrefix();
     }
 
     /**
-     * Retrieves an SQL ResultSet from the messages table. This method builds an
-     * SQL query string from the parameters supplied and then executes the
-     * query. Use the getters to retrieve the results.
+     * Retrieves an SQL ResultSet from the messages table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query. Use the getters to retrieve the results.
      *
      * @return true or false depending on whether any data matches the query
      */

@@ -1,19 +1,16 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.HashMap;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetMessageById;
-import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
+import me.eccentric_nz.tardisvortexmanipulator.database.*;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class TVMCommandMessage implements CommandExecutor {
 
@@ -24,8 +21,7 @@ public class TVMCommandMessage implements CommandExecutor {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vmm")) {
             Player p = null;
             if (sender instanceof Player) {
@@ -202,6 +198,10 @@ public class TVMCommandMessage implements CommandExecutor {
 
     private enum FIRST {
 
-        msg, list, read, delete, clear;
+        msg,
+        list,
+        read,
+        delete,
+        clear
     }
 }

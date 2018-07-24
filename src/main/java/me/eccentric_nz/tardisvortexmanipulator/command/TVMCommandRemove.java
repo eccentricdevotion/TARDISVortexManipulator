@@ -1,6 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.HashMap;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetWarpByName;
@@ -9,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class TVMCommandRemove implements CommandExecutor {
 
@@ -19,7 +20,7 @@ public class TVMCommandRemove implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vmr")) {
             Player p = null;
             if (sender instanceof Player) {

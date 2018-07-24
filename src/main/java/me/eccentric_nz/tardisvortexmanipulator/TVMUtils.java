@@ -3,25 +3,19 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import java.util.ArrayList;
-import java.util.List;
 import me.eccentric_nz.TARDIS.enumeration.FLAG;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMUtils {
@@ -38,17 +32,17 @@ public class TVMUtils {
         l.setX(l.getBlockX() + 0.5);
         l.setY(l.getY() + 0.2);
         l.setZ(l.getBlockZ() + 0.5);
-        final Location theLocation = l;
-        final World to = theLocation.getWorld();
-        final boolean crossWorlds = from != to;
+        Location theLocation = l;
+        World to = theLocation.getWorld();
+        boolean crossWorlds = from != to;
 
         players.stream().map((p) -> {
-            final Player thePlayer = p;
+            Player thePlayer = p;
             TARDISVortexManipulator.plugin.getTravellers().add(p.getUniqueId());
-            final boolean allowFlight = thePlayer.getAllowFlight();
+            boolean allowFlight = thePlayer.getAllowFlight();
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
                 thePlayer.teleport(theLocation);
-                thePlayer.getWorld().playSound(theLocation, Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+                thePlayer.getWorld().playSound(theLocation, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
             }, 10L);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
                 thePlayer.teleport(theLocation);
@@ -99,7 +93,7 @@ public class TVMUtils {
     /**
      * Check they have enough tachyons.
      *
-     * @param uuid the String UUID of the player to check
+     * @param uuid     the String UUID of the player to check
      * @param required the minimum amount of Tachyon required
      * @return true if the player has enough energy
      */
@@ -114,8 +108,8 @@ public class TVMUtils {
     /**
      * Send a list of saves to a player.
      *
-     * @param p the player to message
-     * @param rss the ResultSet containing the save information
+     * @param p    the player to message
+     * @param rss  the ResultSet containing the save information
      * @param page the page number of this list
      */
     public static void sendSaveList(Player p, TVMResultSetSaves rss, int page) {
@@ -128,8 +122,8 @@ public class TVMUtils {
     /**
      * Send a list of received messages to a player.
      *
-     * @param p the player to message
-     * @param rsi the ResultSet containing the message information
+     * @param p    the player to message
+     * @param rsi  the ResultSet containing the message information
      * @param page the page number of this list
      */
     public static void sendInboxList(Player p, TVMResultSetInbox rsi, int page) {
@@ -143,8 +137,8 @@ public class TVMUtils {
     /**
      * Send a list of sent messages to a player.
      *
-     * @param p the player to message
-     * @param rso the ResultSet containing the message information
+     * @param p    the player to message
+     * @param rso  the ResultSet containing the message information
      * @param page the page number of this list
      */
     public static void sendOutboxList(Player p, TVMResultSetOutbox rso, int page) {

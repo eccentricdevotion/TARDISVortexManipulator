@@ -3,8 +3,6 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import java.util.Arrays;
-import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -12,8 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+import java.util.Set;
+
 /**
- *
  * @author eccentric_nz
  */
 public class TVMRecipe {
@@ -54,14 +54,8 @@ public class TVMRecipe {
             Set<String> ingredients = plugin.getConfig().getConfigurationSection("recipe.ingredients").getKeys(false);
             ingredients.forEach((g) -> {
                 char c = g.charAt(0);
-                String[] recipe_iddata = plugin.getConfig().getString("recipe.ingredients." + g).split(":");
-                Material m = Material.valueOf(recipe_iddata[0]);
-                if (recipe_iddata.length == 2) {
-                    int recipe_data = Integer.parseInt(recipe_iddata[1]);
-                    r.setIngredient(c, m, recipe_data);
-                } else {
-                    r.setIngredient(c, m);
-                }
+                Material m = Material.valueOf(plugin.getConfig().getString("recipe.ingredients." + g));
+                r.setIngredient(c, m);
             });
         } catch (IllegalArgumentException e) {
             plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + ChatColor.RED + "Recipe failed! " + ChatColor.RESET + "Check the config file!");

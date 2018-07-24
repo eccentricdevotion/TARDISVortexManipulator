@@ -1,7 +1,5 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import java.util.HashMap;
-import java.util.UUID;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
@@ -10,6 +8,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class TVMCommandGive implements CommandExecutor {
 
     private final TARDISVortexManipulator plugin;
@@ -17,11 +18,11 @@ public class TVMCommandGive implements CommandExecutor {
 
     public TVMCommandGive(TARDISVortexManipulator plugin) {
         this.plugin = plugin;
-        this.full = this.plugin.getConfig().getInt("tachyon_use.max");
+        full = this.plugin.getConfig().getInt("tachyon_use.max");
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("vmg")) {
             if (!sender.hasPermission("tardis.admin")) {
                 sender.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
