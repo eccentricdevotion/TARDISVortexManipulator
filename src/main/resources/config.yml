@@ -26,10 +26,10 @@ tachyon_use:
         world: 150
         coords: 200
         saved: 50
+        to_block: 75
     lifesigns: 15
     beacon: 1000
     message: 5
-    to_block: 75
 storage:
   database: sqlite
   mysql:
