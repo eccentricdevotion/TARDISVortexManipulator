@@ -4,75 +4,75 @@ main: me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator
 name: TARDISVortexManipulator
 load: POSTWORLD
 depend: [TARDIS]
-version: '1.3'
+version: 1.3
 api-version: 1.13
 website: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 dev-url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 permissions:
-    vm.teleport:
-        description: Allow crafting and using of a Vortex Manipulator
-        default: op
-    vm.message:
-        description: Allow Vortex Manipulator messaging
-        default: op
-    vm.lifesigns:
-        description: Allow players to detect lifesigns and info on other players
-    vm.beacon:
-        description: Allow players to activate the Vortex Manipulator beacon
-        default: op
-    vm.lookatblock:
-        description: Allow players to teleport to the block they are looking at
-        default: op
+  vm.teleport:
+    description: Allow crafting and using of a Vortex Manipulator
+    default: op
+  vm.message:
+    description: Allow Vortex Manipulator messaging
+    default: op
+  vm.lifesigns:
+    description: Allow players to detect lifesigns and info on other players
+  vm.beacon:
+    description: Allow players to activate the Vortex Manipulator beacon
+    default: op
+  vm.lookatblock:
+    description: Allow players to teleport to the block they are looking at
+    default: op
 commands:
-    vm:
-        aliases: [vortexmainpulator,tvm,vmg,vmgo]
-        description: Cheap and nasty time travel. Very bad for you.
-        usage: /<command> [world] [x] [y] [z]
-        permission: vm.teleport
-        permission-message: You don't have the permission <permission> to use this command
-    vmm:
-        aliases: [vmmsg,vmmessage]
-        description: Message other Vortex Manipulator users.
-        usage: /<command> msg [player] [message], /<command> list [in|out] {page}, /<command> read [#], /<command> delete [#], /<command> clear [in|out]
-        permission: vm.message
-        permission-message: You don't have the permission <permission> to use this command
-    vms:
-        aliases: [vmsave]
-        description: Save Vortex Manipulator location.
-        usage: /<command> [save_name]
-        permission: vm.teleport
-        permission-message: You don't have the permission <permission> to use this command
-    vmr:
-        aliases: [vmremove]
-        description: Remove Vortex Manipulator save.
-        usage: /<command> [save_name]
-        permission: vm.teleport
-        permission-message: You don't have the permission <permission> to use this command
-    vmh:
-        aliases: [vmhelp]
-        description: Vortex Manipulator help.
-        usage: /<command> [topic]
-    vml:
-        aliases: [vmlife,vmlifesigns]
-        description: Get Vortex Manipulator entity information.
-        usage: /<command> [save_name]
-        permission: vm.lifesigns
-        permission-message: You don't have the permission <permission> to use this command
-    vmb:
-        aliases: [vmbeacon]
-        description: Send out a Vortex Manipulator beacon signal.
-        usage: /<command> [colour]
-        permission: vm.beacon
-        permission-message: You don't have the permission <permission> to use this command
-    vma:
-        aliases: [vmactivate]
-        description: Activate a Vortex Manipulator that has been given with the /tardisgive command.
-        usage: /<command> [player]
-        permission: tardis.admin
-        permission-message: You don't have the permission <permission> to use this command
-    vmg:
-        description: Give Tachyon energy to a player's Vortex Manipulator.
-        usage: /<command> [uuid] [amount]
-        permission: tardis.admin
-        permission-message: You don't have the permission <permission> to use this command
+  vm:
+    aliases: [vortexmainpulator,tvm,vmg,vmgo]
+    description: Cheap and nasty time travel. Very bad for you.
+    usage: /<command> [world] [x] [y] [z]
+    permission: vm.teleport
+    permission-message: You don't have the permission <permission> to use this command
+  vmm:
+    aliases: [vmmsg,vmmessage]
+    description: Message other Vortex Manipulator users.
+    usage: /<command> msg [player] [message], /<command> list [in|out] {page}, /<command> read [#], /<command> delete [#], /<command> clear [in|out]
+    permission: vm.message
+    permission-message: You don't have the permission <permission> to use this command
+  vms:
+    aliases: [vmsave]
+    description: Save Vortex Manipulator location.
+    usage: /<command> [save_name]
+    permission: vm.teleport
+    permission-message: You don't have the permission <permission> to use this command
+  vmr:
+    aliases: [vmremove]
+    description: Remove Vortex Manipulator save.
+    usage: /<command> [save_name]
+    permission: vm.teleport
+    permission-message: You don't have the permission <permission> to use this command
+  vmh:
+    aliases: [vmhelp]
+    description: Vortex Manipulator help.
+    usage: /<command> [topic]
+  vml:
+    aliases: [vmlife,vmlifesigns]
+    description: Get Vortex Manipulator entity information.
+    usage: /<command> [save_name]
+    permission: vm.lifesigns
+    permission-message: You don't have the permission <permission> to use this command
+  vmb:
+    aliases: [vmbeacon]
+    description: Send out a Vortex Manipulator beacon signal.
+    usage: /<command> [colour]
+    permission: vm.beacon
+    permission-message: You don't have the permission <permission> to use this command
+  vma:
+    aliases: [vmactivate]
+    description: Activate a Vortex Manipulator that has been given with the /tardisgive command.
+    usage: /<command> [player]
+    permission: tardis.admin
+    permission-message: You don't have the permission <permission> to use this command
+  vmg:
+    description: Give Tachyon energy to a player's Vortex Manipulator.
+    usage: /<command> [uuid] [amount]
+    permission: tardis.admin
+    permission-message: You don't have the permission <permission> to use this command
