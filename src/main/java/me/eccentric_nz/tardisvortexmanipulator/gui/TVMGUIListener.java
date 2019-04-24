@@ -24,6 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -75,8 +76,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onGUIClick(InventoryClickEvent event) {
-        Inventory inv = event.getInventory();
-        String name = inv.getTitle();
+        InventoryView view = event.getView();
+        String name = view.getTitle();
         if (name.equals("§4Vortex Manipulator")) {
             event.setCancelled(true);
             Player player = (Player) event.getWhoClicked();
@@ -96,30 +97,30 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         break;
                     case 12:
                         // one
-                        updateDisplay(inv, '1');
+                        updateDisplay(view, '1');
                         break;
                     case 13:
                         // two
                         if (letters.contains(which)) {
-                            updateDisplay(inv, two[t2]);
+                            updateDisplay(view, two[t2]);
                             t2++;
                             if (t2 == two.length) {
                                 t2 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '2');
+                            updateDisplay(view, '2');
                         }
                         break;
                     case 14:
                         // three
                         if (letters.contains(which)) {
-                            updateDisplay(inv, three[t3]);
+                            updateDisplay(view, three[t3]);
                             t3++;
                             if (t3 == three.length) {
                                 t3 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '3');
+                            updateDisplay(view, '3');
                         }
                         break;
                     case 16:
@@ -140,37 +141,37 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                     case 21:
                         // four
                         if (letters.contains(which)) {
-                            updateDisplay(inv, four[t4]);
+                            updateDisplay(view, four[t4]);
                             t4++;
                             if (t4 == four.length) {
                                 t4 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '4');
+                            updateDisplay(view, '4');
                         }
                         break;
                     case 22:
                         // five
                         if (letters.contains(which)) {
-                            updateDisplay(inv, five[t5]);
+                            updateDisplay(view, five[t5]);
                             t5++;
                             if (t5 == five.length) {
                                 t5 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '5');
+                            updateDisplay(view, '5');
                         }
                         break;
                     case 23:
                         // six
                         if (letters.contains(which)) {
-                            updateDisplay(inv, six[t6]);
+                            updateDisplay(view, six[t6]);
                             t6++;
                             if (t6 == six.length) {
                                 t6 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '6');
+                            updateDisplay(view, '6');
                         }
                         break;
                     case 25:
@@ -186,37 +187,37 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                     case 30:
                         // seven
                         if (letters.contains(which)) {
-                            updateDisplay(inv, seven[t7]);
+                            updateDisplay(view, seven[t7]);
                             t7++;
                             if (t7 == seven.length) {
                                 t7 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '7');
+                            updateDisplay(view, '7');
                         }
                         break;
                     case 31:
                         // eight
                         if (letters.contains(which)) {
-                            updateDisplay(inv, eight[t8]);
+                            updateDisplay(view, eight[t8]);
                             t8++;
                             if (t8 == eight.length) {
                                 t8 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '8');
+                            updateDisplay(view, '8');
                         }
                         break;
                     case 32:
                         // nine
                         if (letters.contains(which)) {
-                            updateDisplay(inv, nine[t9]);
+                            updateDisplay(view, nine[t9]);
                             t9++;
                             if (t9 == nine.length) {
                                 t9 = 0;
                             }
                         } else {
-                            updateDisplay(inv, '9');
+                            updateDisplay(view, '9');
                         }
                         break;
                     case 34:
@@ -230,7 +231,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         break;
                     case 39:
                         // star
-                        updateDisplay(inv, star[ts]);
+                        updateDisplay(view, star[ts]);
                         ts++;
                         if (ts == star.length) {
                             ts = 0;
@@ -238,18 +239,18 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         break;
                     case 40:
                         //zero
-                        updateDisplay(inv, '0');
+                        updateDisplay(view, '0');
                         break;
                     case 41:
                         // hash
                         if (letters.contains(which) || components.get(0).startsWith("~")) {
-                            updateDisplay(inv, hash[th]);
+                            updateDisplay(view, hash[th]);
                             th++;
                             if (th == hash.length) {
                                 th = 0;
                             }
                         } else {
-                            updateDisplay(inv, '-');
+                            updateDisplay(view, '-');
                         }
                         break;
                     case 43:
@@ -280,15 +281,15 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         switch (which) {
                             case 4:
                                 // save
-                                saveCurrentLocation(player, inv);
+                                saveCurrentLocation(player, view);
                                 break;
                             case 5:
                                 // scan
-                                scanLifesigns(player, inv);
+                                scanLifesigns(player, view);
                                 break;
                             default:
                                 // warp
-                                doWarp(player, inv);
+                                doWarp(player, view);
                                 break;
                         }
                         break;
@@ -299,8 +300,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void updateDisplay(Inventory inv, char s) {
-        ItemStack display = inv.getItem(4);
+    private void updateDisplay(InventoryView view, char s) {
+        ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         char[] chars = (components.get(which).isEmpty()) ? new char[1] : components.get(which).toCharArray();
         if (pos[which] >= chars.length) {
@@ -351,8 +352,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         th = 0;
     }
 
-    private void saveCurrentLocation(Player p, Inventory inv) {
-        ItemStack display = inv.getItem(4);
+    private void saveCurrentLocation(Player p, InventoryView view) {
+        ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
         String name = lore.get(0);
@@ -375,7 +376,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         p.sendMessage(plugin.getPluginName() + "Current location saved.");
     }
 
-    private void scanLifesigns(Player p, Inventory inv) {
+    private void scanLifesigns(Player p, InventoryView view) {
         close(p);
         if (!p.hasPermission("vm.lifesigns")) {
             p.sendMessage(plugin.getPluginName() + "You don't have permission to use the lifesigns scanner!");
@@ -389,7 +390,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         // remove tachyons
         qf.alterTachyons(p.getUniqueId().toString(), -required);
         // process GUI
-        ItemStack display = inv.getItem(4);
+        ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
         String pname = lore.get(0).trim();
@@ -540,8 +541,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         p.sendMessage(plugin.getPluginName() + message);
     }
 
-    private void doWarp(Player p, Inventory inv) {
-        ItemStack display = inv.getItem(4);
+    private void doWarp(Player p, InventoryView view) {
+        ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<String> lore = dim.getLore();
         List<String> dest;
@@ -693,8 +694,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onMenuDrag(InventoryDragEvent event) {
-        Inventory inv = event.getInventory();
-        String title = inv.getTitle();
+        InventoryView view = event.getView();
+        String title = view.getTitle();
         if (!titles.contains(title)) {
             return;
         }

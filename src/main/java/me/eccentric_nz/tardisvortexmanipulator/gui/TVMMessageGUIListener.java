@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -34,8 +35,8 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onMessageGUIClick(InventoryClickEvent event) {
-        Inventory inv = event.getInventory();
-        String name = inv.getTitle();
+        InventoryView view = event.getView();
+        String name = view.getTitle();
         if (name.equals("§4VM Messages")) {
             event.setCancelled(true);
             Player player = (Player) event.getWhoClicked();
@@ -50,19 +51,19 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
                         break;
                     case 48:
                         // previous page
-                        doPrev(inv, player);
+                        doPrev(view, player);
                         break;
                     case 49:
                         // next page
-                        doNext(inv, player);
+                        doNext(view, player);
                         break;
                     case 51:
                         // read
-                        doRead(inv, player);
+                        doRead(view, player);
                         break;
                     case 53:
                         // delete
-                        doDelete(inv, player);
+                        doDelete(view, player);
                         break;
                     default:
                         // select a message
@@ -73,8 +74,8 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doPrev(Inventory inv, Player p) {
-        int page = getPageNumber(inv);
+    private void doPrev(InventoryView view, Player p) {
+        int page = getPageNumber(view);
         if (page > 1) {
             int start = (page * 44) - 44;
             close(p);
@@ -88,8 +89,8 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doNext(Inventory inv, Player p) {
-        int page = getPageNumber(inv);
+    private void doNext(InventoryView view, Player p) {
+        int page = getPageNumber(view);
         int start = (page * 44) + 44;
         close(p);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -101,9 +102,9 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }, 2L);
     }
 
-    private void doRead(Inventory inv, Player p) {
+    private void doRead(InventoryView view, Player p) {
         if (selectedSlot != -1) {
-            ItemStack is = inv.getItem(selectedSlot);
+            ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<String> lore = im.getLore();
             int message_id = TARDISNumberParsers.parseInt(lore.get(2));
@@ -119,9 +120,9 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doDelete(Inventory inv, Player p) {
+    private void doDelete(InventoryView view, Player p) {
         if (selectedSlot != -1) {
-            ItemStack is = inv.getItem(selectedSlot);
+            ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<String> lore = im.getLore();
             int message_id = TARDISNumberParsers.parseInt(lore.get(2));

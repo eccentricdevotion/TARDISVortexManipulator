@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -35,14 +36,14 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onGUIClick(InventoryClickEvent event) {
-        Inventory inv = event.getInventory();
-        String name = inv.getTitle();
+        InventoryView view = event.getView();
+        String name = view.getTitle();
         if (name.equals("§4VM Saves")) {
             event.setCancelled(true);
             Player player = (Player) event.getWhoClicked();
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
-                if (inv.getItem(slot) != null) {
+                if (view.getItem(slot) != null) {
                     switch (slot) {
                         case 45:
                             // page number
@@ -53,19 +54,19 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
                             break;
                         case 48:
                             // previous page
-                            doPrev(inv, player);
+                            doPrev(view, player);
                             break;
                         case 49:
                             // next page
-                            doNext(inv, player);
+                            doNext(view, player);
                             break;
                         case 51:
                             // delete save
-                            delete(inv, player);
+                            delete(view, player);
                             break;
                         case 53:
                             // warp
-                            doWarp(inv, player);
+                            doWarp(view, player);
                             break;
                         default:
                             selectedSlot = slot;
@@ -76,8 +77,8 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doPrev(Inventory inv, Player p) {
-        int page = getPageNumber(inv);
+    private void doPrev(InventoryView view, Player p) {
+        int page = getPageNumber(view);
         if (page > 1) {
             int start = (page * 44) - 44;
             close(p);
@@ -91,8 +92,8 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doNext(Inventory inv, Player p) {
-        int page = getPageNumber(inv);
+    private void doNext(InventoryView view, Player p) {
+        int page = getPageNumber(view);
         int start = (page * 44) + 44;
         close(p);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -104,9 +105,9 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         }, 2L);
     }
 
-    private void delete(Inventory inv, Player p) {
+    private void delete(InventoryView view, Player p) {
         if (selectedSlot != -1) {
-            ItemStack is = inv.getItem(selectedSlot);
+            ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             String save_name = im.getDisplayName();
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
@@ -122,9 +123,9 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
         }
     }
 
-    private void doWarp(Inventory inv, Player p) {
+    private void doWarp(InventoryView view, Player p) {
         if (selectedSlot != -1) {
-            ItemStack is = inv.getItem(selectedSlot);
+            ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             String save_name = im.getDisplayName();
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);

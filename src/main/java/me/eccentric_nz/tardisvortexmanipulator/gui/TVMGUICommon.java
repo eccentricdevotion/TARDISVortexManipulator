@@ -6,7 +6,7 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,8 +32,8 @@ public class TVMGUICommon {
         }, 1L);
     }
 
-    public int getPageNumber(Inventory inv) {
-        ItemStack is = inv.getItem(45);
+    public int getPageNumber(InventoryView view) {
+        ItemStack is = view.getItem(45);
         ItemMeta im = is.getItemMeta();
         String[] split = im.getDisplayName().split(" ");
         int page = TARDISNumberParsers.parseInt(split[1]);
