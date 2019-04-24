@@ -13,6 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.spigotmc:spigot-api:1.14-pre5-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
-    <orderEntry type="library" name="Maven: me.eccentric_nz.TARDIS:TARDIS:4.0.2" level="project" />
+    <orderEntry type="library" name="Maven: me.eccentric_nz.TARDIS:TARDIS:4.1.0" level="project" />
   </component>
 </module>

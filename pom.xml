@@ -98,7 +98,7 @@
         <dependency>
             <groupId>me.eccentric_nz.TARDIS</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>4.0.2</version>
+            <version>4.1.0</version>
             <type>jar</type>
             <scope>compile</scope>
             <exclusions>
