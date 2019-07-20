@@ -3,6 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
+import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMBlock;
 import org.bukkit.Location;
@@ -52,7 +53,7 @@ public class TVMResultSetBlock {
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     TVMBlock tvmb = new TVMBlock();
-                    Location l = plugin.getTardisAPI().getLocationUtils().getLocationFromBukkitString(rs.getString("location"));
+                    Location l = TARDISStaticLocationGetters.getLocationFromBukkitString(rs.getString("location"));
                     BlockData blockData = plugin.getServer().createBlockData(rs.getString("block_type"));
                     Block b = l.getBlock();
                     tvmb.setBlock(b);
