@@ -3,6 +3,7 @@ package me.eccentric_nz.tardisvortexmanipulator.listeners;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetBlock;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,6 +27,10 @@ public class TVMMoveListener implements Listener {
         if (!plugin.getBeaconSetters().contains(uuid)) {
             return;
         }
+        // if only the pitch or yaw has changed
+        if (compareXYZ(event.getFrom(), event.getTo())) {
+            return;
+        }
         if (!event.getTo().getBlock().getType().equals(Material.BEACON)) {
             plugin.getBeaconSetters().remove(uuid);
             // remove beacon
@@ -41,5 +46,9 @@ public class TVMMoveListener implements Listener {
                 new TVMQueryFactory(plugin).doDelete("beacons", where);
             }
         }
+    }
+
+    private boolean compareXYZ(Location from, Location to) {
+        return from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ();
     }
 }
