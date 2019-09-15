@@ -20,8 +20,8 @@ public class TVMConfig {
     HashMap<String, String> strOptions = new HashMap<>();
     HashMap<String, Integer> intOptions = new HashMap<>();
     HashMap<String, Boolean> boolOptions = new HashMap<>();
-    private FileConfiguration config = null;
-    private File configFile = null;
+    private final FileConfiguration config;
+    private final File configFile;
 
     public TVMConfig(TARDISVortexManipulator plugin) {
         this.plugin = plugin;

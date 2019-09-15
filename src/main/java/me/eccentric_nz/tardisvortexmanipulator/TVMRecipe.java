@@ -40,6 +40,7 @@ public class TVMRecipe {
         if (!plugin.getConfig().getString("recipe.lore").equals("")) {
             im.setLore(Arrays.asList(plugin.getConfig().getString("recipe.lore").split("~")));
         }
+        im.setCustomModelData(10000002);
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "Vortex_Manipulator");
         ShapedRecipe r = new ShapedRecipe(key, is);

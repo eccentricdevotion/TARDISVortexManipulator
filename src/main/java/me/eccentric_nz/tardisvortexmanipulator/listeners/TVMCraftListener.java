@@ -35,7 +35,7 @@ public class TVMCraftListener implements Listener {
         if (is.getType().equals(Material.CLOCK) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
             Player player = (Player) event.getWhoClicked();
             String uuid = player.getUniqueId().toString();
-            // check if they have a manipulatior record
+            // check if they have a manipulator record
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
             if (!rs.resultSet()) {
                 // make a record

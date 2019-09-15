@@ -67,12 +67,14 @@ public class TVMMessageGUI {
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
         num.setDisplayName("Page " + n);
+        num.setCustomModelData(119);
         page.setItemMeta(num);
         stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
         win.setDisplayName("Close");
+        win.setCustomModelData(1);
         close.setItemMeta(win);
         stack[46] = close;
         // previous screen (only if needed)
@@ -80,6 +82,7 @@ public class TVMMessageGUI {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
             een.setDisplayName("Previous Page");
+            een.setCustomModelData(120);
             prev.setItemMeta(een);
             stack[48] = prev;
         }
@@ -88,6 +91,7 @@ public class TVMMessageGUI {
             ItemStack next = new ItemStack(Material.BOWL, 1);
             ItemMeta scr = next.getItemMeta();
             scr.setDisplayName("Next Page");
+            scr.setCustomModelData(116);
             next.setItemMeta(scr);
             stack[49] = next;
         }
@@ -95,12 +99,14 @@ public class TVMMessageGUI {
         ItemStack read = new ItemStack(Material.BOWL, 1);
         ItemMeta daer = read.getItemMeta();
         daer.setDisplayName("Read");
+        daer.setCustomModelData(121);
         read.setItemMeta(daer);
         stack[51] = read;
         // delete
         ItemStack del = new ItemStack(Material.BOWL, 1);
         ItemMeta ete = del.getItemMeta();
         ete.setDisplayName("Delete");
+        ete.setCustomModelData(107);
         del.setItemMeta(ete);
         stack[53] = del;
 
