@@ -31,10 +31,10 @@ public class SQL {
             "CREATE TABLE IF NOT EXISTS %ssaves (save_id int(11) NOT NULL AUTO_INCREMENT, uuid varchar(48) DEFAULT '', save_name varchar(64) DEFAULT '', world varchar(64) DEFAULT '', x float DEFAULT '0', y float DEFAULT '0', z float DEFAULT '0', yaw float DEFAULT '0', pitch float DEFAULT '0', PRIMARY KEY (save_id)) DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;"
     );
     public static final List<String> INSERTS = Arrays.asList(
-            "INSERT INTO `%sbeacons` (`beacon_id`, `uuid`, `location`, `block_type`, `data`) VALUES",
-            "INSERT INTO `%smanipulator` (`uuid`, `tachyon_level`) VALUES",
-            "INSERT INTO `%smessages` (`message_id`, `uuid_to`, `uuid_from`, `message`, `date`, `read`) VALUES",
-            "INSERT INTO `%ssaves` (`save_id`, `uuid`, `save_name`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUES"
+            "INSERT INTO `%sbeacons` (`beacon_id`, `uuid`, `location`, `block_type`, `data`) VALUES ",
+            "INSERT INTO `%smanipulator` (`uuid`, `tachyon_level`) VALUES ",
+            "INSERT INTO `%smessages` (`message_id`, `uuid_to`, `uuid_from`, `message`, `date`, `read`) VALUES ",
+            "INSERT INTO `%ssaves` (`save_id`, `uuid`, `save_name`, `world`, `x`, `y`, `z`, `yaw`, `pitch`) VALUES "
     );
     public static final List<String> VALUES = Arrays.asList(
             "(%s, '%s', '%s', '%s', %s)",

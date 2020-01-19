@@ -123,6 +123,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
         getCommand("vmr").setExecutor(new TVMCommandRemove(this));
         getCommand("vms").setExecutor(new TVMCommandSave(this));
         getCommand("vmg").setExecutor(new TVMCommandGive(this));
+        getCommand("vmd").setExecutor(new TVMCommandConvert(this));
     }
 
     private void startRecharger() {

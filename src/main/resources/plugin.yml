@@ -76,3 +76,8 @@ commands:
     usage: /<command> [uuid] [amount]
     permission: tardis.admin
     permission-message: You don't have the permission <permission> to use this command
+  vmd:
+    description: Transfer SQLite database records to MySQL.
+    usage: /<command> convert_database
+    permission: tardis.admin
+    permission-message: You don't have the permission <permission> to use this command
