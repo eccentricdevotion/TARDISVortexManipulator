@@ -34,11 +34,18 @@ public class TVMDatabase {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
-        String host = "jdbc:" + TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.url") + "?autoReconnect=true";
+        String jdbc = "jdbc:mysql://"
+                + TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.host") + ":"
+                + TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.port") + "/"
+                + TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.database")
+                + "?autoReconnect=true";
+        if (!TARDISVortexManipulator.plugin.getConfig().getBoolean("storage.mysql.useSSL")) {
+            jdbc += "&useSSL=false";
+        }
         String user = TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.user");
         String pass = TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.password");
         try {
-            connection = DriverManager.getConnection(host, user, pass);
+            connection = DriverManager.getConnection(jdbc, user, pass);
             connection.setAutoCommit(true);
         } catch (SQLException e) {
             throw new RuntimeException("Cannot connect the database!", e);

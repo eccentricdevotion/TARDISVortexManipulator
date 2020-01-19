@@ -40,6 +40,7 @@ public class TVMConfig {
         boolOptions.put("respect.towny", true);
         boolOptions.put("respect.worldborder", true);
         boolOptions.put("respect.worldguard", true);
+        boolOptions.put("storage.mysql.useSSL", false);
         // integer
         intOptions.put("lifesign_scan_distance", 16);
         intOptions.put("max_look_at_distance", 50);
@@ -56,6 +57,7 @@ public class TVMConfig {
         intOptions.put("tachyon_use.travel.to_block", 75);
         intOptions.put("tachyon_use.travel.world", 150);
         intOptions.put("block_travel_malfunction_chance", 0);
+        intOptions.put("storage.mysql.port", 3306);
         // string
         strOptions.put("date_format", "dd/MM/YY HH:mm");
         strOptions.put("recipe.ingredients.B", "STONE_BUTTON");
@@ -69,7 +71,8 @@ public class TVMConfig {
         strOptions.put("recipe.shape", "BBG,WOC,III");
         strOptions.put("storage.database", "sqlite");
         strOptions.put("storage.mysql.password", "mysecurepassword");
-        strOptions.put("storage.mysql.url", "mysql://localhost:3306/TVM");
+        strOptions.put("storage.mysql.host", "localhost");
+        strOptions.put("storage.mysql.database", "TVM");
         strOptions.put("storage.mysql.user", "bukkit");
         strOptions.put("storage.mysql.prefix", "");
     }
@@ -104,6 +107,20 @@ public class TVMConfig {
         if (config.getString("recipe.ingredients.W").equals("WATCH")) {
             plugin.getConfig().set("recipe.ingredients.W", "CLOCK");
             plugin.getConfig().set("recipe.result", "CLOCK");
+            i++;
+        }
+        // check mysql settings
+        if (config.contains("storage.mysql.url")) {
+            // mysql://localhost:3306/TARDIS
+            String[] firstSplit = config.getString("storage.mysql.url").split(":");
+            String host = firstSplit[1].substring(2);
+            String[] secondSplit = firstSplit[2].split("/");
+            String port = secondSplit[0];
+            String database = secondSplit[1];
+            plugin.getConfig().set("storage.mysql.host", host);
+            plugin.getConfig().set("storage.mysql.port", port);
+            plugin.getConfig().set("storage.mysql.database", database);
+            plugin.getConfig().set("storage.mysql.url", null);
             i++;
         }
         if (i > 0) {
