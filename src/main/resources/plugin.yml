@@ -4,8 +4,8 @@ main: me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator
 name: TARDISVortexManipulator
 load: POSTWORLD
 depend: [TARDIS]
-version: 1.5
-api-version: 1.14
+version: 1.6
+api-version: 1.15
 website: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 dev-url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
 url: http://dev.bukkit.org/bukkit-plugins/tardisvortexmanipulator
