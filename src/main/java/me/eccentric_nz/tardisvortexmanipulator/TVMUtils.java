@@ -3,7 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import me.eccentric_nz.TARDIS.enumeration.FLAG;
+import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetOutbox;
@@ -66,26 +66,26 @@ public class TVMUtils {
      *
      * @return List of flags with parameters
      */
-    public static List<FLAG> getProtectionFlags() {
-        List<FLAG> flags = new ArrayList<>();
-        flags.add(FLAG.PERMS_AREA);
-        flags.add(FLAG.PERMS_NETHER);
-        flags.add(FLAG.PERMS_THEEND);
-        flags.add(FLAG.PERMS_WORLD);
+    public static List<Flag> getProtectionFlags() {
+        List<Flag> flags = new ArrayList<>();
+        flags.add(Flag.PERMS_AREA);
+        flags.add(Flag.PERMS_NETHER);
+        flags.add(Flag.PERMS_THEEND);
+        flags.add(Flag.PERMS_WORLD);
         if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.factions")) {
-            flags.add(FLAG.RESPECT_FACTIONS);
+            flags.add(Flag.RESPECT_FACTIONS);
         }
         if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.griefprevention")) {
-            flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+            flags.add(Flag.RESPECT_GRIEFPREVENTION);
         }
         if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.towny")) {
-            flags.add(FLAG.RESPECT_TOWNY);
+            flags.add(Flag.RESPECT_TOWNY);
         }
         if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.worldborder")) {
-            flags.add(FLAG.RESPECT_WORLDBORDER);
+            flags.add(Flag.RESPECT_WORLDBORDER);
         }
         if (TARDISVortexManipulator.plugin.getConfig().getBoolean("respect.worldguard")) {
-            flags.add(FLAG.RESPECT_WORLDGUARD);
+            flags.add(Flag.RESPECT_WORLDGUARD);
         }
         return flags;
     }

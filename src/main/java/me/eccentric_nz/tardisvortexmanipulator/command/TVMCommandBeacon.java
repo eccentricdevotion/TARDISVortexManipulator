@@ -1,7 +1,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
 import me.eccentric_nz.TARDIS.api.Parameters;
-import me.eccentric_nz.TARDIS.enumeration.FLAG;
+import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
@@ -55,21 +55,21 @@ public class TVMCommandBeacon implements CommandExecutor {
                 String ustr = uuid.toString();
                 Location l = p.getLocation();
                 // potential griefing, we need to check the location first!
-                List<FLAG> flags = new ArrayList<>();
+                List<Flag> flags = new ArrayList<>();
                 if (plugin.getConfig().getBoolean("respect.factions")) {
-                    flags.add(FLAG.RESPECT_FACTIONS);
+                    flags.add(Flag.RESPECT_FACTIONS);
                 }
                 if (plugin.getConfig().getBoolean("respect.griefprevention")) {
-                    flags.add(FLAG.RESPECT_GRIEFPREVENTION);
+                    flags.add(Flag.RESPECT_GRIEFPREVENTION);
                 }
                 if (plugin.getConfig().getBoolean("respect.towny")) {
-                    flags.add(FLAG.RESPECT_TOWNY);
+                    flags.add(Flag.RESPECT_TOWNY);
                 }
                 if (plugin.getConfig().getBoolean("respect.worldborder")) {
-                    flags.add(FLAG.RESPECT_WORLDBORDER);
+                    flags.add(Flag.RESPECT_WORLDBORDER);
                 }
                 if (plugin.getConfig().getBoolean("respect.worldguard")) {
-                    flags.add(FLAG.RESPECT_WORLDGUARD);
+                    flags.add(Flag.RESPECT_WORLDGUARD);
                 }
                 Parameters params = new Parameters(p, flags);
                 if (!plugin.getTardisAPI().getRespect().getRespect(l, params)) {
