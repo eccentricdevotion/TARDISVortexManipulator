@@ -10,19 +10,19 @@ import java.util.UUID;
  */
 public class TVMTachyon {
 
-    private final UUID uuid;
-    private final int level;
+	private final UUID uuid;
+	private final int level;
 
-    public TVMTachyon(UUID uuid, int level) {
-        this.uuid = uuid;
-        this.level = level;
-    }
+	public TVMTachyon(UUID uuid, int level) {
+		this.uuid = uuid;
+		this.level = level;
+	}
 
-    public UUID getUuid() {
-        return uuid;
-    }
+	public UUID getUuid() {
+		return uuid;
+	}
 
-    public int getLevel() {
-        return level;
-    }
+	public int getLevel() {
+		return level;
+	}
 }

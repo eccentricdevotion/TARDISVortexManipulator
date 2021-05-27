@@ -17,10 +17,11 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
 import com.google.common.collect.ImmutableList;
-import me.eccentric_nz.TARDIS.commands.TARDISCompleter;
+import me.eccentric_nz.tardis.commands.TARDISCompleter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -29,22 +30,22 @@ import java.util.List;
  */
 public class TVMTabCompleteMessage extends TARDISCompleter implements TabCompleter {
 
-    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("msg", "list", "read", "delete", "clear");
-    private final ImmutableList<String> INOUT_SUBS = ImmutableList.of("in", "out");
+	private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("msg", "list", "read", "delete", "clear");
+	private final ImmutableList<String> INOUT_SUBS = ImmutableList.of("in", "out");
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length <= 1) {
-            return partial(args[0], ROOT_SUBS);
-        }
-        if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("msg")) {
-                return null;
-            }
-            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("clear")) {
-                return partial(args[1], INOUT_SUBS);
-            }
-        }
-        return ImmutableList.of();
-    }
+	@Override
+	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+		if (args.length <= 1) {
+			return partial(args[0], ROOT_SUBS);
+		}
+		if (args.length == 2) {
+			if (args[0].equalsIgnoreCase("msg")) {
+				return null;
+			}
+			if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("clear")) {
+				return partial(args[1], INOUT_SUBS);
+			}
+		}
+		return ImmutableList.of();
+	}
 }

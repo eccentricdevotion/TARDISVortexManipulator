@@ -29,58 +29,58 @@ import java.util.UUID;
  */
 public class TVMSQLDelete implements Runnable {
 
-    private final TARDISVortexManipulator plugin;
-    private final TVMDatabase service = TVMDatabase.getInstance();
-    private final Connection connection = service.getConnection();
-    private final String table;
-    private final HashMap<String, Object> where;
-    private final String prefix;
+	private final TARDISVortexManipulator plugin;
+	private final TVMDatabase service = TVMDatabase.getInstance();
+	private final Connection connection = service.getConnection();
+	private final String table;
+	private final HashMap<String, Object> where;
+	private final String prefix;
 
-    /**
-     * Deletes rows from an SQLite database table. This method builds an SQL query string from the parameters supplied
-     * and then executes the delete.
-     *
-     * @param plugin an instance of the main plugin class
-     * @param table  the database table name to insert the data into.
-     * @param where  a HashMap<String, Object> of table fields and values to select the records to delete.
-     */
-    public TVMSQLDelete(TARDISVortexManipulator plugin, String table, HashMap<String, Object> where) {
-        this.plugin = plugin;
-        this.table = table;
-        this.where = where;
-        prefix = this.plugin.getPrefix();
-    }
+	/**
+	 * Deletes rows from an SQLite database table. This method builds an SQL query string from the parameters supplied
+	 * and then executes the delete.
+	 *
+	 * @param plugin an instance of the main plugin class
+	 * @param table  the database table name to insert the data into.
+	 * @param where  a HashMap<String, Object> of table fields and values to select the records to delete.
+	 */
+	public TVMSQLDelete(TARDISVortexManipulator plugin, String table, HashMap<String, Object> where) {
+		this.plugin = plugin;
+		this.table = table;
+		this.where = where;
+		prefix = this.plugin.getPrefix();
+	}
 
-    @Override
-    public void run() {
-        Statement statement = null;
-        String values;
-        StringBuilder sbw = new StringBuilder();
-        where.entrySet().forEach((entry) -> {
-            sbw.append(entry.getKey()).append(" = ");
-            if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
-                sbw.append("'").append(entry.getValue()).append("' AND ");
-            } else {
-                sbw.append(entry.getValue()).append(" AND ");
-            }
-        });
-        where.clear();
-        values = sbw.toString().substring(0, sbw.length() - 5);
-        String query = "DELETE FROM " + prefix + table + " WHERE " + values;
-        try {
-            service.testConnection(connection);
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            plugin.debug("Delete error for " + table + "! " + e.getMessage());
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                plugin.debug("Error closing " + table + "! " + e.getMessage());
-            }
-        }
-    }
+	@Override
+	public void run() {
+		Statement statement = null;
+		String values;
+		StringBuilder sbw = new StringBuilder();
+		where.forEach((key, value) -> {
+			sbw.append(key).append(" = ");
+			if (value.getClass().equals(String.class) || value.getClass().equals(UUID.class)) {
+				sbw.append("'").append(value).append("' AND ");
+			} else {
+				sbw.append(value).append(" AND ");
+			}
+		});
+		where.clear();
+		values = sbw.substring(0, sbw.length() - 5);
+		String query = "DELETE FROM " + prefix + table + " WHERE " + values;
+		try {
+			service.testConnection(connection);
+			statement = connection.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			plugin.debug("Delete error for " + table + "! " + e.getMessage());
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				plugin.debug("Error closing " + table + "! " + e.getMessage());
+			}
+		}
+	}
 }

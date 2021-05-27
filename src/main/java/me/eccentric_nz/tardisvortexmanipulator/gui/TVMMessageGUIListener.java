@@ -3,7 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.tardis.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
@@ -25,117 +25,123 @@ import java.util.List;
  */
 public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
 
-    private final TARDISVortexManipulator plugin;
-    int selectedSlot = -1;
+	private final TARDISVortexManipulator plugin;
+	int selectedSlot = -1;
 
-    public TVMMessageGUIListener(TARDISVortexManipulator plugin) {
-        super(plugin);
-        this.plugin = plugin;
-    }
+	public TVMMessageGUIListener(TARDISVortexManipulator plugin) {
+		super(plugin);
+		this.plugin = plugin;
+	}
 
-    @EventHandler(ignoreCancelled = true)
-    public void onMessageGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (name.equals("§4VM Messages")) {
-            event.setCancelled(true);
-            Player player = (Player) event.getWhoClicked();
-            int slot = event.getRawSlot();
-            if (slot >= 0 && slot < 54) {
-                switch (slot) {
-                    case 45:
-                        break;
-                    case 46:
-                        // close
-                        close(player);
-                        break;
-                    case 48:
-                        // previous page
-                        doPrev(view, player);
-                        break;
-                    case 49:
-                        // next page
-                        doNext(view, player);
-                        break;
-                    case 51:
-                        // read
-                        doRead(view, player);
-                        break;
-                    case 53:
-                        // delete
-                        doDelete(view, player);
-                        break;
-                    default:
-                        // select a message
-                        selectedSlot = slot;
-                        break;
-                }
-            }
-        }
-    }
+	@EventHandler(ignoreCancelled = true)
+	public void onMessageGUIClick(InventoryClickEvent event) {
+		InventoryView view = event.getView();
+		String name = view.getTitle();
+		if (name.equals("§4VM Messages")) {
+			event.setCancelled(true);
+			Player player = (Player) event.getWhoClicked();
+			int slot = event.getRawSlot();
+			if (slot >= 0 && slot < 54) {
+				switch (slot) {
+					case 45:
+						break;
+					case 46:
+						// close
+						close(player);
+						break;
+					case 48:
+						// previous page
+						doPrev(view, player);
+						break;
+					case 49:
+						// next page
+						doNext(view, player);
+						break;
+					case 51:
+						// read
+						doRead(view, player);
+						break;
+					case 53:
+						// delete
+						doDelete(view, player);
+						break;
+					default:
+						// select a message
+						selectedSlot = slot;
+						break;
+				}
+			}
+		}
+	}
 
-    private void doPrev(InventoryView view, Player p) {
-        int page = getPageNumber(view);
-        if (page > 1) {
-            int start = (page * 44) - 44;
-            close(p);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
-                ItemStack[] gui = tvmm.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-                vmg.setContents(gui);
-                p.openInventory(vmg);
-            }, 2L);
-        }
-    }
+	private void doPrev(InventoryView view, Player p) {
+		int page = getPageNumber(view);
+		if (page > 1) {
+			int start = (page * 44) - 44;
+			close(p);
+			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+				TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
+				ItemStack[] gui = tvmm.getGUI();
+				Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
+				vmg.setContents(gui);
+				p.openInventory(vmg);
+			}, 2L);
+		}
+	}
 
-    private void doNext(InventoryView view, Player p) {
-        int page = getPageNumber(view);
-        int start = (page * 44) + 44;
-        close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
-            ItemStack[] gui = tvmm.getGUI();
-            Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
-            vmg.setContents(gui);
-            p.openInventory(vmg);
-        }, 2L);
-    }
+	private void doNext(InventoryView view, Player p) {
+		int page = getPageNumber(view);
+		int start = (page * 44) + 44;
+		close(p);
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+			TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, p.getUniqueId().toString());
+			ItemStack[] gui = tvmm.getGUI();
+			Inventory vmg = plugin.getServer().createInventory(p, 54, "§4VM Messages");
+			vmg.setContents(gui);
+			p.openInventory(vmg);
+		}, 2L);
+	}
 
-    private void doRead(InventoryView view, Player p) {
-        if (selectedSlot != -1) {
-            ItemStack is = view.getItem(selectedSlot);
-            ItemMeta im = is.getItemMeta();
-            List<String> lore = im.getLore();
-            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
-            TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
-            if (rsm.resultSet()) {
-                close(p);
-                TVMUtils.readMessage(p, rsm.getMessage());
-                // update read status
-                new TVMQueryFactory(plugin).setReadStatus(message_id);
-            }
-        } else {
-            p.sendMessage(plugin.getPluginName() + "Select a message!");
-        }
-    }
+	private void doRead(InventoryView view, Player p) {
+		if (selectedSlot != -1) {
+			ItemStack is = view.getItem(selectedSlot);
+			assert is != null;
+			ItemMeta im = is.getItemMeta();
+			assert im != null;
+			List<String> lore = im.getLore();
+			assert lore != null;
+			int message_id = TARDISNumberParsers.parseInt(lore.get(2));
+			TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
+			if (rsm.resultSet()) {
+				close(p);
+				TVMUtils.readMessage(p, rsm.getMessage());
+				// update read status
+				new TVMQueryFactory(plugin).setReadStatus(message_id);
+			}
+		} else {
+			p.sendMessage(plugin.getPluginName() + "Select a message!");
+		}
+	}
 
-    private void doDelete(InventoryView view, Player p) {
-        if (selectedSlot != -1) {
-            ItemStack is = view.getItem(selectedSlot);
-            ItemMeta im = is.getItemMeta();
-            List<String> lore = im.getLore();
-            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
-            TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
-            if (rsm.resultSet()) {
-                close(p);
-                HashMap<String, Object> where = new HashMap<>();
-                where.put("message_id", message_id);
-                new TVMQueryFactory(plugin).doDelete("messages", where);
-                p.sendMessage(plugin.getPluginName() + "Message deleted.");
-            }
-        } else {
-            p.sendMessage(plugin.getPluginName() + "Select a message!");
-        }
-    }
+	private void doDelete(InventoryView view, Player p) {
+		if (selectedSlot != -1) {
+			ItemStack is = view.getItem(selectedSlot);
+			assert is != null;
+			ItemMeta im = is.getItemMeta();
+			assert im != null;
+			List<String> lore = im.getLore();
+			assert lore != null;
+			int message_id = TARDISNumberParsers.parseInt(lore.get(2));
+			TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
+			if (rsm.resultSet()) {
+				close(p);
+				HashMap<String, Object> where = new HashMap<>();
+				where.put("message_id", message_id);
+				new TVMQueryFactory(plugin).doDelete("messages", where);
+				p.sendMessage(plugin.getPluginName() + "Message deleted.");
+			}
+		} else {
+			p.sendMessage(plugin.getPluginName() + "Select a message!");
+		}
+	}
 }

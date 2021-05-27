@@ -8,16 +8,16 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class TVMBlockListener implements Listener {
 
-    private final TARDISVortexManipulator plugin;
+	private final TARDISVortexManipulator plugin;
 
-    public TVMBlockListener(TARDISVortexManipulator plugin) {
-        this.plugin = plugin;
-    }
+	public TVMBlockListener(TARDISVortexManipulator plugin) {
+		this.plugin = plugin;
+	}
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onInteract(BlockBreakEvent event) {
-        if (plugin.getBlocks().contains(event.getBlock().getLocation())) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void onInteract(BlockBreakEvent event) {
+		if (plugin.getBlocks().contains(event.getBlock().getLocation())) {
+			event.setCancelled(true);
+		}
+	}
 }

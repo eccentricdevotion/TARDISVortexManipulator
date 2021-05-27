@@ -3,7 +3,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.tardis.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;
@@ -15,28 +15,27 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class TVMGUICommon {
 
-    private final TARDISVortexManipulator plugin;
+	private final TARDISVortexManipulator plugin;
 
-    public TVMGUICommon(TARDISVortexManipulator plugin) {
-        this.plugin = plugin;
-    }
+	public TVMGUICommon(TARDISVortexManipulator plugin) {
+		this.plugin = plugin;
+	}
 
-    /**
-     * Closes the inventory.
-     *
-     * @param p the player using the GUI
-     */
-    public void close(Player p) {
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            p.closeInventory();
-        }, 1L);
-    }
+	/**
+	 * Closes the inventory.
+	 *
+	 * @param p the player using the GUI
+	 */
+	public void close(Player p) {
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, p::closeInventory, 1L);
+	}
 
-    public int getPageNumber(InventoryView view) {
-        ItemStack is = view.getItem(45);
-        ItemMeta im = is.getItemMeta();
-        String[] split = im.getDisplayName().split(" ");
-        int page = TARDISNumberParsers.parseInt(split[1]);
-        return page;
-    }
+	public int getPageNumber(InventoryView view) {
+		ItemStack is = view.getItem(45);
+		assert is != null;
+		ItemMeta im = is.getItemMeta();
+		assert im != null;
+		String[] split = im.getDisplayName().split(" ");
+		return TARDISNumberParsers.parseInt(split[1]);
+	}
 }

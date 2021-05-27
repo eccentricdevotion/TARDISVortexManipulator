@@ -30,81 +30,79 @@ import java.util.UUID;
  */
 public class TVMSQLUpdate implements Runnable {
 
-    private final TARDISVortexManipulator plugin;
-    private final TVMDatabase service = TVMDatabase.getInstance();
-    private final String table;
-    private final HashMap<String, Object> data;
-    private final HashMap<String, Object> where;
-    private final String prefix;
-    Connection connection = service.getConnection();
+	private final TARDISVortexManipulator plugin;
+	private final TVMDatabase service = TVMDatabase.getInstance();
+	private final String table;
+	private final HashMap<String, Object> data;
+	private final HashMap<String, Object> where;
+	private final String prefix;
+	Connection connection = service.getConnection();
 
-    /**
-     * Updates data in an SQLite database table. This method builds an SQL query string from the parameters supplied and
-     * then executes the update.
-     *
-     * @param plugin an instance of the main plugin class
-     * @param table  the database table name to update.
-     * @param data   a HashMap<String, Object> of table fields and values update.
-     * @param where  a HashMap<String, Object> of table fields and values to select the records to update.
-     */
-    public TVMSQLUpdate(TARDISVortexManipulator plugin, String table, HashMap<String, Object> data, HashMap<String, Object> where) {
-        this.plugin = plugin;
-        this.table = table;
-        this.data = data;
-        this.where = where;
-        prefix = this.plugin.getPrefix();
-    }
+	/**
+	 * Updates data in an SQLite database table. This method builds an SQL query string from the parameters supplied and
+	 * then executes the update.
+	 *
+	 * @param plugin an instance of the main plugin class
+	 * @param table  the database table name to update.
+	 * @param data   a HashMap<String, Object> of table fields and values update.
+	 * @param where  a HashMap<String, Object> of table fields and values to select the records to update.
+	 */
+	public TVMSQLUpdate(TARDISVortexManipulator plugin, String table, HashMap<String, Object> data, HashMap<String, Object> where) {
+		this.plugin = plugin;
+		this.table = table;
+		this.data = data;
+		this.where = where;
+		prefix = this.plugin.getPrefix();
+	}
 
-    @Override
-    public void run() {
-        PreparedStatement ps = null;
-        String updates;
-        String wheres;
-        StringBuilder sbu = new StringBuilder();
-        StringBuilder sbw = new StringBuilder();
-        data.entrySet().forEach((entry) -> {
-            sbu.append(entry.getKey()).append(" = ?,");
-        });
-        where.entrySet().forEach((entry) -> {
-            sbw.append(entry.getKey()).append(" = ");
-            if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
-                sbw.append("'").append(entry.getValue()).append("' AND ");
-            } else {
-                sbw.append(entry.getValue()).append(" AND ");
-            }
-        });
-        where.clear();
-        updates = sbu.toString().substring(0, sbu.length() - 1);
-        wheres = sbw.toString().substring(0, sbw.length() - 5);
-        String query = "UPDATE " + prefix + table + " SET " + updates + " WHERE " + wheres;
-        try {
-            service.testConnection(connection);
-            ps = connection.prepareStatement(query);
-            int s = 1;
-            for (Map.Entry<String, Object> entry : data.entrySet()) {
-                if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
-                    ps.setString(s, entry.getValue().toString());
-                }
-                if (entry.getValue() instanceof Integer) {
-                    ps.setInt(s, (Integer) entry.getValue());
-                }
-                if (entry.getValue() instanceof Long) {
-                    ps.setLong(s, (Long) entry.getValue());
-                }
-                s++;
-            }
-            data.clear();
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            plugin.debug("Update error for " + table + "! " + e.getMessage());
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                plugin.debug("Error closing " + table + "! " + e.getMessage());
-            }
-        }
-    }
+	@Override
+	public void run() {
+		PreparedStatement ps = null;
+		String updates;
+		String wheres;
+		StringBuilder sbu = new StringBuilder();
+		StringBuilder sbw = new StringBuilder();
+		data.forEach((key, value) -> sbu.append(key).append(" = ?,"));
+		where.forEach((key, value) -> {
+			sbw.append(key).append(" = ");
+			if (value.getClass().equals(String.class) || value.getClass().equals(UUID.class)) {
+				sbw.append("'").append(value).append("' AND ");
+			} else {
+				sbw.append(value).append(" AND ");
+			}
+		});
+		where.clear();
+		updates = sbu.substring(0, sbu.length() - 1);
+		wheres = sbw.substring(0, sbw.length() - 5);
+		String query = "UPDATE " + prefix + table + " SET " + updates + " WHERE " + wheres;
+		try {
+			service.testConnection(connection);
+			ps = connection.prepareStatement(query);
+			int s = 1;
+			for (Map.Entry<String, Object> entry : data.entrySet()) {
+				if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
+					ps.setString(s, entry.getValue().toString());
+				}
+				if (entry.getValue() instanceof Integer) {
+					ps.setInt(s, (Integer) entry.getValue());
+				}
+				if (entry.getValue() instanceof Long) {
+					ps.setLong(s, (Long) entry.getValue());
+				}
+				s++;
+			}
+			data.clear();
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			plugin.debug("Update error for " + table + "! " + e.getMessage());
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				plugin.debug("Error closing " + table + "! " + e.getMessage());
+			}
+		}
+	}
 }
