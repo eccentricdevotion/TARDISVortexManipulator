@@ -125,7 +125,8 @@ public class TVMConfig {
 			i++;
 		}
 		if (i > 0) {
-			plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "Added " + ChatColor.AQUA + i + ChatColor.RESET + " new items to config");
+			plugin.getServer().getConsoleSender().sendMessage(
+					plugin.getPluginName() + "Added " + ChatColor.AQUA + i + ChatColor.RESET + " new items to config");
 		}
 		plugin.saveConfig();
 	}

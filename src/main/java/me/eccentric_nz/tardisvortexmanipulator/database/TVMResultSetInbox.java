@@ -43,7 +43,9 @@ public class TVMResultSetInbox {
 	public boolean resultSet() {
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String query = String.format("SELECT * FROM " + prefix + "messages WHERE uuid_to = ? ORDER BY read, date DESC LIMIT %d, %d", start, start + limit);
+		String query = String.format(
+				"SELECT * FROM " + prefix + "messages WHERE uuid_to = ? ORDER BY read, date DESC LIMIT %d, %d", start,
+				start + limit);
 		try {
 			service.testConnection(connection);
 			statement = connection.prepareStatement(query);

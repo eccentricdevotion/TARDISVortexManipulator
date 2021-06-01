@@ -43,7 +43,9 @@ public class TVMResultSetOutbox {
 	public boolean resultSet() {
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String query = String.format("SELECT * FROM " + prefix + "messages WHERE uuid_from = ? ORDER BY date DESC LIMIT %d, %d", start, start + limit);
+		String query = String.format(
+				"SELECT * FROM " + prefix + "messages WHERE uuid_from = ? ORDER BY date DESC LIMIT %d, %d", start,
+				start + limit);
 		try {
 			service.testConnection(connection);
 			statement = connection.prepareStatement(query);
@@ -56,7 +58,7 @@ public class TVMResultSetOutbox {
 					tvmm.setWho(UUID.fromString(rs.getString("uuid_to")));
 					tvmm.setMessage(rs.getString("message"));
 					tvmm.setDate(getFormattedDate(rs.getLong("date")));
-//                    tvmm.setRead(rs.getBoolean("read"));
+					//                    tvmm.setRead(rs.getBoolean("read"));
 					mail.add(tvmm);
 				}
 			} else {

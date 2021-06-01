@@ -43,7 +43,8 @@ public class TVMCommandLifesigns implements CommandExecutor {
 				is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
 				int required = plugin.getConfig().getInt("tachyon_use.lifesigns");
 				if (!TVMUtils.checkTachyonLevel(p.getUniqueId().toString(), required)) {
-					p.sendMessage(plugin.getPluginName() + "You don't have enough tachyons to use the lifesigns scanner!");
+					p.sendMessage(
+							plugin.getPluginName() + "You don't have enough tachyons to use the lifesigns scanner!");
 					return true;
 				}
 				// remove tachyons

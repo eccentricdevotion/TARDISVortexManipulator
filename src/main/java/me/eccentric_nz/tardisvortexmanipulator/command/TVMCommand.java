@@ -93,7 +93,8 @@ public class TVMCommand implements CommandExecutor {
 					}
 					int required = plugin.getConfig().getInt("tachyon_use.saved") * players.size();
 					if (!TVMUtils.checkTachyonLevel(uuid, required)) {
-						player.sendMessage(plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
+						player.sendMessage(
+								plugin.getPluginName() + "You need at least " + required + " tachyons to travel!");
 						return true;
 					}
 					TVMUtils.movePlayers(players, l, player.getLocation().getWorld());
@@ -115,7 +116,8 @@ public class TVMCommand implements CommandExecutor {
 						}
 						// check world is enabled for travel
 						if (!containsIgnoreCase(args[0], plugin.getTardisAPI().getWorlds())) {
-							player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
+							player.sendMessage(plugin.getPluginName() +
+											   "You cannot travel to this world using the Vortex Manipulator!");
 							return true;
 						}
 						required = plugin.getConfig().getInt("tachyon_use.travel.world");
@@ -138,7 +140,8 @@ public class TVMCommand implements CommandExecutor {
 							}
 							// check world is enabled for travel
 							if (!containsIgnoreCase(args[0], plugin.getTardisAPI().getWorlds())) {
-								player.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
+								player.sendMessage(plugin.getPluginName() +
+												   "You cannot travel to this world using the Vortex Manipulator!");
 								return true;
 							}
 						}

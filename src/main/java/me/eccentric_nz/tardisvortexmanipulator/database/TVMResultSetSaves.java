@@ -44,7 +44,9 @@ public class TVMResultSetSaves {
 	public boolean resultSet() {
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String query = String.format("SELECT * FROM " + prefix + "saves WHERE uuid = ? ORDER BY save_name LIMIT %d, %d", start, start + limit);
+		String query = String.format(
+				"SELECT * FROM " + prefix + "saves WHERE uuid = ? ORDER BY save_name LIMIT %d, %d", start,
+				start + limit);
 		try {
 			service.testConnection(connection);
 			statement = connection.prepareStatement(query);

@@ -50,6 +50,7 @@ public class TVMMoveListener implements Listener {
 	}
 
 	private boolean compareXYZ(Location from, Location to) {
-		return from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ();
+		return from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() &&
+			   from.getBlockZ() == to.getBlockZ();
 	}
 }

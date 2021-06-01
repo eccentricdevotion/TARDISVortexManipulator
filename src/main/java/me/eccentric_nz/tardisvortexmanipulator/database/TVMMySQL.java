@@ -37,14 +37,16 @@ public class TVMMySQL {
 				statement.executeUpdate(subbed);
 			}
 		} catch (SQLException e) {
-			plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "MySQL create table error: " + e);
+			plugin.getServer().getConsoleSender().sendMessage(
+					plugin.getPluginName() + "MySQL create table error: " + e);
 		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
 				}
 			} catch (SQLException e) {
-				plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "MySQL close statement error: " + e);
+				plugin.getServer().getConsoleSender().sendMessage(
+						plugin.getPluginName() + "MySQL close statement error: " + e);
 			}
 		}
 	}

@@ -80,7 +80,8 @@ public class TVMSQLUpdate implements Runnable {
 			ps = connection.prepareStatement(query);
 			int s = 1;
 			for (Map.Entry<String, Object> entry : data.entrySet()) {
-				if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
+				if (entry.getValue().getClass().equals(String.class) ||
+					entry.getValue().getClass().equals(UUID.class)) {
 					ps.setString(s, entry.getValue().toString());
 				}
 				if (entry.getValue() instanceof Integer) {

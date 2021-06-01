@@ -35,7 +35,6 @@ public class Main {
 	 * @param sqlite  the SQLite file to migrate
 	 * @param mysql   the SQL file to write to
 	 * @param prefix  the desired table prefix
-	 * @throws IOException
 	 */
 	public static void process(PrintWriter console, File sqlite, File mysql, String prefix) throws IOException {
 		if (!sqlite.canRead()) {
@@ -43,11 +42,13 @@ public class Main {
 			return;
 		}
 		if (mysql.exists()) {
-			console.println("Specified output file " + mysql + " exists, please remove it before running this program!");
+			console.println(
+					"Specified output file " + mysql + " exists, please remove it before running this program!");
 			return;
 		}
 		if (!mysql.createNewFile()) {
-			console.println("Could not create specified output file " + mysql + " please ensure that it is in a valid directory which can be written to.");
+			console.println("Could not create specified output file " + mysql +
+							" please ensure that it is in a valid directory which can be written to.");
 			return;
 		}
 		if (!prefix.isEmpty()) {
@@ -116,19 +117,23 @@ public class Main {
 								String str;
 								switch (table) {
 									case beacons:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) +
+											  end;
 										bw.write(str);
 										break;
 									case manipulator:
-										str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) +
+											  end;
 										bw.write(str);
 										break;
 									case messages:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) +
+											  end;
 										bw.write(str);
 										break;
 									case saves:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) +
+											  end;
 										bw.write(str);
 										break;
 									default:

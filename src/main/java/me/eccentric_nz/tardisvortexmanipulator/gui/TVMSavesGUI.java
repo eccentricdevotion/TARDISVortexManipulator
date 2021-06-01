@@ -55,7 +55,9 @@ public class TVMSavesGUI {
 				ItemMeta warp = save.getItemMeta();
 				assert warp != null;
 				warp.setDisplayName(s.getName());
-				warp.setLore(Arrays.asList("World: " + s.getWorld(), "x: " + oneDecimal(s.getX()), "y: " + s.getY(), "z: " + oneDecimal(s.getZ())));
+				warp.setLore(Arrays.asList(
+						"World: " + s.getWorld(),
+						"x: " + oneDecimal(s.getX()), "y: " + s.getY(), "z: " + oneDecimal(s.getZ())));
 				save.setItemMeta(warp);
 				stack[i] = save;
 				i++;

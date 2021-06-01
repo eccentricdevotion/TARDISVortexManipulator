@@ -52,7 +52,8 @@ public class TVMCommandGive implements CommandExecutor {
 					try {
 						amount = Integer.parseInt(args[1]);
 					} catch (NumberFormatException e) {
-						sender.sendMessage(plugin.getPluginName() + "The last argument must be a number, 'full' or 'empty'");
+						sender.sendMessage(
+								plugin.getPluginName() + "The last argument must be a number, 'full' or 'empty'");
 						return true;
 					}
 					if (tachyon_level + amount > full) {

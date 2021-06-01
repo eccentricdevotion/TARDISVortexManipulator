@@ -47,7 +47,8 @@ public class TVMCommandRemove implements CommandExecutor {
 				// check for existing save
 				TVMResultSetWarpByName rs = new TVMResultSetWarpByName(plugin, uuid, args[0]);
 				if (rs.resultSet()) {
-					p.sendMessage(plugin.getPluginName() + "No save with that name exists! Try using /vms to list saves.");
+					p.sendMessage(
+							plugin.getPluginName() + "No save with that name exists! Try using /vms to list saves.");
 					return true;
 				}
 				HashMap<String, Object> where = new HashMap<>();

@@ -47,14 +47,16 @@ public class TVMSQLite {
 			String queryManipulator = "CREATE TABLE IF NOT EXISTS manipulator (uuid TEXT PRIMARY KEY NOT NULL, tachyon_level INTEGER DEFAULT 0)";
 			statement.executeUpdate(queryManipulator);
 		} catch (SQLException e) {
-			plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "SQLite create table error: " + e);
+			plugin.getServer().getConsoleSender().sendMessage(
+					plugin.getPluginName() + "SQLite create table error: " + e);
 		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
 				}
 			} catch (SQLException e) {
-				plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + "SQLite close statement error: " + e);
+				plugin.getServer().getConsoleSender().sendMessage(
+						plugin.getPluginName() + "SQLite close statement error: " + e);
 			}
 		}
 	}

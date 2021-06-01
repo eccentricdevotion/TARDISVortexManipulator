@@ -77,10 +77,13 @@ public class TVMQueryFactory {
 		questions = sbq.substring(0, sbq.length() - 1);
 		try {
 			service.testConnection(connection);
-			ps = connection.prepareStatement("INSERT INTO " + prefix + table + " (" + fields + ") VALUES (" + questions + ")", PreparedStatement.RETURN_GENERATED_KEYS);
+			ps = connection.prepareStatement(
+					"INSERT INTO " + prefix + table + " (" + fields + ") VALUES (" + questions +
+					")", PreparedStatement.RETURN_GENERATED_KEYS);
 			int i = 1;
 			for (Map.Entry<String, Object> entry : data.entrySet()) {
-				if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
+				if (entry.getValue().getClass().equals(String.class) ||
+					entry.getValue().getClass().equals(UUID.class)) {
 					ps.setString(i, entry.getValue().toString());
 				} else if (entry.getValue().getClass().getName().contains("Double")) {
 					ps.setDouble(i, TARDISNumberParsers.parseDouble(entry.getValue().toString()));

@@ -52,13 +52,15 @@ public class Converter implements Runnable {
 	@Override
 	public void run() {
 		if (Objects.equals(plugin.getConfig().getString("storage.database"), "sqlite")) {
-			sender.sendMessage(plugin.getPluginName() + "You need to set the database provider to 'mysql' in the config!");
+			sender.sendMessage(
+					plugin.getPluginName() + "You need to set the database provider to 'mysql' in the config!");
 			return;
 		}
 		if (!prefix.isEmpty()) {
 			sender.sendMessage(plugin.getPluginName() + "***** Using prefix: " + prefix);
 		}
-		sender.sendMessage(plugin.getPluginName() + "Starting conversion process, please wait. This may cause the server to become unresponsive!");
+		sender.sendMessage(plugin.getPluginName() +
+						   "Starting conversion process, please wait. This may cause the server to become unresponsive!");
 		try {
 			Statement readStatement = sqliteConnection.createStatement();
 			Statement writeStatement = connection.createStatement();
@@ -89,19 +91,23 @@ public class Converter implements Runnable {
 							try {
 								switch (table) {
 									case beacons:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) +
+											  end;
 										sb.append(str);
 										break;
 									case manipulator:
-										str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) +
+											  end;
 										sb.append(str);
 										break;
 									case messages:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) +
+											  end;
 										sb.append(str);
 										break;
 									case saves:
-										str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) + end;
+										str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) +
+											  end;
 										sb.append(str);
 										break;
 									default:

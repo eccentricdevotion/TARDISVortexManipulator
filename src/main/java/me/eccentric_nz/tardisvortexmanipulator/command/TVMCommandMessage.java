@@ -54,7 +54,8 @@ public class TVMCommandMessage implements CommandExecutor {
 							// check they have a Vortex Manipulator
 							TVMResultSetManipulator rsofp = new TVMResultSetManipulator(plugin, ofp_uuid);
 							if (!rsofp.resultSet()) {
-								p.sendMessage(plugin.getPluginName() + args[1] + " does not have a Vortex Manipulator!");
+								p.sendMessage(
+										plugin.getPluginName() + args[1] + " does not have a Vortex Manipulator!");
 								return true;
 							}
 							StringBuilder sb = new StringBuilder();
@@ -134,7 +135,8 @@ public class TVMCommandMessage implements CommandExecutor {
 									// update read status
 									new TVMQueryFactory(plugin).setReadStatus(read_id);
 								} else {
-									p.sendMessage(plugin.getPluginName() + "No message exists with that id, use /vmm list [in|out] first!");
+									p.sendMessage(plugin.getPluginName() +
+												  "No message exists with that id, use /vmm list [in|out] first!");
 									return true;
 								}
 							}
@@ -150,14 +152,16 @@ public class TVMCommandMessage implements CommandExecutor {
 									p.sendMessage(plugin.getPluginName() + "Message deleted.");
 								}
 							} else {
-								p.sendMessage(plugin.getPluginName() + "No message exists with that id, use /vmm list [in|out] first!");
+								p.sendMessage(plugin.getPluginName() +
+											  "No message exists with that id, use /vmm list [in|out] first!");
 								return true;
 							}
 						}
 						default -> {
 							// clear
 							if (!args[1].equalsIgnoreCase("in") && !args[1].equalsIgnoreCase("out")) {
-								p.sendMessage(plugin.getPluginName() + "You need to specify which mail box you want to clear (in or out)!");
+								p.sendMessage(plugin.getPluginName() +
+											  "You need to specify which mail box you want to clear (in or out)!");
 								return true;
 							}
 							TVMQueryFactory qf = new TVMQueryFactory(plugin);

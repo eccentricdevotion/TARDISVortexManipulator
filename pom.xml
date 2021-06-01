@@ -4,16 +4,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.eccentric_nz.tardisvortexmanipulator</groupId>
 	<artifactId>TARDISVortexManipulator</artifactId>
-	<version>1.6-SNAPSHOT</version>
+	<version>1.6.0</version>
+	<packaging>jar</packaging>
 	<name>TARDISVortexManipulator</name>
 	<description>Cheap and nasty time travel. Very bad for you. I'm trying to give it up.</description>
 	<url>https://github.com/eccentricdevotion/TARDISVortexManipulator</url>
+	<inceptionYear>2014</inceptionYear>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>16</maven.compiler.source>
 		<maven.compiler.target>16</maven.compiler.target>
 		<java.version>16</java.version>
 	</properties>
+	<licenses>
+		<license>
+			<name>GNU General Public License v3.0</name>
+			<url>https://github.com/eccentricdevotion/TARDISVortexManipulator/blob/master/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/eccentricdevotion/TARDISVortexManipulator/issues</url>
+	</issueManagement>
+	<scm>
+		<connection>scm:git:ssh://github.com/eccentricdevotion/TARDISVortexManipulator</connection>
+		<developerConnection>scm:git:ssh://github.com/eccentricdevotion/TARDISVortexManipulator</developerConnection>
+	</scm>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://tardisjenkins.duckdns.org:8080</url>
+	</ciManagement>
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
@@ -29,13 +50,11 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<property>
-					<name>!env.BUILD_NUMBER</name>
-				</property>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- Set the build number to the date and time of the build -->
-				<project.buildNumber>${timestamp}</project.buildNumber>
+				<build.number>${timestamp}</build.number>
 			</properties>
 			<build>
 				<plugins>
@@ -48,11 +67,14 @@
 						</configuration>
 						<executions>
 							<execution>
-								<id>buildnumber</id>
+								<id>create-timestamp-id</id>
 								<phase>validate</phase>
 								<goals>
-									<goal>create</goal>
+									<goal>create-timestamp</goal>
 								</goals>
+								<configuration>
+									<timestampFormat>yyyy.MM.dd-HH.mm.ss</timestampFormat>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -68,11 +90,12 @@
 			</activation>
 			<properties>
 				<!-- Get the build number from Jenkins -->
-				<project.buildNumber>${env.BUILD_NUMBER}</project.buildNumber>
+				<build.number>${env.BUILD_NUMBER}</build.number>
 			</properties>
 			<build>
 				<plugins>
 					<plugin>
+						<!-- Attach Javadocs -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.3.0</version>
@@ -94,7 +117,8 @@
 		</profile>
 	</profiles>
 	<build>
-		<finalName>${project.artifactId}-${project.version}-${project.buildNumber}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<defaultGoal>clean package install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -114,8 +138,8 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			<!-- Manifest generation for database conversion tool -->
 			<plugin>
+				<!-- Manifest generation for database conversion tool -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.2.0</version>
@@ -125,7 +149,7 @@
 							<Main-Class>me.eccentric_nz.tardisvortexmanipulator.database.Main</Main-Class>
 							<Implementation-Title>${project.name}</Implementation-Title>
 							<Implementation-Version>${project.version}</Implementation-Version>
-							<Implementation-Build>${project.buildNumber}</Implementation-Build>
+							<Implementation-Build>${build.number}</Implementation-Build>
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -143,7 +167,7 @@
 		<dependency>
 			<groupId>me.eccentric_nz.tardis</groupId>
 			<artifactId>TARDIS</artifactId>
-			<version>4.6.2-SNAPSHOT</version>
+			<version>4.6.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 			<exclusions>

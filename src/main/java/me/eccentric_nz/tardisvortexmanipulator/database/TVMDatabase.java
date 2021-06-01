@@ -34,11 +34,10 @@ public class TVMDatabase {
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Cannot find the driver in the classpath!", e);
 		}
-		String jdbc = "jdbc:mysql://"
-				+ TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.host") + ":"
-				+ TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.port") + "/"
-				+ TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.database")
-				+ "?autoReconnect=true";
+		String jdbc =
+				"jdbc:mysql://" + TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.host") + ":" +
+				TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.port") + "/" +
+				TARDISVortexManipulator.plugin.getConfig().getString("storage.mysql.database") + "?autoReconnect=true";
 		if (!TARDISVortexManipulator.plugin.getConfig().getBoolean("storage.mysql.useSSL")) {
 			jdbc += "&useSSL=false";
 		}
@@ -64,7 +63,6 @@ public class TVMDatabase {
 
 	/**
 	 * @return an exception
-	 * @throws CloneNotSupportedException
 	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
@@ -73,9 +71,6 @@ public class TVMDatabase {
 
 	/**
 	 * Test the database connection
-	 *
-	 * @param connection
-	 * @throws java.sql.SQLException
 	 */
 	public void testConnection(Connection connection) throws SQLException {
 		if (isMySQL) {

@@ -36,7 +36,7 @@ public class TVMUtils {
 		World to = l.getWorld();
 		boolean crossWorlds = from != to;
 
-		players.stream().map((p) -> {
+		players.stream().peek((p) -> {
 			TARDISVortexManipulator.plugin.getTravellers().add(p.getUniqueId());
 			boolean allowFlight = p.getAllowFlight();
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
@@ -50,10 +50,7 @@ public class TVMUtils {
 					p.setAllowFlight(true);
 				}
 			}, 15L);
-			return p;
-		}).forEachOrdered((thePlayer) -> Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> {
-			TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId());
-		}, 100L));
+		}).forEachOrdered((thePlayer) -> Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TARDISVortexManipulator.plugin, () -> TARDISVortexManipulator.plugin.getTravellers().remove(thePlayer.getUniqueId()), 100L));
 	}
 
 	/**
@@ -109,7 +106,8 @@ public class TVMUtils {
 	 */
 	public static void sendSaveList(Player p, TVMResultSetSaves rss, int page) {
 		p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Saves (page " + page + ":");
-		rss.getSaves().forEach((s) -> p.sendMessage(s.getName() + " - " + s.getWorld() + ":" + s.getX() + ":" + s.getY() + ":" + s.getZ()));
+		rss.getSaves().forEach((s) -> p.sendMessage(
+				s.getName() + " - " + s.getWorld() + ":" + s.getX() + ":" + s.getY() + ":" + s.getZ()));
 	}
 
 	/**
@@ -136,7 +134,8 @@ public class TVMUtils {
 	 */
 	public static void sendOutboxList(Player p, TVMResultSetOutbox rso, int page) {
 		p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + "):");
-		rso.getMail().forEach((m) -> p.sendMessage(m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12)));
+		rso.getMail().forEach((m) -> p.sendMessage(
+				m.getId() + " - " + m.getDate() + " - " + m.getMessage().substring(0, 12)));
 	}
 
 	/**
@@ -146,7 +145,9 @@ public class TVMUtils {
 	 * @param m the message to read
 	 */
 	public static void readMessage(Player p, TVMMessage m) {
-		p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA + TARDISVortexManipulator.plugin.getServer().getOfflinePlayer(m.getWho()).getName() + " - " + m.getDate());
+		p.sendMessage(TARDISVortexManipulator.plugin.getPluginName() + ChatColor.AQUA +
+					  TARDISVortexManipulator.plugin.getServer().getOfflinePlayer(m.getWho()).getName() + " - " +
+					  m.getDate());
 		p.sendMessage(m.getMessage());
 	}
 

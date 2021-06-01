@@ -52,7 +52,9 @@ public class TVMAlterTachyon implements Runnable {
 	@Override
 	public void run() {
 		Statement statement = null;
-		String query = "UPDATE " + prefix + "manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" + uuid + "'";
+		String query =
+				"UPDATE " + prefix + "manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" +
+				uuid + "'";
 		try {
 			service.testConnection(connection);
 			statement = connection.createStatement();

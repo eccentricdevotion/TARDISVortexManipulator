@@ -578,7 +578,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
 				// check world is enabled for travel
 				if (!plugin.getTardisAPI().getWorlds().contains(dest.get(0))) {
 					close(p);
-					p.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
+					p.sendMessage(
+							plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
 					return;
 				}
 				worlds.add(dest.get(0));
@@ -601,7 +602,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
 					// check world is enabled for travel
 					if (!plugin.getTardisAPI().getWorlds().contains(dest.get(0))) {
 						close(p);
-						p.sendMessage(plugin.getPluginName() + "You cannot travel to this world using the Vortex Manipulator!");
+						p.sendMessage(plugin.getPluginName() +
+									  "You cannot travel to this world using the Vortex Manipulator!");
 						return;
 					}
 				}

@@ -61,7 +61,9 @@ public class TVMRecipe {
 				r.setIngredient(c, m);
 			});
 		} catch (IllegalArgumentException e) {
-			plugin.getServer().getConsoleSender().sendMessage(plugin.getPluginName() + ChatColor.RED + "Recipe failed! " + ChatColor.RESET + "Check the config file!");
+			plugin.getServer().getConsoleSender().sendMessage(
+					plugin.getPluginName() + ChatColor.RED + "Recipe failed! " + ChatColor.RESET +
+					"Check the config file!");
 		}
 		// add the recipe to TARDIS' list
 		plugin.getTardisAPI().getShapedRecipes().put("Vortex Manipulator", r);
