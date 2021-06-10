@@ -32,17 +32,17 @@ import java.util.List;
  */
 public class TVMTabCompleteHelp implements TabCompleter {
 
-	private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("command", "gui", "message", "tachyon");
+    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("command", "gui", "message", "tachyon");
 
-	@Override
-	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-		if (args.length <= 1) {
-			return partial(args[0], ROOT_SUBS);
-		}
-		return ImmutableList.of();
-	}
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+        if (args.length <= 1) {
+            return partial(args[0], ROOT_SUBS);
+        }
+        return ImmutableList.of();
+    }
 
-	public List<String> partial(String token, Collection<String> from) {
-		return StringUtil.copyPartialMatches(token, from, new ArrayList<>(from.size()));
-	}
+    public List<String> partial(String token, Collection<String> from) {
+        return StringUtil.copyPartialMatches(token, from, new ArrayList<>(from.size()));
+    }
 }

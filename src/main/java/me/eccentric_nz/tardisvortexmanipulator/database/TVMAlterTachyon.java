@@ -27,48 +27,46 @@ import java.sql.Statement;
  */
 public class TVMAlterTachyon implements Runnable {
 
-	private final TARDISVortexManipulator plugin;
-	private final TVMDatabase service = TVMDatabase.getInstance();
-	private final Connection connection = service.getConnection();
-	private final int amount;
-	private final String uuid;
-	private final String prefix;
+    private final TARDISVortexManipulator plugin;
+    private final TVMDatabase service = TVMDatabase.getInstance();
+    private final Connection connection = service.getConnection();
+    private final int amount;
+    private final String uuid;
+    private final String prefix;
 
-	/**
-	 * Adds or removes tachyons from a database table. This method builds an SQL query string from the parameters
-	 * supplied and then executes the query.
-	 *
-	 * @param plugin an instance of the main plugin class
-	 * @param amount the amount of energy to add or remove (use a negative value)
-	 * @param uuid   a player's UUID.
-	 */
-	public TVMAlterTachyon(TARDISVortexManipulator plugin, int amount, String uuid) {
-		this.plugin = plugin;
-		this.amount = amount;
-		this.uuid = uuid;
-		prefix = this.plugin.getPrefix();
-	}
+    /**
+     * Adds or removes tachyons from a database table. This method builds an SQL query string from the parameters
+     * supplied and then executes the query.
+     *
+     * @param plugin an instance of the main plugin class
+     * @param amount the amount of energy to add or remove (use a negative value)
+     * @param uuid   a player's UUID.
+     */
+    public TVMAlterTachyon(TARDISVortexManipulator plugin, int amount, String uuid) {
+        this.plugin = plugin;
+        this.amount = amount;
+        this.uuid = uuid;
+        prefix = this.plugin.getPrefix();
+    }
 
-	@Override
-	public void run() {
-		Statement statement = null;
-		String query =
-				"UPDATE " + prefix + "manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" +
-				uuid + "'";
-		try {
-			service.testConnection(connection);
-			statement = connection.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			plugin.debug("Tachyon update error! " + e.getMessage());
-		} finally {
-			try {
-				if (statement != null) {
-					statement.close();
-				}
-			} catch (SQLException e) {
-				plugin.debug("Tachyon error closing manipulator table! " + e.getMessage());
-			}
-		}
-	}
+    @Override
+    public void run() {
+        Statement statement = null;
+        String query = "UPDATE " + prefix + "manipulator SET tachyon_level = tachyon_level + " + amount + " WHERE uuid = '" + uuid + "'";
+        try {
+            service.testConnection(connection);
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            plugin.debug("Tachyon update error! " + e.getMessage());
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                plugin.debug("Tachyon error closing manipulator table! " + e.getMessage());
+            }
+        }
+    }
 }

@@ -11,22 +11,22 @@ import org.bukkit.block.data.BlockData;
  */
 public class TVMBlock {
 
-	private Block block;
-	private BlockData blockData;
+    private Block block;
+    private BlockData blockData;
 
-	public Block getBlock() {
-		return block;
-	}
+    public Block getBlock() {
+        return block;
+    }
 
-	public void setBlock(Block block) {
-		this.block = block;
-	}
+    public void setBlock(Block block) {
+        this.block = block;
+    }
 
-	public BlockData getBlockData() {
-		return blockData;
-	}
+    public BlockData getBlockData() {
+        return blockData;
+    }
 
-	public void setBlockData(BlockData blockData) {
-		this.blockData = blockData;
-	}
+    public void setBlockData(BlockData blockData) {
+        this.blockData = blockData;
+    }
 }

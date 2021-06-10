@@ -23,29 +23,27 @@ import java.util.Objects;
  */
 public class TVMCraftListener implements Listener {
 
-	private final TARDISVortexManipulator plugin;
+    private final TARDISVortexManipulator plugin;
 
-	public TVMCraftListener(TARDISVortexManipulator plugin) {
-		this.plugin = plugin;
-	}
+    public TVMCraftListener(TARDISVortexManipulator plugin) {
+        this.plugin = plugin;
+    }
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onCraftManipulator(CraftItemEvent event) {
-		Recipe recipe = event.getRecipe();
-		ItemStack is = recipe.getResult();
-		if (is.getType().equals(Material.CLOCK) && is.hasItemMeta() &&
-			Objects.requireNonNull(is.getItemMeta()).hasDisplayName() &&
-			is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
-			Player player = (Player) event.getWhoClicked();
-			String uuid = player.getUniqueId().toString();
-			// check if they have a manipulator record
-			TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
-			if (!rs.resultSet()) {
-				// make a record
-				HashMap<String, Object> set = new HashMap<>();
-				set.put("uuid", uuid);
-				new TVMQueryFactory(plugin).doInsert("manipulator", set);
-			}
-		}
-	}
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onCraftManipulator(CraftItemEvent event) {
+        Recipe recipe = event.getRecipe();
+        ItemStack is = recipe.getResult();
+        if (is.getType().equals(Material.CLOCK) && is.hasItemMeta() && Objects.requireNonNull(is.getItemMeta()).hasDisplayName() && is.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            Player player = (Player) event.getWhoClicked();
+            String uuid = player.getUniqueId().toString();
+            // check if they have a manipulator record
+            TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, uuid);
+            if (!rs.resultSet()) {
+                // make a record
+                HashMap<String, Object> set = new HashMap<>();
+                set.put("uuid", uuid);
+                new TVMQueryFactory(plugin).doInsert("manipulator", set);
+            }
+        }
+    }
 }

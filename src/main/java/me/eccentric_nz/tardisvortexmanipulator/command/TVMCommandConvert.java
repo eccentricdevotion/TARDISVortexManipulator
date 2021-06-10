@@ -9,32 +9,32 @@ import org.jetbrains.annotations.NotNull;
 
 public class TVMCommandConvert implements CommandExecutor {
 
-	private final TARDISVortexManipulator plugin;
-	private final int full;
+    private final TARDISVortexManipulator plugin;
+    private final int full;
 
-	public TVMCommandConvert(TARDISVortexManipulator plugin) {
-		this.plugin = plugin;
-		full = this.plugin.getConfig().getInt("tachyon_use.max");
-	}
+    public TVMCommandConvert(TARDISVortexManipulator plugin) {
+        this.plugin = plugin;
+        full = this.plugin.getConfig().getInt("tachyon_use.max");
+    }
 
-	@Override
-	public boolean onCommand(@NotNull CommandSender sender, Command cmd, @NotNull String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("vmd")) {
-			if (!sender.hasPermission("tardis.admin")) {
-				sender.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
-				return true;
-			}
-			if (args.length < 1 || !args[0].equalsIgnoreCase("convert_database")) {
-				return false;
-			}
-			try {
-				plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Converter(plugin, sender));
-				return true;
-			} catch (Exception e) {
-				sender.sendMessage("Database conversion failed! " + e.getMessage());
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, Command cmd, @NotNull String label, String[] args) {
+        if (cmd.getName().equalsIgnoreCase("vmd")) {
+            if (!sender.hasPermission("tardis.admin")) {
+                sender.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
+                return true;
+            }
+            if (args.length < 1 || !args[0].equalsIgnoreCase("convert_database")) {
+                return false;
+            }
+            try {
+                plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Converter(plugin, sender));
+                return true;
+            } catch (Exception e) {
+                sender.sendMessage("Database conversion failed! " + e.getMessage());
+                return true;
+            }
+        }
+        return false;
+    }
 }

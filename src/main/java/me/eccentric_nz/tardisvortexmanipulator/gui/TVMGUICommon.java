@@ -15,27 +15,27 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class TVMGUICommon {
 
-	private final TARDISVortexManipulator plugin;
+    private final TARDISVortexManipulator plugin;
 
-	public TVMGUICommon(TARDISVortexManipulator plugin) {
-		this.plugin = plugin;
-	}
+    public TVMGUICommon(TARDISVortexManipulator plugin) {
+        this.plugin = plugin;
+    }
 
-	/**
-	 * Closes the inventory.
-	 *
-	 * @param p the player using the GUI
-	 */
-	public void close(Player p) {
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, p::closeInventory, 1L);
-	}
+    /**
+     * Closes the inventory.
+     *
+     * @param p the player using the GUI
+     */
+    public void close(Player p) {
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, p::closeInventory, 1L);
+    }
 
-	public int getPageNumber(InventoryView view) {
-		ItemStack is = view.getItem(45);
-		assert is != null;
-		ItemMeta im = is.getItemMeta();
-		assert im != null;
-		String[] split = im.getDisplayName().split(" ");
-		return TARDISNumberParsers.parseInt(split[1]);
-	}
+    public int getPageNumber(InventoryView view) {
+        ItemStack is = view.getItem(45);
+        assert is != null;
+        ItemMeta im = is.getItemMeta();
+        assert im != null;
+        String[] split = im.getDisplayName().split(" ");
+        return TARDISNumberParsers.parseInt(split[1]);
+    }
 }
