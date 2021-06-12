@@ -69,7 +69,7 @@ public class TVMDatabase {
     /**
      * Test the database connection
      */
-    public void testConnection(Connection connection) throws SQLException {
+    public void testConnection(Connection connection) {
         if (isMySQL) {
             try {
                 statement = connection.createStatement();
