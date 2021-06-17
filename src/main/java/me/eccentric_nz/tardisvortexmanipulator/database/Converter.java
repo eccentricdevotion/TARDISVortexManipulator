@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 eccentric_nz
+ * Copyright (C) 2021 eccentric_nz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
-import me.eccentric_nz.tardisvortexmanipulator.TARDISVortexManipulator;
+import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -29,8 +29,8 @@ import java.util.Objects;
  */
 public class Converter implements Runnable {
 
-    private final TARDISVortexManipulator plugin;
-    private final TVMDatabase service = TVMDatabase.getInstance();
+    private final TardisVortexManipulatorPlugin plugin;
+    private final TvmDatabase service = TvmDatabase.getInstance();
     private final Connection connection = service.getConnection();
     private final Connection sqliteConnection;
     private final String prefix;
@@ -42,11 +42,11 @@ public class Converter implements Runnable {
      * @param plugin the output window of the tool
      * @param sender the person who ran the command
      */
-    public Converter(TARDISVortexManipulator plugin, CommandSender sender) throws Exception {
+    public Converter(TardisVortexManipulatorPlugin plugin, CommandSender sender) throws Exception {
         this.plugin = plugin;
         this.sender = sender;
         prefix = this.plugin.getPrefix();
-        sqliteConnection = getSQLiteConnection();
+        sqliteConnection = getSqliteConnection();
     }
 
     @Override
@@ -64,45 +64,45 @@ public class Converter implements Runnable {
             Statement writeStatement = connection.createStatement();
             connection.setAutoCommit(false);
             int i = 0;
-            for (SQL.TABLE table : SQL.TABLE.values()) {
+            for (Sql.TABLE table : Sql.TABLE.values()) {
                 sender.sendMessage(plugin.getPluginName() + "Reading and writing " + table.toString() + " table");
                 String count = "SELECT COUNT(*) AS count FROM " + table;
-                ResultSet rsc = readStatement.executeQuery(count);
-                if (rsc.isBeforeFirst()) {
-                    rsc.next();
-                    int c = rsc.getInt("count");
+                ResultSet resultSetCount = readStatement.executeQuery(count);
+                if (resultSetCount.isBeforeFirst()) {
+                    resultSetCount.next();
+                    int c = resultSetCount.getInt("count"); // TODO Rename this variable, and the previous "count".
                     sender.sendMessage(plugin.getPluginName() + "Found " + c + " " + table + " records");
                     String query = "SELECT * FROM " + table;
-                    ResultSet rs = readStatement.executeQuery(query);
-                    if (rs.isBeforeFirst()) {
+                    ResultSet resultSet = readStatement.executeQuery(query);
+                    if (resultSet.isBeforeFirst()) {
                         int b = 1;
-                        StringBuilder sb = new StringBuilder();
+                        StringBuilder stringBuilder = new StringBuilder();
                         try {
-                            sb.append(String.format(SQL.INSERTS.get(i), prefix));
+                            stringBuilder.append(String.format(Sql.INSERTS.get(i), prefix));
                         } catch (MissingFormatArgumentException e) {
                             sender.sendMessage(plugin.getPluginName() + "INSERT " + table);
                         }
-                        while (rs.next()) {
+                        while (resultSet.next()) {
                             String end = (b == c) ? ";" : ",";
                             b++;
-                            String str;
+                            String string;
                             try {
                                 switch (table) {
                                     case beacons:
-                                        str = String.format(SQL.VALUES.get(i), rs.getInt("beacon_id"), rs.getString("uuid"), rs.getString("location"), rs.getString("block_type"), rs.getInt("data")) + end;
-                                        sb.append(str);
+                                        string = String.format(Sql.VALUES.get(i), resultSet.getInt("beacon_id"), resultSet.getString("uuid"), resultSet.getString("location"), resultSet.getString("block_type"), resultSet.getInt("data")) + end;
+                                        stringBuilder.append(string);
                                         break;
                                     case manipulator:
-                                        str = String.format(SQL.VALUES.get(i), rs.getString("uuid"), rs.getInt("tachyon_level")) + end;
-                                        sb.append(str);
+                                        string = String.format(Sql.VALUES.get(i), resultSet.getString("uuid"), resultSet.getInt("tachyon_level")) + end;
+                                        stringBuilder.append(string);
                                         break;
                                     case messages:
-                                        str = String.format(SQL.VALUES.get(i), rs.getInt("message_id"), rs.getString("uuid_to"), rs.getString("uuid_from"), rs.getString("message"), rs.getString("date"), rs.getInt("read")) + end;
-                                        sb.append(str);
+                                        string = String.format(Sql.VALUES.get(i), resultSet.getInt("message_id"), resultSet.getString("uuid_to"), resultSet.getString("uuid_from"), resultSet.getString("message"), resultSet.getString("date"), resultSet.getInt("read")) + end;
+                                        stringBuilder.append(string);
                                         break;
                                     case saves:
-                                        str = String.format(SQL.VALUES.get(i), rs.getInt("save_id"), rs.getString("uuid"), rs.getString("save_name"), rs.getString("world"), rs.getFloat("x"), rs.getFloat("y"), rs.getFloat("z"), rs.getFloat("yaw"), rs.getFloat("pitch")) + end;
-                                        sb.append(str);
+                                        string = String.format(Sql.VALUES.get(i), resultSet.getInt("save_id"), resultSet.getString("uuid"), resultSet.getString("save_name"), resultSet.getString("world"), resultSet.getFloat("x"), resultSet.getFloat("y"), resultSet.getFloat("z"), resultSet.getFloat("yaw"), resultSet.getFloat("pitch")) + end;
+                                        stringBuilder.append(string);
                                         break;
                                     default:
                                         break;
@@ -111,7 +111,7 @@ public class Converter implements Runnable {
                                 sender.sendMessage(plugin.getPluginName() + "VALUES " + table);
                             }
                         }
-                        String insert = sb.toString();
+                        String insert = stringBuilder.toString();
                         writeStatement.addBatch(insert);
                     }
                 }
@@ -119,23 +119,23 @@ public class Converter implements Runnable {
             }
             writeStatement.executeBatch();
             connection.setAutoCommit(true);
-        } catch (SQLException ex) {
-            sender.sendMessage(plugin.getPluginName() + "***** SQL ERROR: " + ex.getMessage());
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            sender.sendMessage(plugin.getPluginName() + "***** SQL ERROR: " + e.getMessage());
+            e.printStackTrace();
             return;
         } finally {
             if (sqliteConnection != null) {
                 try {
                     sqliteConnection.close();
-                } catch (SQLException ex) {
-                    sender.sendMessage(plugin.getPluginName() + "***** DATABASE CLOSE ERROR: " + ex.getMessage());
+                } catch (SQLException e) {
+                    sender.sendMessage(plugin.getPluginName() + "***** DATABASE CLOSE ERROR: " + e.getMessage());
                 }
             }
         }
         sender.sendMessage(plugin.getPluginName() + "***** Your SQLite database has been converted to MySQL!");
     }
 
-    public Connection getSQLiteConnection() throws Exception {
+    public Connection getSqliteConnection() throws Exception {
         try {
             Class.forName("org.sqlite.JDBC");
             String path = plugin.getDataFolder() + File.separator + "TVM.db";
