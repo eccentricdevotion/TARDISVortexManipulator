@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.tardis.utility.TARDISNumberParsers;
+import me.eccentric_nz.tardis.utility.TardisNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;
@@ -49,6 +49,6 @@ public class TvmGuiCommon {
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
         String[] split = itemMeta.getDisplayName().split(" ");
-        return TARDISNumberParsers.parseInt(split[1]);
+        return TardisNumberParsers.parseInt(split[1]);
     }
 }

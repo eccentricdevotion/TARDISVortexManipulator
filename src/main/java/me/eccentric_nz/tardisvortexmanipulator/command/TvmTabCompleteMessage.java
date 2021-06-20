@@ -17,7 +17,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
 import com.google.common.collect.ImmutableList;
-import me.eccentric_nz.tardis.commands.TARDISCompleter;
+import me.eccentric_nz.tardis.commands.TardisCompleter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * TabCompleter for /vmm
  */
-public class TvmTabCompleteMessage extends TARDISCompleter implements TabCompleter {
+public class TvmTabCompleteMessage extends TardisCompleter implements TabCompleter {
 
     private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("msg", "list", "read", "delete", "clear");
     private final ImmutableList<String> IN_OUT_SUBS = ImmutableList.of("in", "out");

@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import me.eccentric_nz.tardis.TARDISConstants;
+import me.eccentric_nz.tardis.TardisConstants;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.TvmUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
@@ -75,7 +75,7 @@ public class TvmCommandLifesigns implements CommandExecutor {
                         List<String> playerNames = new ArrayList<>();
                         for (Entity entity : nearbyEntities) {
                             EntityType entityType = entity.getType();
-                            if (TARDISConstants.ENTITY_TYPES.contains(entityType)) {
+                            if (TardisConstants.ENTITY_TYPES.contains(entityType)) {
                                 Integer entityCount = scannedEntities.getOrDefault(entityType, 0);
                                 boolean visible = true;
                                 if (entityType.equals(EntityType.PLAYER)) {
