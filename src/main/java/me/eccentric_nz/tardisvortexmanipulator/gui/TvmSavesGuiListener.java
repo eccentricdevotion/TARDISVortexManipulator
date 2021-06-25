@@ -48,7 +48,7 @@ public class TvmSavesGuiListener extends TvmGuiCommon implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onGUIClick(InventoryClickEvent event) {
+    public void onGuiClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
         String name = view.getTitle();
         if (name.equals("§4VM Saves")) {

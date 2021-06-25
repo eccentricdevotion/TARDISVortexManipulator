@@ -47,7 +47,7 @@ public class TvmMessageGuiListener extends TvmGuiCommon implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onMessageGUIClick(InventoryClickEvent event) {
+    public void onMessageGuiClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
         String name = view.getTitle();
         if (name.equals("§4VM Messages")) {
