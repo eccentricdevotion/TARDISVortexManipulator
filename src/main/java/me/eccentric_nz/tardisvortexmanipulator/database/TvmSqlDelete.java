@@ -42,7 +42,7 @@ public class TvmSqlDelete implements Runnable {
      *
      * @param plugin an instance of the main plugin class
      * @param table  the database table name to insert the data into.
-     * @param where  a HashMap<String, Object> of table fields and values to select the records to delete.
+     * @param where  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to delete.
      */
     public TvmSqlDelete(TardisVortexManipulatorPlugin plugin, String table, HashMap<String, Object> where) {
         this.plugin = plugin;

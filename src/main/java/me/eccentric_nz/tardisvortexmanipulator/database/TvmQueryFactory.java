@@ -47,7 +47,7 @@ public class TvmQueryFactory {
      * Inserts data into an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param data  a HashMap<String, Object> of table fields and values to insert.
+     * @param data  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to insert.
      */
     public void doInsert(String table, HashMap<String, Object> data) {
         TvmSqlInsert insert = new TvmSqlInsert(plugin, table, data);
@@ -59,7 +59,7 @@ public class TvmQueryFactory {
      * supplied and then executes the insert.
      *
      * @param table the database table name to insert the data into.
-     * @param data  a HashMap<String, Object> of table fields and values to insert.
+     * @param data  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to insert.
      * @return the primary key of the record that was inserted
      */
     public int doSyncInsert(String table, HashMap<String, Object> data) {
@@ -118,8 +118,8 @@ public class TvmQueryFactory {
      * Updates data in an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to update.
-     * @param data  a HashMap<String, Object> of table fields and values update.
-     * @param where a HashMap<String, Object> of table fields and values to select the records to update.
+     * @param data  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values update.
+     * @param where a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to update.
      */
     public void doUpdate(String table, HashMap<String, Object> data, HashMap<String, Object> where) {
         TvmSqlUpdate update = new TvmSqlUpdate(plugin, table, data, where);
@@ -130,7 +130,7 @@ public class TvmQueryFactory {
      * Deletes rows from an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param where a HashMap<String, Object> of table fields and values to select the records to delete.
+     * @param where a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to delete.
      */
     public void doDelete(String table, HashMap<String, Object> where) {
         TvmSqlDelete delete = new TvmSqlDelete(plugin, table, where);
@@ -141,7 +141,7 @@ public class TvmQueryFactory {
      * Deletes rows from an SQLite database table. This method executes the SQL in a separate thread.
      *
      * @param table the database table name to insert the data into.
-     * @param where a HashMap<String, Object> of table fields and values to select the records to delete.
+     * @param where a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to delete.
      * @return true or false depending on whether the data was deleted successfully
      */
     public boolean doSyncDelete(String table, HashMap<String, Object> where) {
@@ -180,8 +180,8 @@ public class TvmQueryFactory {
     /**
      * Save a beacon block.
      *
-     * @param uuid the uuid of the player who has set the beacon
-     * @param block    the block to save
+     * @param uuid  the uuid of the player who has set the beacon
+     * @param block the block to save
      */
     public void saveBeaconBlock(String uuid, Block block) {
         Location location = block.getLocation();

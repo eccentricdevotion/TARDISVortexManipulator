@@ -44,8 +44,8 @@ public class TvmSqlUpdate implements Runnable {
      *
      * @param plugin an instance of the main plugin class
      * @param table  the database table name to update.
-     * @param data   a HashMap<String, Object> of table fields and values update.
-     * @param where  a HashMap<String, Object> of table fields and values to select the records to update.
+     * @param data   a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values update.
+     * @param where  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to update.
      */
     public TvmSqlUpdate(TardisVortexManipulatorPlugin plugin, String table, HashMap<String, Object> data, HashMap<String, Object> where) {
         this.plugin = plugin;

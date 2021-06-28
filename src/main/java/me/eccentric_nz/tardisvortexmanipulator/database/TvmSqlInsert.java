@@ -44,7 +44,7 @@ public class TvmSqlInsert implements Runnable {
      *
      * @param plugin an instance of the main plugin class
      * @param table  the database table name to insert the data into.
-     * @param data   a HashMap<String, Object> of table fields and values to insert.
+     * @param data   a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to insert.
      */
     public TvmSqlInsert(TardisVortexManipulatorPlugin plugin, String table, HashMap<String, Object> data) {
         this.plugin = plugin;
