@@ -113,9 +113,9 @@ public class TvmUtils {
     /**
      * Send a list of saves to a player.
      *
-     * @param player    the player to message
-     * @param resultSetSaves  the ResultSet containing the save information
-     * @param page the page number of this list
+     * @param player         the player to message
+     * @param resultSetSaves the ResultSet containing the save information
+     * @param page           the page number of this list
      */
     public static void sendSaveList(Player player, TvmResultSetSaves resultSetSaves, int page) {
         player.sendMessage(TardisVortexManipulatorPlugin.plugin.getPluginName() + ChatColor.AQUA + "Saves (page " + page + ":");
@@ -125,9 +125,9 @@ public class TvmUtils {
     /**
      * Send a list of received messages to a player.
      *
-     * @param player    the player to message
-     * @param resultSetInbox  the ResultSet containing the message information
-     * @param page the page number of this list
+     * @param player         the player to message
+     * @param resultSetInbox the ResultSet containing the message information
+     * @param page           the page number of this list
      */
     public static void sendInboxList(Player player, TvmResultSetInbox resultSetInbox, int page) {
         player.sendMessage(TardisVortexManipulatorPlugin.plugin.getPluginName() + ChatColor.AQUA + "Inbox (page " + page + "):");
@@ -140,9 +140,9 @@ public class TvmUtils {
     /**
      * Send a list of sent messages to a player.
      *
-     * @param player    the player to message
-     * @param resultSetOutbox  the ResultSet containing the message information
-     * @param page the page number of this list
+     * @param player          the player to message
+     * @param resultSetOutbox the ResultSet containing the message information
+     * @param page            the page number of this list
      */
     public static void sendOutboxList(Player player, TvmResultSetOutbox resultSetOutbox, int page) {
         player.sendMessage(TardisVortexManipulatorPlugin.plugin.getPluginName() + ChatColor.AQUA + "Outbox (page " + page + "):");
@@ -152,7 +152,7 @@ public class TvmUtils {
     /**
      * Show a message to a player.
      *
-     * @param player the player to message
+     * @param player     the player to message
      * @param tvmMessage the message to read
      */
     public static void readMessage(Player player, TvmMessage tvmMessage) {
