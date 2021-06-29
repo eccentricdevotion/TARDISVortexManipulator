@@ -95,7 +95,7 @@ Because the device in the TV show has buttons and a lot of pushing of them, it w
 
 * `/vm {worldname}` - Teleport to a random location in the specified world
 * `/vm {worldname} {X} {Y} {Z}` - Teleport to specific location in the specified world
-* `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you depending on energy levels of the Vortex Manipulator)
+* `/vm` - Teleport to random world, random location. If another player is standing on the same block as you, they will teleport with you, using more energy. Max of you and two others (or one or just you, depending on energy levels of the Vortex Manipulator)
 * `/vm go {custom}` - Teleport to saved location
 
 ### Saves

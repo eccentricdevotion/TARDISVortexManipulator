@@ -2,8 +2,7 @@ authors: [eccentric_nz]
 main: me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin
 name: TARDISVortexManipulator
 description: Vortex manipulator. Cheap and nasty time travel. Very bad for you. I'm trying to give it up.
-version: maven-version-number
-build-number: maven-build-number
+version: ${project.version}
 api-version: 1.17
 website: http://tardisjenkins.duckdns.org:8080/job/TARDISVortexManipulator/
 dev-url: http://github.com/eccentricdevotion/TARDISVortexManipulator/
