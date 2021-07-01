@@ -16,9 +16,9 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.tardis.TardisConstants;
-import me.eccentric_nz.tardis.api.Parameters;
-import me.eccentric_nz.tardis.enumeration.Flag;
+import me.eccentric_nz.TARDIS.TARDISConstants;
+import me.eccentric_nz.TARDIS.api.Parameters;
+import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.TvmUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
@@ -406,7 +406,7 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
                 List<String> playerNames = new ArrayList<>();
                 nearbyEntities.forEach((entity) -> {
                     EntityType entityType = entity.getType();
-                    if (TardisConstants.ENTITY_TYPES.contains(entityType)) {
+                    if (TARDISConstants.ENTITY_TYPES.contains(entityType)) {
                         Integer entityCount = scannedEntities.getOrDefault(entityType, 0);
                         boolean visible = true;
                         if (entityType.equals(EntityType.PLAYER)) {

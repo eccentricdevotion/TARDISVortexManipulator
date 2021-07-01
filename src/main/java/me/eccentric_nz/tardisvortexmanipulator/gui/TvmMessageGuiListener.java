@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
-import me.eccentric_nz.tardis.utility.TardisNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.TvmUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
@@ -123,7 +123,7 @@ public class TvmMessageGuiListener extends TvmGuiCommon implements Listener {
             assert itemMeta != null;
             List<String> lore = itemMeta.getLore();
             assert lore != null;
-            int messageId = TardisNumberParsers.parseInt(lore.get(2));
+            int messageId = TARDISNumberParsers.parseInt(lore.get(2));
             TvmResultSetMessageById resultSetMessage = new TvmResultSetMessageById(plugin, messageId);
             if (resultSetMessage.resultSet()) {
                 close(player);
@@ -144,7 +144,7 @@ public class TvmMessageGuiListener extends TvmGuiCommon implements Listener {
             assert itemMeta != null;
             List<String> lore = itemMeta.getLore();
             assert lore != null;
-            int messageId = TardisNumberParsers.parseInt(lore.get(2));
+            int messageId = TARDISNumberParsers.parseInt(lore.get(2));
             TvmResultSetMessageById resultSetMessage = new TvmResultSetMessageById(plugin, messageId);
             if (resultSetMessage.resultSet()) {
                 close(player);

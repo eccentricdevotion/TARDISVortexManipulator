@@ -16,8 +16,8 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import me.eccentric_nz.tardis.TardisPlugin;
-import me.eccentric_nz.tardis.api.TardisApi;
+import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.api.TardisAPI;
 import me.eccentric_nz.tardisvortexmanipulator.command.*;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmMySql;
@@ -47,8 +47,8 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
     private final List<UUID> beaconSetters = new ArrayList<>();
     private final List<UUID> travellers = new ArrayList<>();
     private String pluginName;
-    private TardisApi tardisApi;
-    private TardisPlugin tardis;
+    private TardisAPI tardisApi;
+    private TARDIS tardis;
     private PluginManager pluginManager;
     private String prefix;
 
@@ -74,8 +74,8 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
             pluginManager.disablePlugin(this);
             return;
         }
-        this.tardis = (TardisPlugin) tardis;
-        tardisApi = this.tardis.getTardisApi();
+        this.tardis = (TARDIS) tardis;
+        tardisApi = this.tardis.getTardisAPI();
         prefix = getConfig().getString("storage.mysql.prefix");
         loadDatabase();
         registerListeners();
@@ -88,7 +88,7 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
         return pluginName;
     }
 
-    public TardisApi getTardisApi() {
+    public TardisAPI getTardisApi() {
         return tardisApi;
     }
 

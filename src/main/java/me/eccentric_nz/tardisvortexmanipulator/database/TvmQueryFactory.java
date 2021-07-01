@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.database;
 
-import me.eccentric_nz.tardis.utility.TardisNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -83,13 +83,13 @@ public class TvmQueryFactory {
                 if (entry.getValue().getClass().equals(String.class) || entry.getValue().getClass().equals(UUID.class)) {
                     preparedStatement.setString(i, entry.getValue().toString());
                 } else if (entry.getValue().getClass().getName().contains("Double")) {
-                    preparedStatement.setDouble(i, TardisNumberParsers.parseDouble(entry.getValue().toString()));
+                    preparedStatement.setDouble(i, TARDISNumberParsers.parseDouble(entry.getValue().toString()));
                 } else if (entry.getValue().getClass().getName().contains("Float")) {
-                    preparedStatement.setFloat(i, TardisNumberParsers.parseFloat(entry.getValue().toString()));
+                    preparedStatement.setFloat(i, TARDISNumberParsers.parseFloat(entry.getValue().toString()));
                 } else if (entry.getValue().getClass().getName().contains("Long")) {
-                    preparedStatement.setLong(i, TardisNumberParsers.parseLong(entry.getValue().toString()));
+                    preparedStatement.setLong(i, TARDISNumberParsers.parseLong(entry.getValue().toString()));
                 } else {
-                    preparedStatement.setInt(i, TardisNumberParsers.parseInt(entry.getValue().toString()));
+                    preparedStatement.setInt(i, TARDISNumberParsers.parseInt(entry.getValue().toString()));
                 }
                 i++;
             }

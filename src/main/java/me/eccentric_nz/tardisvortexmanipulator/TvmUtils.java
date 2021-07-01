@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator;
 
-import me.eccentric_nz.tardis.enumeration.Flag;
+import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetOutbox;

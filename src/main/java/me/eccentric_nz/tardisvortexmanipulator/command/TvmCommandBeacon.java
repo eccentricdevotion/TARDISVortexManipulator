@@ -16,8 +16,8 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
-import me.eccentric_nz.tardis.api.Parameters;
-import me.eccentric_nz.tardis.enumeration.Flag;
+import me.eccentric_nz.TARDIS.api.Parameters;
+import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.TvmUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
