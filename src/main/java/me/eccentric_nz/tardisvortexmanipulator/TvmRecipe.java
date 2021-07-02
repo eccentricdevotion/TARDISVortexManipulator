@@ -21,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
@@ -45,7 +46,11 @@ public class TvmRecipe {
         ItemStack itemStack;
         if (resultIdData.length == 2) {
             short resultData = Short.parseShort(resultIdData[1]);
-            itemStack = new ItemStack(material, amount, resultData);
+            itemStack = new ItemStack(material, amount);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            assert itemMeta != null;
+            ((Damageable) itemMeta).setDamage(resultData);
+            itemStack.setItemMeta(itemMeta);
         } else {
             itemStack = new ItemStack(material, amount);
         }
