@@ -66,7 +66,6 @@ public class TvmMessageGui {
                     messageItem = new ItemStack(Material.WRITABLE_BOOK, 1);
                 }
                 ItemMeta messageMeta = messageItem.getItemMeta();
-                assert messageMeta != null;
                 messageMeta.setDisplayName("#" + (i + start + 1));
                 String from = plugin.getServer().getOfflinePlayer(message.getWho()).getName();
                 messageMeta.setLore(Arrays.asList("From: " + from, "Date: " + message.getDate(), "" + message.getId()));
@@ -80,7 +79,6 @@ public class TvmMessageGui {
         // page number
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
-        assert num != null;
         num.setDisplayName("Page " + n);
         num.setCustomModelData(119);
         page.setItemMeta(num);
@@ -88,7 +86,6 @@ public class TvmMessageGui {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        assert win != null;
         win.setDisplayName("Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
@@ -97,7 +94,6 @@ public class TvmMessageGui {
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
-            assert een != null;
             een.setDisplayName("Previous Page");
             een.setCustomModelData(120);
             prev.setItemMeta(een);
@@ -107,7 +103,6 @@ public class TvmMessageGui {
         if (finish > 44) {
             ItemStack next = new ItemStack(Material.BOWL, 1);
             ItemMeta scr = next.getItemMeta();
-            assert scr != null;
             scr.setDisplayName("Next Page");
             scr.setCustomModelData(116);
             next.setItemMeta(scr);
@@ -116,7 +111,6 @@ public class TvmMessageGui {
         // read
         ItemStack read = new ItemStack(Material.BOWL, 1);
         ItemMeta daer = read.getItemMeta();
-        assert daer != null;
         daer.setDisplayName("Read");
         daer.setCustomModelData(121);
         read.setItemMeta(daer);
@@ -124,7 +118,6 @@ public class TvmMessageGui {
         // delete
         ItemStack delete = new ItemStack(Material.BOWL, 1);
         ItemMeta deleteMeta = delete.getItemMeta();
-        assert deleteMeta != null;
         deleteMeta.setDisplayName("Delete");
         deleteMeta.setCustomModelData(107);
         delete.setItemMeta(deleteMeta);

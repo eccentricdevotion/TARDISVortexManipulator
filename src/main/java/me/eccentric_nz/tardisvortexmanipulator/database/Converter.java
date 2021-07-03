@@ -51,7 +51,7 @@ public class Converter implements Runnable {
 
     @Override
     public void run() {
-        if (Objects.equals(plugin.getConfig().getString("storage.database"), "sqlite")) {
+        if (plugin.getConfig().getString("storage.database").equals("sqlite")) {
             sender.sendMessage(plugin.getPluginName() + "You need to set the database provider to 'mysql' in the config!");
             return;
         }

@@ -66,7 +66,6 @@ public class TvmSavesGui {
                 // save
                 ItemStack saveItem = new ItemStack(blocks.get(save.getEnv()), 1);
                 ItemMeta saveMeta = saveItem.getItemMeta();
-                assert saveMeta != null;
                 saveMeta.setDisplayName(save.getName());
                 saveMeta.setLore(Arrays.asList("World: " + save.getWorld(), "x: " + oneDecimal(save.getX()), "y: " + save.getY(), "z: " + oneDecimal(save.getZ())));
                 saveItem.setItemMeta(saveMeta);
@@ -79,7 +78,6 @@ public class TvmSavesGui {
         // page number
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
-        assert num != null;
         num.setDisplayName("Page " + n);
         num.setCustomModelData(119);
         page.setItemMeta(num);
@@ -87,7 +85,6 @@ public class TvmSavesGui {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        assert win != null;
         win.setDisplayName("Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
@@ -96,7 +93,6 @@ public class TvmSavesGui {
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
-            assert een != null;
             een.setDisplayName("Previous Page");
             een.setCustomModelData(120);
             prev.setItemMeta(een);
@@ -106,7 +102,6 @@ public class TvmSavesGui {
         if (finish > 44) {
             ItemStack next = new ItemStack(Material.BOWL, 1);
             ItemMeta scr = next.getItemMeta();
-            assert scr != null;
             scr.setDisplayName("Next Page");
             scr.setCustomModelData(116);
             next.setItemMeta(scr);
@@ -115,7 +110,6 @@ public class TvmSavesGui {
         // delete
         ItemStack delete = new ItemStack(Material.BOWL, 1);
         ItemMeta deleteMeta = delete.getItemMeta();
-        assert deleteMeta != null;
         deleteMeta.setDisplayName("Delete");
         deleteMeta.setCustomModelData(107);
         delete.setItemMeta(deleteMeta);
@@ -123,7 +117,6 @@ public class TvmSavesGui {
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta to = warp.getItemMeta();
-        assert to != null;
         to.setDisplayName("Enter Vortex");
         to.setCustomModelData(127);
         warp.setItemMeta(to);

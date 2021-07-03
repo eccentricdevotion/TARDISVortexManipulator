@@ -67,7 +67,7 @@ public class TvmCommand implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 String uuid = player.getUniqueId().toString();
                 if (args.length > 0 && args[0].equalsIgnoreCase("gui")) {
                     // get tachyon level
@@ -185,7 +185,7 @@ public class TvmCommand implements CommandExecutor {
                         if (!location.getBlock().getType().equals(Material.AIR)) {
                             player.sendMessage(plugin.getPluginName() + "Destination block is not AIR! Adjusting...");
                             // get highest block at these coords
-                            int highest = Objects.requireNonNull(location.getWorld()).getHighestBlockYAt(location);
+                            int highest = location.getWorld().getHighestBlockYAt(location);
                             location.setY(highest);
                         }
                     }

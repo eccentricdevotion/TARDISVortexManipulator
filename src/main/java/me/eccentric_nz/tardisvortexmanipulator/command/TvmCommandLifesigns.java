@@ -56,7 +56,7 @@ public class TvmCommandLifesigns implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 int required = plugin.getConfig().getInt("tachyon_use.lifesigns");
                 if (!TvmUtils.checkTachyonLevel(player.getUniqueId().toString(), required)) {
                     player.sendMessage(plugin.getPluginName() + "You don't have enough tachyons to use the lifesigns scanner!");
@@ -119,7 +119,7 @@ public class TvmCommandLifesigns implements CommandExecutor {
                     return true;
                 }
                 // getHealth() / getMaxHealth() * getHealthScale()
-                double health = scanned.getHealth() / Objects.requireNonNull(scanned.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() * scanned.getHealthScale();
+                double health = scanned.getHealth() / scanned.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * scanned.getHealthScale();
                 float hunger = (scanned.getFoodLevel() / 20F) * 100;
                 int air = scanned.getRemainingAir();
                 player.sendMessage(plugin.getPluginName() + args[0] + "'s lifesigns:");

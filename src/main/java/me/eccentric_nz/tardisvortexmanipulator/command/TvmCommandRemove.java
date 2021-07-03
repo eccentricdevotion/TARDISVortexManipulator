@@ -53,7 +53,7 @@ public class TvmCommandRemove implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 if (args.length < 1) {
                     player.sendMessage(plugin.getPluginName() + "You need to specify a save name!");
                     return true;

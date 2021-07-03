@@ -118,11 +118,8 @@ public class TvmMessageGuiListener extends TvmGuiCommon implements Listener {
     private void doRead(InventoryView view, Player player) {
         if (selectedSlot != -1) {
             ItemStack itemStack = view.getItem(selectedSlot);
-            assert itemStack != null;
             ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
             List<String> lore = itemMeta.getLore();
-            assert lore != null;
             int messageId = TARDISNumberParsers.parseInt(lore.get(2));
             TvmResultSetMessageById resultSetMessage = new TvmResultSetMessageById(plugin, messageId);
             if (resultSetMessage.resultSet()) {
@@ -139,11 +136,8 @@ public class TvmMessageGuiListener extends TvmGuiCommon implements Listener {
     private void doDelete(InventoryView view, Player player) {
         if (selectedSlot != -1) {
             ItemStack itemStack = view.getItem(selectedSlot);
-            assert itemStack != null;
             ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
             List<String> lore = itemMeta.getLore();
-            assert lore != null;
             int messageId = TARDISNumberParsers.parseInt(lore.get(2));
             TvmResultSetMessageById resultSetMessage = new TvmResultSetMessageById(plugin, messageId);
             if (resultSetMessage.resultSet()) {

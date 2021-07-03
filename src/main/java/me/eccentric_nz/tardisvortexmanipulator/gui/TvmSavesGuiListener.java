@@ -121,9 +121,7 @@ public class TvmSavesGuiListener extends TvmGuiCommon implements Listener {
     private void delete(InventoryView view, Player p) {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
-            assert is != null;
             ItemMeta im = is.getItemMeta();
-            assert im != null;
             String save_name = im.getDisplayName();
             TvmResultSetWarpByName rss = new TvmResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
@@ -141,9 +139,7 @@ public class TvmSavesGuiListener extends TvmGuiCommon implements Listener {
     private void doWarp(InventoryView view, Player p) {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
-            assert is != null;
             ItemMeta im = is.getItemMeta();
-            assert im != null;
             String save_name = im.getDisplayName();
             TvmResultSetWarpByName rss = new TvmResultSetWarpByName(plugin, p.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {

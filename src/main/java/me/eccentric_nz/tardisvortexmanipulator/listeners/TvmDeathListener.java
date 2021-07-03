@@ -53,7 +53,6 @@ public class TvmDeathListener implements Listener {
         if (plugin.getTravellers().contains(uuid)) {
             Location location = player.getLocation();
             World world = location.getWorld();
-            assert world != null;
             if (!world.getEnvironment().equals(Environment.NETHER)) {
                 plugin.debug("Highest block");
                 double y = world.getHighestBlockYAt(location);

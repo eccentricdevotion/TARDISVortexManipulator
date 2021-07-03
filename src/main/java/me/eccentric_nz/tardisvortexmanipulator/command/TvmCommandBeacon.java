@@ -59,7 +59,7 @@ public class TvmCommandBeacon implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 int required = plugin.getConfig().getInt("tachyon_use.lifesigns");
                 if (!TvmUtils.checkTachyonLevel(player.getUniqueId().toString(), required)) {
                     player.sendMessage(plugin.getPluginName() + "You don't have enough tachyons to set a beacon signal!");

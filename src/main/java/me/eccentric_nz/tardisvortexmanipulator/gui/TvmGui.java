@@ -49,7 +49,6 @@ public class TvmGui {
         // display
         ItemStack display = new ItemStack(Material.BOWL, 1);
         ItemMeta displayMeta = display.getItemMeta();
-        assert displayMeta != null;
         displayMeta.setDisplayName("Display");
         displayMeta.setLore(Collections.singletonList(""));
         displayMeta.setCustomModelData(108);
@@ -58,14 +57,12 @@ public class TvmGui {
         // 1
         ItemStack one = new ItemStack(Material.BOWL, 1);
         ItemMeta none = one.getItemMeta();
-        assert none != null;
         none.setDisplayName("1");
         none.setCustomModelData(118);
         one.setItemMeta(none);
         // 2 abc
         ItemStack two = new ItemStack(Material.BOWL, 1);
         ItemMeta abc = two.getItemMeta();
-        assert abc != null;
         abc.setDisplayName("2");
         abc.setLore(Collections.singletonList("abc"));
         abc.setCustomModelData(126);
@@ -73,7 +70,6 @@ public class TvmGui {
         // 3 def
         ItemStack three = new ItemStack(Material.BOWL, 1);
         ItemMeta def = three.getItemMeta();
-        assert def != null;
         def.setDisplayName("3");
         def.setLore(Collections.singletonList("def"));
         def.setCustomModelData(125);
@@ -81,7 +77,6 @@ public class TvmGui {
         // 4 ghi
         ItemStack four = new ItemStack(Material.BOWL, 1);
         ItemMeta ghi = four.getItemMeta();
-        assert ghi != null;
         ghi.setDisplayName("4");
         ghi.setLore(Collections.singletonList("ghi"));
         ghi.setCustomModelData(111);
@@ -89,7 +84,6 @@ public class TvmGui {
         // 5 jkl
         ItemStack five = new ItemStack(Material.BOWL, 1);
         ItemMeta jkl = five.getItemMeta();
-        assert jkl != null;
         jkl.setDisplayName("5");
         jkl.setLore(Collections.singletonList("jkl"));
         jkl.setCustomModelData(110);
@@ -97,7 +91,6 @@ public class TvmGui {
         // 6 mno
         ItemStack six = new ItemStack(Material.BOWL, 1);
         ItemMeta mno = six.getItemMeta();
-        assert mno != null;
         mno.setDisplayName("6");
         mno.setLore(Collections.singletonList("mno"));
         mno.setCustomModelData(123);
@@ -105,7 +98,6 @@ public class TvmGui {
         // 7 pqrs
         ItemStack seven = new ItemStack(Material.BOWL, 1);
         ItemMeta pqrs = seven.getItemMeta();
-        assert pqrs != null;
         pqrs.setDisplayName("7");
         pqrs.setLore(Collections.singletonList("pqrs"));
         pqrs.setCustomModelData(122);
@@ -113,7 +105,6 @@ public class TvmGui {
         // 8 tuv
         ItemStack eight = new ItemStack(Material.BOWL, 1);
         ItemMeta tuv = eight.getItemMeta();
-        assert tuv != null;
         tuv.setDisplayName("8");
         tuv.setLore(Collections.singletonList("tuv"));
         tuv.setCustomModelData(109);
@@ -121,7 +112,6 @@ public class TvmGui {
         // 9 wxyz
         ItemStack nine = new ItemStack(Material.BOWL, 1);
         ItemMeta wxyz = nine.getItemMeta();
-        assert wxyz != null;
         wxyz.setDisplayName("9");
         wxyz.setLore(Collections.singletonList("wxyz"));
         wxyz.setCustomModelData(117);
@@ -129,14 +119,12 @@ public class TvmGui {
         // 0
         ItemStack zero = new ItemStack(Material.BOWL, 1);
         ItemMeta nada = zero.getItemMeta();
-        assert nada != null;
         nada.setDisplayName("0");
         nada.setCustomModelData(132);
         zero.setItemMeta(nada);
         // symbols -_*~
         ItemStack hash = new ItemStack(Material.BOWL, 1);
         ItemMeta symbols = hash.getItemMeta();
-        assert symbols != null;
         symbols.setDisplayName("#");
         symbols.setLore(Collections.singletonList("~_-"));
         symbols.setCustomModelData(112);
@@ -144,7 +132,6 @@ public class TvmGui {
         // space
         ItemStack star = new ItemStack(Material.BOWL, 1);
         ItemMeta space = star.getItemMeta();
-        assert space != null;
         space.setDisplayName("*");
         space.setLore(Collections.singletonList("Space"));
         space.setCustomModelData(124);
@@ -152,28 +139,24 @@ public class TvmGui {
         // world
         ItemStack world = new ItemStack(Material.BOWL, 1);
         ItemMeta but = world.getItemMeta();
-        assert but != null;
         but.setDisplayName("World");
         but.setCustomModelData(128);
         world.setItemMeta(but);
         // x
         ItemStack x = new ItemStack(Material.BOWL, 1);
         ItemMeta sel = x.getItemMeta();
-        assert sel != null;
         sel.setDisplayName("X");
         sel.setCustomModelData(129);
         x.setItemMeta(sel);
         // y
         ItemStack y = new ItemStack(Material.BOWL, 1);
         ItemMeta hei = y.getItemMeta();
-        assert hei != null;
         hei.setDisplayName("Y");
         hei.setCustomModelData(130);
         y.setItemMeta(hei);
         // z
         ItemStack z = new ItemStack(Material.BOWL, 1);
         ItemMeta coord = z.getItemMeta();
-        assert coord != null;
         coord.setDisplayName("Z");
         coord.setCustomModelData(131);
         z.setItemMeta(coord);
@@ -182,7 +165,6 @@ public class TvmGui {
         short durability = (short) (1562 - (percent * 1562));
         ItemStack tachyon = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta tachyonMeta = tachyon.getItemMeta();
-        assert tachyonMeta != null;
         tachyonMeta.setDisplayName("Tachyon Level");
         int level = (int) (percent * 100);
         List<String> lore = Collections.singletonList(level + "%");
@@ -215,63 +197,54 @@ public class TvmGui {
         // lifesigns
         ItemStack lifesigns = new ItemStack(Material.BOWL, 1);
         ItemMeta lifesignsMeta = lifesigns.getItemMeta();
-        assert lifesignsMeta != null;
         lifesignsMeta.setDisplayName("Lifesigns");
         lifesignsMeta.setCustomModelData(113);
         lifesigns.setItemMeta(lifesignsMeta);
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta tol = warp.getItemMeta();
-        assert tol != null;
         tol.setDisplayName("Enter Vortex / Save location / Check lifesigns");
         tol.setCustomModelData(127);
         warp.setItemMeta(tol);
         // beacon
         ItemStack beacon = new ItemStack(Material.BOWL, 1);
         ItemMeta beaconMeta = beacon.getItemMeta();
-        assert beaconMeta != null;
         beaconMeta.setDisplayName("Beacon signal");
         beaconMeta.setCustomModelData(106);
         beacon.setItemMeta(beaconMeta);
         // message
         ItemStack message = new ItemStack(Material.BOWL, 1);
         ItemMeta messageMeta = message.getItemMeta();
-        assert messageMeta != null;
         messageMeta.setDisplayName("Messages");
         messageMeta.setCustomModelData(115);
         message.setItemMeta(messageMeta);
         // save
         ItemStack save = new ItemStack(Material.BOWL, 1);
         ItemMeta curr = save.getItemMeta();
-        assert curr != null;
         curr.setDisplayName("Save current location");
         curr.setCustomModelData(74);
         save.setItemMeta(curr);
         // load
         ItemStack load = new ItemStack(Material.BOWL, 1);
         ItemMeta disk = load.getItemMeta();
-        assert disk != null;
         disk.setDisplayName("Load saved location");
         disk.setCustomModelData(114);
         load.setItemMeta(disk);
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        assert win != null;
         win.setDisplayName("Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
         // next
         ItemStack next = new ItemStack(Material.BOWL, 1);
         ItemMeta cha = next.getItemMeta();
-        assert cha != null;
         cha.setDisplayName("Next character");
         cha.setCustomModelData(116);
         next.setItemMeta(cha);
         // back
         ItemStack prev = new ItemStack(Material.BOWL, 1);
         ItemMeta let = prev.getItemMeta();
-        assert let != null;
         let.setDisplayName("Previous character");
         let.setCustomModelData(120);
         prev.setItemMeta(let);

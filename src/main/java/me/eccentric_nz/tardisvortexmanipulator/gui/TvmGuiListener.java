@@ -306,7 +306,6 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
 
     private void updateDisplay(InventoryView view, char s) {
         ItemStack display = view.getItem(4);
-        assert display != null;
         ItemMeta displayMeta = display.getItemMeta();
         char[] chars = (components.get(which).isEmpty()) ? new char[1] : components.get(which).toCharArray();
         if (pos[which] >= chars.length) {
@@ -329,7 +328,6 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
         };
         components.set(which, component);
         List<String> displayLore = Collections.singletonList(combined);
-        assert displayMeta != null;
         displayMeta.setLore(displayLore);
         display.setItemMeta(displayMeta);
     }
@@ -349,11 +347,8 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
 
     private void saveCurrentLocation(Player player, InventoryView view) {
         ItemStack display = view.getItem(4);
-        assert display != null;
         ItemMeta displayMeta = display.getItemMeta();
-        assert displayMeta != null;
         List<String> lore = displayMeta.getLore();
-        assert lore != null;
         String name = lore.get(0);
         if (name.isEmpty()) {
             player.sendMessage(plugin.getPluginName() + "You need to enter a save name!");
@@ -363,7 +358,7 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
         HashMap<String, Object> set = new HashMap<>();
         set.put("uuid", player.getUniqueId().toString());
         set.put("save_name", lore.get(0));
-        set.put("world", Objects.requireNonNull(location.getWorld()).getName());
+        set.put("world", location.getWorld().getName());
         set.put("x", location.getX());
         set.put("y", location.getY());
         set.put("z", location.getZ());
@@ -389,11 +384,8 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
         queryFactory.alterTachyons(player.getUniqueId().toString(), -required);
         // process GUI
         ItemStack display = view.getItem(4);
-        assert display != null;
         ItemMeta displayMeta = display.getItemMeta();
-        assert displayMeta != null;
         List<String> lore = displayMeta.getLore();
-        assert lore != null;
         String playerName = lore.get(0).trim();
         if (playerName.isEmpty()) {
             player.sendMessage(plugin.getPluginName() + "Nearby entities:");
@@ -446,7 +438,7 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
                 return;
             }
             // getHealth() / getMaxHealth() * getHealthScale()
-            double maxHealth = Objects.requireNonNull(scanned.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
+            double maxHealth = scanned.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             double health = scanned.getHealth() / maxHealth * scanned.getHealthScale();
             float hunger = (scanned.getFoodLevel() / 20F) * 100;
             int air = scanned.getRemainingAir();
@@ -542,12 +534,9 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
 
     private void doWarp(Player p, InventoryView view) {
         ItemStack display = view.getItem(4);
-        assert display != null;
         ItemMeta dim = display.getItemMeta();
-        assert dim != null;
         List<String> lore = dim.getLore();
         List<String> dest;
-        assert lore != null;
         if (!lore.get(0).trim().isEmpty()) {
             dest = Arrays.asList(lore.get(0).trim().split(" "));
         } else {
@@ -647,7 +636,7 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
                 if (!l.getBlock().getType().equals(Material.AIR)) {
                     p.sendMessage(plugin.getPluginName() + "Destination block is not AIR! Adjusting...");
                     // get highest block at these coords
-                    int highest = Objects.requireNonNull(l.getWorld()).getHighestBlockYAt(l);
+                    int highest = l.getWorld().getHighestBlockYAt(l);
                     l.setY(highest);
                 }
             }

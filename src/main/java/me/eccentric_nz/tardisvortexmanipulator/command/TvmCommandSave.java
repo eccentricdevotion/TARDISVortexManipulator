@@ -56,7 +56,7 @@ public class TvmCommandSave implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
                 String uuid = player.getUniqueId().toString();
                 if (args.length == 0) {
                     // list saves
@@ -93,7 +93,7 @@ public class TvmCommandSave implements CommandExecutor {
                     HashMap<String, Object> set = new HashMap<>();
                     set.put("uuid", uuid);
                     set.put("save_name", args[0]);
-                    set.put("world", Objects.requireNonNull(location.getWorld()).getName());
+                    set.put("world", location.getWorld().getName());
                     set.put("x", location.getX());
                     set.put("y", location.getY());
                     set.put("z", location.getZ());

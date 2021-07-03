@@ -102,7 +102,6 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
     private void loadDatabase() {
         String databaseType = getConfig().getString("storage.database");
         try {
-            assert databaseType != null;
             if (databaseType.equals("sqlite")) {
                 String path = getDataFolder() + File.separator + "TVM.db";
                 service.setConnection(path);
@@ -130,18 +129,18 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(getCommand("vm")).setExecutor(new TvmCommand(this));
-        Objects.requireNonNull(getCommand("vma")).setExecutor(new TvmCommandActivate(this));
-        Objects.requireNonNull(getCommand("vmb")).setExecutor(new TvmCommandBeacon(this));
-        Objects.requireNonNull(getCommand("vmh")).setExecutor(new TvmCommandHelp(this));
-        Objects.requireNonNull(getCommand("vmh")).setTabCompleter(new TvmTabCompleteHelp());
-        Objects.requireNonNull(getCommand("vml")).setExecutor(new TvmCommandLifesigns(this));
-        Objects.requireNonNull(getCommand("vmm")).setExecutor(new TvmCommandMessage(this));
-        Objects.requireNonNull(getCommand("vmm")).setTabCompleter(new TvmTabCompleteMessage());
-        Objects.requireNonNull(getCommand("vmr")).setExecutor(new TvmCommandRemove(this));
-        Objects.requireNonNull(getCommand("vms")).setExecutor(new TvmCommandSave(this));
-        Objects.requireNonNull(getCommand("vmg")).setExecutor(new TvmCommandGive(this));
-        Objects.requireNonNull(getCommand("vmd")).setExecutor(new TvmCommandConvert(this));
+        getCommand("vm").setExecutor(new TvmCommand(this));
+        getCommand("vma").setExecutor(new TvmCommandActivate(this));
+        getCommand("vmb").setExecutor(new TvmCommandBeacon(this));
+        getCommand("vmh").setExecutor(new TvmCommandHelp(this));
+        getCommand("vmh").setTabCompleter(new TvmTabCompleteHelp());
+        getCommand("vml").setExecutor(new TvmCommandLifesigns(this));
+        getCommand("vmm").setExecutor(new TvmCommandMessage(this));
+        getCommand("vmm").setTabCompleter(new TvmTabCompleteMessage());
+        getCommand("vmr").setExecutor(new TvmCommandRemove(this));
+        getCommand("vms").setExecutor(new TvmCommandSave(this));
+        getCommand("vmg").setExecutor(new TvmCommandGive(this));
+        getCommand("vmd").setExecutor(new TvmCommandConvert(this));
     }
 
     private void startRecharger() {

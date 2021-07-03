@@ -45,9 +45,7 @@ public class TvmGuiCommon {
 
     public int getPageNumber(InventoryView view) {
         ItemStack itemStack = view.getItem(45);
-        assert itemStack != null;
         ItemMeta itemMeta = itemStack.getItemMeta();
-        assert itemMeta != null;
         String[] split = itemMeta.getDisplayName().split(" ");
         return TARDISNumberParsers.parseInt(split[1]);
     }

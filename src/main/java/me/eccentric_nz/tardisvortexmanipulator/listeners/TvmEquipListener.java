@@ -83,7 +83,7 @@ public class TvmEquipListener implements Listener {
             return;
         }
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        if (itemStack.hasItemMeta() && Objects.requireNonNull(itemStack.getItemMeta()).hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
             // get tachyon level
             TvmResultSetManipulator resultSetManipulator = new TvmResultSetManipulator(plugin, player.getUniqueId().toString());
             if (resultSetManipulator.resultSet()) {

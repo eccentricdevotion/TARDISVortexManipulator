@@ -68,7 +68,6 @@ public class TvmResultSetBlock {
                     TvmBlock tvmBlock = new TvmBlock();
                     Location location = TARDISStaticLocationGetters.getLocationFromBukkitString(resultSet.getString("location"));
                     BlockData blockData = plugin.getServer().createBlockData(resultSet.getString("block_type"));
-                    assert location != null;
                     Block block = location.getBlock();
                     tvmBlock.setBlock(block);
                     tvmBlock.setBlockData(blockData);

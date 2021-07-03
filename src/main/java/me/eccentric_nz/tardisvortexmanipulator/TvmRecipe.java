@@ -40,7 +40,7 @@ public class TvmRecipe {
     }
 
     public ShapedRecipe makeRecipe() {
-        String[] resultIdData = Objects.requireNonNull(plugin.getConfig().getString("recipe.result")).split(":");
+        String[] resultIdData = plugin.getConfig().getString("recipe.result").split(":");
         Material material = Material.valueOf(resultIdData[0]);
         int amount = plugin.getConfig().getInt("recipe.amount");
         ItemStack itemStack;
@@ -48,17 +48,15 @@ public class TvmRecipe {
             short resultData = Short.parseShort(resultIdData[1]);
             itemStack = new ItemStack(material, amount);
             ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
             ((Damageable) itemMeta).setDamage(resultData);
             itemStack.setItemMeta(itemMeta);
         } else {
             itemStack = new ItemStack(material, amount);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
-        assert itemMeta != null;
         itemMeta.setDisplayName("Vortex Manipulator");
-        if (!Objects.equals(plugin.getConfig().getString("recipe.lore"), "")) {
-            itemMeta.setLore(Arrays.asList(Objects.requireNonNull(plugin.getConfig().getString("recipe.lore")).split("~")));
+        if (!plugin.getConfig().getString("recipe.lore").equals("")) {
+            itemMeta.setLore(Arrays.asList(plugin.getConfig().getString("recipe.lore").split("~")));
         }
         itemMeta.setCustomModelData(10000002);
         itemStack.setItemMeta(itemMeta);
@@ -66,13 +64,13 @@ public class TvmRecipe {
         ShapedRecipe recipe = new ShapedRecipe(key, itemStack);
         // get shape
         try {
-            String[] shapeTemp = Objects.requireNonNull(plugin.getConfig().getString("recipe.shape")).split(",");
+            String[] shapeTemp = plugin.getConfig().getString("recipe.shape").split(",");
             String[] shape = new String[3];
             for (int i = 0; i < 3; i++) {
                 shape[i] = shapeTemp[i].replaceAll("-", " ");
             }
             recipe.shape(shape[0], shape[1], shape[2]);
-            Set<String> ingredients = Objects.requireNonNull(plugin.getConfig().getConfigurationSection("recipe.ingredients")).getKeys(false);
+            Set<String> ingredients = plugin.getConfig().getConfigurationSection("recipe.ingredients").getKeys(false);
             ingredients.forEach((ingredient) -> {
                 char c = ingredient.charAt(0);
                 Material material1 = Material.valueOf(plugin.getConfig().getString("recipe.ingredients." + ingredient)); // TODO Make this variable name more unique.

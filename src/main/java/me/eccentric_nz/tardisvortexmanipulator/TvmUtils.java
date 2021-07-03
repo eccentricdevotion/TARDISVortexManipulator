@@ -37,7 +37,6 @@ public class TvmUtils {
 
         // try loading chunk
         World world = location.getWorld();
-        assert world != null;
         Chunk chunk = world.getChunkAt(location);
         while (!world.isChunkLoaded(chunk)) {
             world.loadChunk(chunk);

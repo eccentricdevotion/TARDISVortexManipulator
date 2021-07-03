@@ -118,7 +118,7 @@ public class TvmConfig {
                 i++;
             }
         }
-        if (Objects.equals(config.getString("recipe.ingredients.W"), "WATCH")) {
+        if (config.getString("recipe.ingredients.W").equals("WATCH")) {
             plugin.getConfig().set("recipe.ingredients.W", "CLOCK");
             plugin.getConfig().set("recipe.result", "CLOCK");
             i++;
@@ -126,7 +126,7 @@ public class TvmConfig {
         // check mysql settings
         if (config.contains("storage.mysql.url")) {
             // mysql://localhost:3306/TARDIS
-            String[] firstSplit = Objects.requireNonNull(config.getString("storage.mysql.url")).split(":");
+            String[] firstSplit = config.getString("storage.mysql.url").split(":");
             String host = firstSplit[1].substring(2);
             String[] secondSplit = firstSplit[2].split("/");
             String port = secondSplit[0];

@@ -45,7 +45,7 @@ public class TvmMoveListener implements Listener {
             return;
         }
         // if only the pitch or yaw has changed
-        if (compareXYZ(event.getFrom(), Objects.requireNonNull(event.getTo()))) {
+        if (compareXYZ(event.getFrom(), event.getTo())) {
             return;
         }
         if (!event.getTo().getBlock().getType().equals(Material.BEACON)) {
