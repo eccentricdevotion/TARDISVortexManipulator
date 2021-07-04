@@ -676,7 +676,6 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
             // remove tachyons
             queryFactory.alterTachyons(uuid.toString(), -actual);
         } else {
-            //close(p);
             p.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
         }
     }

@@ -22,7 +22,6 @@ import org.bukkit.command.CommandSender;
 import java.io.File;
 import java.sql.*;
 import java.util.MissingFormatArgumentException;
-import java.util.Objects;
 
 /**
  * @author eccentric_nz

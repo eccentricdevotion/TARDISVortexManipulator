@@ -37,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TvmCommand implements CommandExecutor {
 
@@ -218,7 +217,6 @@ public class TvmCommand implements CommandExecutor {
                     // remove tachyons
                     new TvmQueryFactory(plugin).alterTachyons(uuid, -actual);
                 } else {
-                    //close(player);
                     player.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
                 }
                 // do stuff

@@ -25,7 +25,6 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Set;
 
 /**

@@ -27,7 +27,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.UUID;
 
 public class TvmMoveListener implements Listener {
