@@ -160,7 +160,7 @@ public class TvmGui {
         coord.setDisplayName("Z");
         coord.setCustomModelData(131);
         z.setItemMeta(coord);
-        // tachyon level - TODO Show different levels depening on % full
+        // tachyon level - TODO Show different levels depending on % full
         double percent = tachyonLevel / plugin.getConfig().getDouble("tachyon_use.max");
         short durability = (short) (1562 - (percent * 1562));
         ItemStack tachyon = new ItemStack(Material.DIAMOND_PICKAXE, 1);
