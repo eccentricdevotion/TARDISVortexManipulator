@@ -78,7 +78,7 @@ public class Converter implements Runnable {
                         StringBuilder stringBuilder = new StringBuilder();
                         try {
                             stringBuilder.append(String.format(Sql.INSERTS.get(i), prefix));
-                        } catch (MissingFormatArgumentException e) {
+                        } catch (MissingFormatArgumentException missingFormatArgumentException) {
                             sender.sendMessage(plugin.getPluginName() + "INSERT " + table);
                         }
                         while (resultSet.next()) {
