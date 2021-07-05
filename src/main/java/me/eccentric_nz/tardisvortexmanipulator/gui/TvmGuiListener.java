@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.TvmUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -327,7 +328,7 @@ public class TvmGuiListener extends TvmGuiCommon implements Listener {
             default -> component;
         };
         components.set(which, component);
-        List<String> displayLore = Collections.singletonList(combined);
+        List<String> displayLore = Collections.singletonList(ChatColor.GRAY + combined);
         displayMeta.setLore(displayLore);
         display.setItemMeta(displayMeta);
     }

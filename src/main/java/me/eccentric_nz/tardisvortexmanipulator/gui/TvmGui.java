@@ -51,7 +51,7 @@ public class TvmGui {
         ItemStack display = new ItemStack(Material.BOWL, 1);
         ItemMeta displayMeta = display.getItemMeta();
         displayMeta.setDisplayName(ChatColor.RESET + "Display");
-        displayMeta.setLore(Collections.singletonList(""));
+        displayMeta.setLore(Collections.singletonList(ChatColor.GRAY + ""));
         displayMeta.setCustomModelData(108);
         display.setItemMeta(displayMeta);
         // keypad pad
@@ -65,56 +65,56 @@ public class TvmGui {
         ItemStack two = new ItemStack(Material.BOWL, 1);
         ItemMeta abc = two.getItemMeta();
         abc.setDisplayName(ChatColor.RESET + "2");
-        abc.setLore(Collections.singletonList("abc"));
+        abc.setLore(Collections.singletonList(ChatColor.GRAY + "ABC"));
         abc.setCustomModelData(126);
         two.setItemMeta(abc);
         // 3 def
         ItemStack three = new ItemStack(Material.BOWL, 1);
         ItemMeta def = three.getItemMeta();
         def.setDisplayName(ChatColor.RESET + "3");
-        def.setLore(Collections.singletonList("def"));
+        def.setLore(Collections.singletonList(ChatColor.GRAY + "DEF"));
         def.setCustomModelData(125);
         three.setItemMeta(def);
         // 4 ghi
         ItemStack four = new ItemStack(Material.BOWL, 1);
         ItemMeta ghi = four.getItemMeta();
         ghi.setDisplayName(ChatColor.RESET + "4");
-        ghi.setLore(Collections.singletonList("ghi"));
+        ghi.setLore(Collections.singletonList(ChatColor.GRAY + "GHI"));
         ghi.setCustomModelData(111);
         four.setItemMeta(ghi);
         // 5 jkl
         ItemStack five = new ItemStack(Material.BOWL, 1);
         ItemMeta jkl = five.getItemMeta();
         jkl.setDisplayName(ChatColor.RESET + "5");
-        jkl.setLore(Collections.singletonList("jkl"));
+        jkl.setLore(Collections.singletonList(ChatColor.GRAY + "JKL"));
         jkl.setCustomModelData(110);
         five.setItemMeta(jkl);
         // 6 mno
         ItemStack six = new ItemStack(Material.BOWL, 1);
         ItemMeta mno = six.getItemMeta();
         mno.setDisplayName(ChatColor.RESET + "6");
-        mno.setLore(Collections.singletonList("mno"));
+        mno.setLore(Collections.singletonList(ChatColor.GRAY + "MNO"));
         mno.setCustomModelData(123);
         six.setItemMeta(mno);
         // 7 pqrs
         ItemStack seven = new ItemStack(Material.BOWL, 1);
         ItemMeta pqrs = seven.getItemMeta();
         pqrs.setDisplayName(ChatColor.RESET + "7");
-        pqrs.setLore(Collections.singletonList("pqrs"));
+        pqrs.setLore(Collections.singletonList(ChatColor.GRAY + "PQRS"));
         pqrs.setCustomModelData(122);
         seven.setItemMeta(pqrs);
         // 8 tuv
         ItemStack eight = new ItemStack(Material.BOWL, 1);
         ItemMeta tuv = eight.getItemMeta();
         tuv.setDisplayName(ChatColor.RESET + "8");
-        tuv.setLore(Collections.singletonList("tuv"));
+        tuv.setLore(Collections.singletonList(ChatColor.GRAY + "TUV"));
         tuv.setCustomModelData(109);
         eight.setItemMeta(tuv);
         // 9 wxyz
         ItemStack nine = new ItemStack(Material.BOWL, 1);
         ItemMeta wxyz = nine.getItemMeta();
         wxyz.setDisplayName(ChatColor.RESET + "9");
-        wxyz.setLore(Collections.singletonList("wxyz"));
+        wxyz.setLore(Collections.singletonList(ChatColor.GRAY + "WXYZ"));
         wxyz.setCustomModelData(117);
         nine.setItemMeta(wxyz);
         // 0
@@ -127,14 +127,14 @@ public class TvmGui {
         ItemStack hash = new ItemStack(Material.BOWL, 1);
         ItemMeta symbols = hash.getItemMeta();
         symbols.setDisplayName(ChatColor.RESET + "#");
-        symbols.setLore(Collections.singletonList("~_-"));
+        symbols.setLore(Collections.singletonList(ChatColor.GRAY + "~_-"));
         symbols.setCustomModelData(112);
         hash.setItemMeta(symbols);
         // space
         ItemStack star = new ItemStack(Material.BOWL, 1);
         ItemMeta space = star.getItemMeta();
         space.setDisplayName(ChatColor.RESET + "*");
-        space.setLore(Collections.singletonList("Space"));
+        space.setLore(Collections.singletonList(ChatColor.GRAY + "Space"));
         space.setCustomModelData(124);
         star.setItemMeta(space);
         // world
@@ -168,7 +168,7 @@ public class TvmGui {
         ItemMeta tachyonMeta = tachyon.getItemMeta();
         tachyonMeta.setDisplayName(ChatColor.RESET + "Tachyon Level");
         int level = (int) (percent * 100);
-        List<String> lore = Collections.singletonList(level + "%");
+        List<String> lore = Collections.singletonList(ChatColor.GRAY + "" + level + "%");
         int customModelData = 105;
         if (level == 0) {
             customModelData = 95;

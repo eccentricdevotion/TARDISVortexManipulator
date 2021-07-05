@@ -54,7 +54,7 @@ public class TvmCommandMessage implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().has(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING) && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
                 if (args.length < 2) {
                     player.sendMessage(plugin.getPluginName() + "Incorrect command usage!");
                     return false;

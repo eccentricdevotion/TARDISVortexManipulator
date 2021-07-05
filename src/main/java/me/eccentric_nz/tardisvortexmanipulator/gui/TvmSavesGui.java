@@ -68,7 +68,7 @@ public class TvmSavesGui {
                 ItemStack saveItem = new ItemStack(blocks.get(save.getEnv()), 1);
                 ItemMeta saveMeta = saveItem.getItemMeta();
                 saveMeta.setDisplayName(ChatColor.RESET + save.getName());
-                saveMeta.setLore(Arrays.asList("World: " + save.getWorld(), "x: " + oneDecimal(save.getX()), "y: " + save.getY(), "z: " + oneDecimal(save.getZ())));
+                saveMeta.setLore(Arrays.asList(ChatColor.GRAY + "World: " + save.getWorld(), ChatColor.GRAY + "x: " + oneDecimal(save.getX()), ChatColor.GRAY + "y: " + save.getY(), ChatColor.GRAY + "z: " + oneDecimal(save.getZ())));
                 saveItem.setItemMeta(saveMeta);
                 stack[i] = saveItem;
                 i++;

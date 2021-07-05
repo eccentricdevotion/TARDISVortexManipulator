@@ -67,7 +67,7 @@ public class TvmCommand implements CommandExecutor {
                 return true;
             }
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
+            if (itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().has(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING) && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
                 String uuid = player.getUniqueId().toString();
                 if (args.length > 0 && args[0].equalsIgnoreCase("gui")) {
                     // get tachyon level
@@ -221,11 +221,10 @@ public class TvmCommand implements CommandExecutor {
                     player.sendMessage(plugin.getPluginName() + "No location could be found within those parameters.");
                 }
                 // do stuff
-                return true;
             } else {
                 player.sendMessage(plugin.getPluginName() + "You don't have a Vortex Manipulator in your hand!");
-                return true;
             }
+            return true;
         }
         return false;
     }

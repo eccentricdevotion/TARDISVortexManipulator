@@ -69,7 +69,7 @@ public class TvmMessageGui {
                 ItemMeta messageMeta = messageItem.getItemMeta();
                 messageMeta.setDisplayName(ChatColor.RESET + "#" + (i + start + 1));
                 String from = plugin.getServer().getOfflinePlayer(message.getWho()).getName();
-                messageMeta.setLore(Arrays.asList("From: " + from, "Date: " + message.getDate(), "" + message.getId()));
+                messageMeta.setLore(Arrays.asList(ChatColor.GRAY + "From: " + from, ChatColor.GRAY + "Date: " + message.getDate(), ChatColor.GRAY + "" + message.getId()));
                 messageItem.setItemMeta(messageMeta);
                 stack[i] = messageItem;
                 i++;

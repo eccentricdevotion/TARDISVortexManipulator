@@ -25,6 +25,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class TvmCommandGive implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("vmg")) {
+        if (command.getName().equalsIgnoreCase("vmgive") || command.getName().equalsIgnoreCase("vmg")) {
             if (!sender.hasPermission("tardis.admin")) {
                 sender.sendMessage(plugin.getPluginName() + "You don't have permission to use that command!");
                 return true;
@@ -51,17 +52,15 @@ public class TvmCommandGive implements CommandExecutor {
                 sender.sendMessage(plugin.getPluginName() + "You need to specify a player and amount!");
                 return true;
             }
-            // Look up this player's UUID
-            OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(args[0]);
-            if (offlinePlayer != null) {
-                UUID uuid = offlinePlayer.getUniqueId();
-                plugin.getServer().dispatchCommand(sender, "vmg " + uuid + " " + args[1]);
-            } else if (offlinePlayer == null || !offlinePlayer.isOnline()) {
-                sender.sendMessage(plugin.getPluginName() + "Could not find player! Are they online?");
+            Player player = plugin.getServer().getPlayer(args[0]);
+            if (player == null || !player.isOnline()) { // player must be online
+                TARDISMessage.send(sender, "COULD_NOT_FIND_NAME");
                 return true;
             }
+            // Look up this player's UUID
+            UUID uuid = player.getUniqueId();
             // check for existing record
-            TvmResultSetManipulator resultSetManipulator = new TvmResultSetManipulator(plugin, args[0]);
+            TvmResultSetManipulator resultSetManipulator = new TvmResultSetManipulator(plugin, uuid.toString());
             if (resultSetManipulator.resultSet()) {
                 int tachyonLevel = resultSetManipulator.getTachyonLevel();
                 int amount;
@@ -73,7 +72,7 @@ public class TvmCommandGive implements CommandExecutor {
                     try {
                         amount = Integer.parseInt(args[1]);
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(plugin.getPluginName() + "The last argument must be a number, 'full' or 'empty'");
+                        sender.sendMessage(plugin.getPluginName() + "The last argument must be a number, 'full', or 'empty'");
                         return true;
                     }
                     if (tachyonLevel + amount > full) {
@@ -85,7 +84,7 @@ public class TvmCommandGive implements CommandExecutor {
                 HashMap<String, Object> set = new HashMap<>();
                 set.put("tachyon_level", amount);
                 HashMap<String, Object> where = new HashMap<>();
-                where.put("uuid", args[0]);
+                where.put("uuid", uuid.toString());
                 new TvmQueryFactory(plugin).doUpdate("manipulator", set, where);
                 sender.sendMessage(plugin.getPluginName() + "Tachyon level set to " + amount);
             } else {
