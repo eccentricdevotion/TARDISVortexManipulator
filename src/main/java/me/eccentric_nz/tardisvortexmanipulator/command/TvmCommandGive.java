@@ -16,13 +16,15 @@
  */
 package me.eccentric_nz.tardisvortexmanipulator.command;
 
+import me.eccentric_nz.TARDIS.messaging.TARDISMessage;
+import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetManipulator;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -46,12 +48,15 @@ public class TvmCommandGive implements CommandExecutor {
                 return true;
             }
             if (args.length < 2) {
-                sender.sendMessage(plugin.getPluginName() + "You need to specify a player uuid and amount!");
+                sender.sendMessage(plugin.getPluginName() + "You need to specify a player and amount!");
                 return true;
             }
-            UUID uuid = UUID.fromString(args[0]);
-            Player player = plugin.getServer().getPlayer(uuid);
-            if (player == null || !player.isOnline()) {
+            // Look up this player's UUID
+            OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(args[0]);
+            if (offlinePlayer != null) {
+                UUID uuid = offlinePlayer.getUniqueId();
+                plugin.getServer().dispatchCommand(sender, "vmg " + uuid + " " + args[1]);
+            } else if (offlinePlayer == null || !offlinePlayer.isOnline()) {
                 sender.sendMessage(plugin.getPluginName() + "Could not find player! Are they online?");
                 return true;
             }
