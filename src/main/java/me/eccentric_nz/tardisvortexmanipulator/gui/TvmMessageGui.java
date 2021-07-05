@@ -19,6 +19,7 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TvmMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -66,7 +67,7 @@ public class TvmMessageGui {
                     messageItem = new ItemStack(Material.WRITABLE_BOOK, 1);
                 }
                 ItemMeta messageMeta = messageItem.getItemMeta();
-                messageMeta.setDisplayName("#" + (i + start + 1));
+                messageMeta.setDisplayName(ChatColor.RESET + "#" + (i + start + 1));
                 String from = plugin.getServer().getOfflinePlayer(message.getWho()).getName();
                 messageMeta.setLore(Arrays.asList("From: " + from, "Date: " + message.getDate(), "" + message.getId()));
                 messageItem.setItemMeta(messageMeta);
@@ -79,14 +80,14 @@ public class TvmMessageGui {
         // page number
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
-        num.setDisplayName("Page " + n);
+        num.setDisplayName(ChatColor.RESET + "Page " + n);
         num.setCustomModelData(119);
         page.setItemMeta(num);
         stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        win.setDisplayName("Close");
+        win.setDisplayName(ChatColor.RESET + "Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
         stack[46] = close;
@@ -94,7 +95,7 @@ public class TvmMessageGui {
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
-            een.setDisplayName("Previous Page");
+            een.setDisplayName(ChatColor.RESET + "Previous Page");
             een.setCustomModelData(120);
             prev.setItemMeta(een);
             stack[48] = prev;
@@ -103,7 +104,7 @@ public class TvmMessageGui {
         if (finish > 44) {
             ItemStack next = new ItemStack(Material.BOWL, 1);
             ItemMeta scr = next.getItemMeta();
-            scr.setDisplayName("Next Page");
+            scr.setDisplayName(ChatColor.RESET + "Next Page");
             scr.setCustomModelData(116);
             next.setItemMeta(scr);
             stack[49] = next;
@@ -111,14 +112,14 @@ public class TvmMessageGui {
         // read
         ItemStack read = new ItemStack(Material.BOWL, 1);
         ItemMeta daer = read.getItemMeta();
-        daer.setDisplayName("Read");
+        daer.setDisplayName(ChatColor.RESET + "Read");
         daer.setCustomModelData(121);
         read.setItemMeta(daer);
         stack[51] = read;
         // delete
         ItemStack delete = new ItemStack(Material.BOWL, 1);
         ItemMeta deleteMeta = delete.getItemMeta();
-        deleteMeta.setDisplayName("Delete");
+        deleteMeta.setDisplayName(ChatColor.RESET + "Delete");
         deleteMeta.setCustomModelData(107);
         delete.setItemMeta(deleteMeta);
         stack[53] = delete;

@@ -28,6 +28,7 @@ import me.eccentric_nz.tardisvortexmanipulator.gui.TvmSavesGuiListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -46,6 +47,7 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
     private final List<UUID> beaconSetters = new ArrayList<>();
     private final List<UUID> travellers = new ArrayList<>();
     private String pluginName;
+    private NamespacedKey itemKey;
     private TardisAPI tardisApi;
     private TARDIS tardis;
     private PluginManager pluginManager;
@@ -59,6 +61,7 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        itemKey = new NamespacedKey(this, "item");
         PluginDescriptionFile pluginDescriptionFile = getDescription();
         pluginName = ChatColor.GOLD + "[" + pluginDescriptionFile.getName() + "]" + ChatColor.RESET + " ";
         saveDefaultConfig();
@@ -85,6 +88,10 @@ public class TardisVortexManipulatorPlugin extends JavaPlugin {
 
     public String getPluginName() {
         return pluginName;
+    }
+
+    public NamespacedKey getItemKey() {
+        return itemKey;
     }
 
     public TardisAPI getTardisApi() {

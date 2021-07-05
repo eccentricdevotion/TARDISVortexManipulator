@@ -19,6 +19,7 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
 import me.eccentric_nz.tardisvortexmanipulator.database.TvmResultSetSaves;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TvmSave;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -66,7 +67,7 @@ public class TvmSavesGui {
                 // save
                 ItemStack saveItem = new ItemStack(blocks.get(save.getEnv()), 1);
                 ItemMeta saveMeta = saveItem.getItemMeta();
-                saveMeta.setDisplayName(save.getName());
+                saveMeta.setDisplayName(ChatColor.RESET + save.getName());
                 saveMeta.setLore(Arrays.asList("World: " + save.getWorld(), "x: " + oneDecimal(save.getX()), "y: " + save.getY(), "z: " + oneDecimal(save.getZ())));
                 saveItem.setItemMeta(saveMeta);
                 stack[i] = saveItem;
@@ -78,14 +79,14 @@ public class TvmSavesGui {
         // page number
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
-        num.setDisplayName("Page " + n);
+        num.setDisplayName(ChatColor.RESET + "Page " + n);
         num.setCustomModelData(119);
         page.setItemMeta(num);
         stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        win.setDisplayName("Close");
+        win.setDisplayName(ChatColor.RESET + "Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
         stack[46] = close;
@@ -93,7 +94,7 @@ public class TvmSavesGui {
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.BOWL, 1);
             ItemMeta een = prev.getItemMeta();
-            een.setDisplayName("Previous Page");
+            een.setDisplayName(ChatColor.RESET + "Previous Page");
             een.setCustomModelData(120);
             prev.setItemMeta(een);
             stack[48] = prev;
@@ -102,7 +103,7 @@ public class TvmSavesGui {
         if (finish > 44) {
             ItemStack next = new ItemStack(Material.BOWL, 1);
             ItemMeta scr = next.getItemMeta();
-            scr.setDisplayName("Next Page");
+            scr.setDisplayName(ChatColor.RESET + "Next Page");
             scr.setCustomModelData(116);
             next.setItemMeta(scr);
             stack[49] = next;
@@ -110,14 +111,14 @@ public class TvmSavesGui {
         // delete
         ItemStack delete = new ItemStack(Material.BOWL, 1);
         ItemMeta deleteMeta = delete.getItemMeta();
-        deleteMeta.setDisplayName("Delete");
+        deleteMeta.setDisplayName(ChatColor.RESET + "Delete");
         deleteMeta.setCustomModelData(107);
         delete.setItemMeta(deleteMeta);
         stack[51] = delete;
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta to = warp.getItemMeta();
-        to.setDisplayName("Enter Vortex");
+        to.setDisplayName(ChatColor.RESET + "Enter Vortex");
         to.setCustomModelData(127);
         warp.setItemMeta(to);
         stack[53] = warp;

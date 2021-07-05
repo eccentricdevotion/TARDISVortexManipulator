@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -53,11 +54,12 @@ public class TvmRecipe {
             itemStack = new ItemStack(material, amount);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName("Vortex Manipulator");
+        itemMeta.setDisplayName(ChatColor.RESET + "Vortex Manipulator");
         if (!plugin.getConfig().getString("recipe.lore").equals("")) {
             itemMeta.setLore(Arrays.asList(plugin.getConfig().getString("recipe.lore").split("~")));
         }
         itemMeta.setCustomModelData(10000002);
+        itemMeta.getPersistentDataContainer().set(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING, "vortex_manipulator");
         itemStack.setItemMeta(itemMeta);
         NamespacedKey key = new NamespacedKey(plugin, "Vortex_Manipulator");
         ShapedRecipe recipe = new ShapedRecipe(key, itemStack);

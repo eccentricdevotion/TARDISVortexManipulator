@@ -27,6 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 
@@ -45,7 +46,7 @@ public class TvmCraftListener implements Listener {
     public void onCraftManipulator(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
         ItemStack itemStack = recipe.getResult();
-        if (itemStack.getType().equals(Material.CLOCK) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+        if (itemStack.getType().equals(Material.CLOCK) && itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
             Player player = (Player) event.getWhoClicked();
             String uuid = player.getUniqueId().toString();
             // check if they have a manipulator record

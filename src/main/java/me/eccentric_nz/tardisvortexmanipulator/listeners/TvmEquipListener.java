@@ -32,6 +32,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
@@ -83,7 +84,7 @@ public class TvmEquipListener implements Listener {
             return;
         }
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("Vortex Manipulator")) {
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().getPersistentDataContainer().get(TardisVortexManipulatorPlugin.plugin.getItemKey(), PersistentDataType.STRING).equals("vortex_manipulator")) {
             // get tachyon level
             TvmResultSetManipulator resultSetManipulator = new TvmResultSetManipulator(plugin, player.getUniqueId().toString());
             if (resultSetManipulator.resultSet()) {

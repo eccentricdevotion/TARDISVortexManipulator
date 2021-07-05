@@ -17,6 +17,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.gui;
 
 import me.eccentric_nz.tardisvortexmanipulator.TardisVortexManipulatorPlugin;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -49,7 +50,7 @@ public class TvmGui {
         // display
         ItemStack display = new ItemStack(Material.BOWL, 1);
         ItemMeta displayMeta = display.getItemMeta();
-        displayMeta.setDisplayName("Display");
+        displayMeta.setDisplayName(ChatColor.RESET + "Display");
         displayMeta.setLore(Collections.singletonList(""));
         displayMeta.setCustomModelData(108);
         display.setItemMeta(displayMeta);
@@ -57,107 +58,107 @@ public class TvmGui {
         // 1
         ItemStack one = new ItemStack(Material.BOWL, 1);
         ItemMeta none = one.getItemMeta();
-        none.setDisplayName("1");
+        none.setDisplayName(ChatColor.RESET + "1");
         none.setCustomModelData(118);
         one.setItemMeta(none);
         // 2 abc
         ItemStack two = new ItemStack(Material.BOWL, 1);
         ItemMeta abc = two.getItemMeta();
-        abc.setDisplayName("2");
+        abc.setDisplayName(ChatColor.RESET + "2");
         abc.setLore(Collections.singletonList("abc"));
         abc.setCustomModelData(126);
         two.setItemMeta(abc);
         // 3 def
         ItemStack three = new ItemStack(Material.BOWL, 1);
         ItemMeta def = three.getItemMeta();
-        def.setDisplayName("3");
+        def.setDisplayName(ChatColor.RESET + "3");
         def.setLore(Collections.singletonList("def"));
         def.setCustomModelData(125);
         three.setItemMeta(def);
         // 4 ghi
         ItemStack four = new ItemStack(Material.BOWL, 1);
         ItemMeta ghi = four.getItemMeta();
-        ghi.setDisplayName("4");
+        ghi.setDisplayName(ChatColor.RESET + "4");
         ghi.setLore(Collections.singletonList("ghi"));
         ghi.setCustomModelData(111);
         four.setItemMeta(ghi);
         // 5 jkl
         ItemStack five = new ItemStack(Material.BOWL, 1);
         ItemMeta jkl = five.getItemMeta();
-        jkl.setDisplayName("5");
+        jkl.setDisplayName(ChatColor.RESET + "5");
         jkl.setLore(Collections.singletonList("jkl"));
         jkl.setCustomModelData(110);
         five.setItemMeta(jkl);
         // 6 mno
         ItemStack six = new ItemStack(Material.BOWL, 1);
         ItemMeta mno = six.getItemMeta();
-        mno.setDisplayName("6");
+        mno.setDisplayName(ChatColor.RESET + "6");
         mno.setLore(Collections.singletonList("mno"));
         mno.setCustomModelData(123);
         six.setItemMeta(mno);
         // 7 pqrs
         ItemStack seven = new ItemStack(Material.BOWL, 1);
         ItemMeta pqrs = seven.getItemMeta();
-        pqrs.setDisplayName("7");
+        pqrs.setDisplayName(ChatColor.RESET + "7");
         pqrs.setLore(Collections.singletonList("pqrs"));
         pqrs.setCustomModelData(122);
         seven.setItemMeta(pqrs);
         // 8 tuv
         ItemStack eight = new ItemStack(Material.BOWL, 1);
         ItemMeta tuv = eight.getItemMeta();
-        tuv.setDisplayName("8");
+        tuv.setDisplayName(ChatColor.RESET + "8");
         tuv.setLore(Collections.singletonList("tuv"));
         tuv.setCustomModelData(109);
         eight.setItemMeta(tuv);
         // 9 wxyz
         ItemStack nine = new ItemStack(Material.BOWL, 1);
         ItemMeta wxyz = nine.getItemMeta();
-        wxyz.setDisplayName("9");
+        wxyz.setDisplayName(ChatColor.RESET + "9");
         wxyz.setLore(Collections.singletonList("wxyz"));
         wxyz.setCustomModelData(117);
         nine.setItemMeta(wxyz);
         // 0
         ItemStack zero = new ItemStack(Material.BOWL, 1);
         ItemMeta nada = zero.getItemMeta();
-        nada.setDisplayName("0");
+        nada.setDisplayName(ChatColor.RESET + "0");
         nada.setCustomModelData(132);
         zero.setItemMeta(nada);
         // symbols -_*~
         ItemStack hash = new ItemStack(Material.BOWL, 1);
         ItemMeta symbols = hash.getItemMeta();
-        symbols.setDisplayName("#");
+        symbols.setDisplayName(ChatColor.RESET + "#");
         symbols.setLore(Collections.singletonList("~_-"));
         symbols.setCustomModelData(112);
         hash.setItemMeta(symbols);
         // space
         ItemStack star = new ItemStack(Material.BOWL, 1);
         ItemMeta space = star.getItemMeta();
-        space.setDisplayName("*");
+        space.setDisplayName(ChatColor.RESET + "*");
         space.setLore(Collections.singletonList("Space"));
         space.setCustomModelData(124);
         star.setItemMeta(space);
         // world
         ItemStack world = new ItemStack(Material.BOWL, 1);
         ItemMeta but = world.getItemMeta();
-        but.setDisplayName("World");
+        but.setDisplayName(ChatColor.RESET + "World");
         but.setCustomModelData(128);
         world.setItemMeta(but);
         // x
         ItemStack x = new ItemStack(Material.BOWL, 1);
         ItemMeta sel = x.getItemMeta();
-        sel.setDisplayName("X");
+        sel.setDisplayName(ChatColor.RESET + "X");
         sel.setCustomModelData(129);
         x.setItemMeta(sel);
         // y
         ItemStack y = new ItemStack(Material.BOWL, 1);
         ItemMeta hei = y.getItemMeta();
-        hei.setDisplayName("Y");
+        hei.setDisplayName(ChatColor.RESET + "Y");
         hei.setCustomModelData(130);
         y.setItemMeta(hei);
         // z
         ItemStack z = new ItemStack(Material.BOWL, 1);
         ItemMeta coord = z.getItemMeta();
-        coord.setDisplayName("Z");
+        coord.setDisplayName(ChatColor.RESET + "Z");
         coord.setCustomModelData(131);
         z.setItemMeta(coord);
         // tachyon level - TODO Show different levels depending on % full
@@ -165,7 +166,7 @@ public class TvmGui {
         short durability = (short) (1562 - (percent * 1562));
         ItemStack tachyon = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta tachyonMeta = tachyon.getItemMeta();
-        tachyonMeta.setDisplayName("Tachyon Level");
+        tachyonMeta.setDisplayName(ChatColor.RESET + "Tachyon Level");
         int level = (int) (percent * 100);
         List<String> lore = Collections.singletonList(level + "%");
         int customModelData = 105;
@@ -197,55 +198,55 @@ public class TvmGui {
         // lifesigns
         ItemStack lifesigns = new ItemStack(Material.BOWL, 1);
         ItemMeta lifesignsMeta = lifesigns.getItemMeta();
-        lifesignsMeta.setDisplayName("Lifesigns");
+        lifesignsMeta.setDisplayName(ChatColor.RESET + "Lifesigns");
         lifesignsMeta.setCustomModelData(113);
         lifesigns.setItemMeta(lifesignsMeta);
         // warp
         ItemStack warp = new ItemStack(Material.BOWL, 1);
         ItemMeta tol = warp.getItemMeta();
-        tol.setDisplayName("Enter Vortex / Save location / Check lifesigns");
+        tol.setDisplayName(ChatColor.RESET + "Enter Vortex / Save location / Check lifesigns");
         tol.setCustomModelData(127);
         warp.setItemMeta(tol);
         // beacon
         ItemStack beacon = new ItemStack(Material.BOWL, 1);
         ItemMeta beaconMeta = beacon.getItemMeta();
-        beaconMeta.setDisplayName("Beacon signal");
+        beaconMeta.setDisplayName(ChatColor.RESET + "Beacon signal");
         beaconMeta.setCustomModelData(106);
         beacon.setItemMeta(beaconMeta);
         // message
         ItemStack message = new ItemStack(Material.BOWL, 1);
         ItemMeta messageMeta = message.getItemMeta();
-        messageMeta.setDisplayName("Messages");
+        messageMeta.setDisplayName(ChatColor.RESET + "Messages");
         messageMeta.setCustomModelData(115);
         message.setItemMeta(messageMeta);
         // save
         ItemStack save = new ItemStack(Material.BOWL, 1);
         ItemMeta curr = save.getItemMeta();
-        curr.setDisplayName("Save current location");
+        curr.setDisplayName(ChatColor.RESET + "Save current location");
         curr.setCustomModelData(74);
         save.setItemMeta(curr);
         // load
         ItemStack load = new ItemStack(Material.BOWL, 1);
         ItemMeta disk = load.getItemMeta();
-        disk.setDisplayName("Load saved location");
+        disk.setDisplayName(ChatColor.RESET + "Load saved location");
         disk.setCustomModelData(114);
         load.setItemMeta(disk);
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        win.setDisplayName("Close");
+        win.setDisplayName(ChatColor.RESET + "Close");
         win.setCustomModelData(1);
         close.setItemMeta(win);
         // next
         ItemStack next = new ItemStack(Material.BOWL, 1);
         ItemMeta cha = next.getItemMeta();
-        cha.setDisplayName("Next character");
+        cha.setDisplayName(ChatColor.RESET + "Next character");
         cha.setCustomModelData(116);
         next.setItemMeta(cha);
         // back
         ItemStack prev = new ItemStack(Material.BOWL, 1);
         ItemMeta let = prev.getItemMeta();
-        let.setDisplayName("Previous character");
+        let.setDisplayName(ChatColor.RESET + "Previous character");
         let.setCustomModelData(120);
         prev.setItemMeta(let);
 
