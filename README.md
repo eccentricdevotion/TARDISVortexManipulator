@@ -26,7 +26,7 @@ Custom graphics for the crafted item and GUI are available as part of the [TARDI
 
 ## Multi-world support
 
-The plugin works with Multiverse (or other multi-word plugin), remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Borders (plugin and the 1.8 default if possible). Towny/Faction/WorldGuard/GriefPrevention support can be enabled via the config.
+The plugin works with Multiverse (or other multi-world plugin), remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Borders (plugin and the 1.8 default if possible). Towny/Faction/WorldGuard/GriefPrevention support can be enabled via the config.
 
 ## Configuration
 
