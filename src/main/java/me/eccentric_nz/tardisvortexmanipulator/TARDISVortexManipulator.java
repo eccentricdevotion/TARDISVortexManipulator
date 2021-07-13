@@ -2,6 +2,7 @@ package me.eccentric_nz.tardisvortexmanipulator;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
+import me.eccentric_nz.TARDIS.utility.Version;
 import me.eccentric_nz.tardisvortexmanipulator.command.*;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
@@ -12,6 +13,7 @@ import me.eccentric_nz.tardisvortexmanipulator.gui.TVMSavesGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -37,7 +39,7 @@ public class TARDISVortexManipulator extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // TODO: Place any custom disable code here.
+        // place any custom disable code here.
     }
 
     @Override
@@ -58,12 +60,23 @@ public class TARDISVortexManipulator extends JavaPlugin {
             return;
         }
         tardis = (TARDIS) p;
+        Version minVersion = new Version("4.7.5");
+        // TARDIS version = something like 4.7.5-b2339 or 4.7.5-b11.07.21-5:24
+        String version = tardis.getDescription().getVersion().split("-")[0];
+        Version tardisVersion = new Version(version);
+        if (tardisVersion.compareTo(minVersion) < 0) {
+            System.err.println("[TARDISVortexManipulator] You need a newer version of TARDIS (v4.7.5)!");
+            pm.disablePlugin(this);
+            return;
+        }
         tardisapi = tardis.getTardisAPI();
         prefix = getConfig().getString("storage.mysql.prefix");
         loadDatabase();
         registerListeners();
         registerCommands();
-        getServer().addRecipe(new TVMRecipe(this).makeRecipe());
+        ShapedRecipe recipe = new TVMRecipe(this).makeRecipe();
+        getServer().addRecipe(recipe);
+        tardisapi.addShapedRecipe("vortex-manipulator", recipe);
         startRecharger();
     }
 
