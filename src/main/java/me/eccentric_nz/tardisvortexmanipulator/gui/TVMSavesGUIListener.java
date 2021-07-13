@@ -45,32 +45,13 @@ public class TVMSavesGUIListener extends TVMGUICommon implements Listener {
             if (slot >= 0 && slot < 54) {
                 if (view.getItem(slot) != null) {
                     switch (slot) {
-                        case 45:
-                            // page number
-                            break;
-                        case 46:
-                            // close
-                            close(player);
-                            break;
-                        case 48:
-                            // previous page
-                            doPrev(view, player);
-                            break;
-                        case 49:
-                            // next page
-                            doNext(view, player);
-                            break;
-                        case 51:
-                            // delete save
-                            delete(view, player);
-                            break;
-                        case 53:
-                            // warp
-                            doWarp(view, player);
-                            break;
-                        default:
-                            selectedSlot = slot;
-                            break;
+                        case 45 -> {} // page number
+                        case 46 -> close(player); // close
+                        case 48 -> doPrev(view, player); // previous page
+                        case 49 -> doNext(view, player); // next page
+                        case 51 -> delete(view, player); // delete save
+                        case 53 -> doWarp(view, player); // warp
+                        default -> selectedSlot = slot;
                     }
                 }
             }

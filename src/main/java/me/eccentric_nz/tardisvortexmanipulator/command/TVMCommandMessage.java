@@ -45,7 +45,7 @@ public class TVMCommandMessage implements CommandExecutor {
                 try {
                     FIRST f = FIRST.valueOf(first);
                     switch (f) {
-                        case msg:
+                        case msg -> {
                             OfflinePlayer ofp = plugin.getServer().getOfflinePlayer(args[1]);
                             if (ofp == null) {
                                 p.sendMessage(plugin.getPluginName() + "Could not find a player with that name!");
@@ -70,8 +70,8 @@ public class TVMCommandMessage implements CommandExecutor {
                             whereofp.put("date", System.currentTimeMillis());
                             new TVMQueryFactory(plugin).doInsert("messages", whereofp);
                             p.sendMessage(plugin.getPluginName() + "Message sent.");
-                            break;
-                        case list:
+                        }
+                        case list -> {
                             String uuid = p.getUniqueId().toString();
                             if (args.length == 2) {
                                 if (args[1].equalsIgnoreCase("out")) {
@@ -93,7 +93,6 @@ public class TVMCommandMessage implements CommandExecutor {
                                         return true;
                                     }
                                 }
-                                break;
                             }
                             if (args.length < 3) {
                                 p.sendMessage(plugin.getPluginName() + "You need to specify a page number!");
@@ -125,8 +124,8 @@ public class TVMCommandMessage implements CommandExecutor {
                                     return true;
                                 }
                             }
-                            break;
-                        case read:
+                        }
+                        case read -> {
                             int read_id = parseNum(args[1]);
                             if (read_id != -1) {
                                 TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, read_id);
@@ -139,8 +138,8 @@ public class TVMCommandMessage implements CommandExecutor {
                                     return true;
                                 }
                             }
-                            break;
-                        case delete:
+                        }
+                        case delete -> {
                             int delete_id = parseNum(args[1]);
                             if (delete_id != -1) {
                                 TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, delete_id);
@@ -154,8 +153,8 @@ public class TVMCommandMessage implements CommandExecutor {
                                 p.sendMessage(plugin.getPluginName() + "No message exists with that id, use /vmm list [in|out] first!");
                                 return true;
                             }
-                            break;
-                        default:
+                        }
+                        default -> {
                             // clear
                             if (!args[1].toLowerCase().equals("in") && !args[1].toLowerCase().equals("out")) {
                                 p.sendMessage(plugin.getPluginName() + "You need to specify which mail box you want to clear (in or out)!");
@@ -172,7 +171,7 @@ public class TVMCommandMessage implements CommandExecutor {
                             }
                             qf.doDelete("messages", where);
                             p.sendMessage(plugin.getPluginName() + which + " cleared.");
-                            break;
+                        }
                     }
                 } catch (IllegalArgumentException e) {
                     p.sendMessage(plugin.getPluginName() + "Incorrect command usage!");

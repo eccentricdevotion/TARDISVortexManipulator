@@ -104,9 +104,7 @@ public class TVMCommand implements CommandExecutor {
                 List<String> worlds = new ArrayList<>();
                 Location l;
                 switch (args.length) {
-                    case 1:
-                    case 2:
-                    case 3:
+                    case 1, 2, 3 -> {
                         // check world is an actual world
                         if (plugin.getServer().getWorld(args[0]) == null) {
                             player.sendMessage(plugin.getPluginName() + "World does not exist!");
@@ -121,8 +119,8 @@ public class TVMCommand implements CommandExecutor {
                         // only world specified (or incomplete setting)
                         worlds.add(args[0]);
                         l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         required = plugin.getConfig().getInt("tachyon_use.travel.coords");
                         // world, x, y, z specified
                         World w;
@@ -172,12 +170,12 @@ public class TVMCommand implements CommandExecutor {
                             int highest = l.getWorld().getHighestBlockYAt(l);
                             l.setY(highest);
                         }
-                        break;
-                    default:
+                    }
+                    default -> {
                         required = plugin.getConfig().getInt("tachyon_use.travel.random");
                         // random
                         l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
-                        break;
+                    }
                 }
                 List<Player> players = new ArrayList<>();
                 players.add(player);

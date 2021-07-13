@@ -43,32 +43,13 @@ public class TVMMessageGUIListener extends TVMGUICommon implements Listener {
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
-                    case 45:
-                        break;
-                    case 46:
-                        // close
-                        close(player);
-                        break;
-                    case 48:
-                        // previous page
-                        doPrev(view, player);
-                        break;
-                    case 49:
-                        // next page
-                        doNext(view, player);
-                        break;
-                    case 51:
-                        // read
-                        doRead(view, player);
-                        break;
-                    case 53:
-                        // delete
-                        doDelete(view, player);
-                        break;
-                    default:
-                        // select a message
-                        selectedSlot = slot;
-                        break;
+                    case 45 -> {}
+                    case 46 -> close(player); // close
+                    case 48 -> doPrev(view, player); // previous page
+                    case 49 -> doNext(view, player); // next page
+                    case 51 -> doRead(view, player); // read
+                    case 53 -> doDelete(view, player); // delete
+                    default -> selectedSlot = slot; // select a message
                 }
             }
         }

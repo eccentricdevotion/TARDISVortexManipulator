@@ -84,22 +84,16 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < 54) {
                 switch (slot) {
-//                    case 4:
-//                        // display
-//                        break;
-//                    case 9:
-//                        // tachyon level
-//                        break;
-                    case 11:
+                    case 11 -> {
                         // world
                         which = 0;
                         resetTrackers();
-                        break;
-                    case 12:
+                    }
+                    case 12 -> {
                         // one
                         updateDisplay(view, '1');
-                        break;
-                    case 13:
+                    }
+                    case 13 -> {
                         // two
                         if (letters.contains(which)) {
                             updateDisplay(view, two[t2]);
@@ -110,8 +104,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '2');
                         }
-                        break;
-                    case 14:
+                    }
+                    case 14 -> {
                         // three
                         if (letters.contains(which)) {
                             updateDisplay(view, three[t3]);
@@ -122,23 +116,23 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '3');
                         }
-                        break;
-                    case 16:
+                    }
+                    case 16 -> {
                         // save
                         which = 4;
                         resetTrackers();
-                        break;
-                    case 18:
+                    }
+                    case 18 -> {
                         // lifesigns
                         which = 5;
                         resetTrackers();
-                        break;
-                    case 20:
+                    }
+                    case 20 -> {
                         // x
                         which = 1;
                         resetTrackers();
-                        break;
-                    case 21:
+                    }
+                    case 21 -> {
                         // four
                         if (letters.contains(which)) {
                             updateDisplay(view, four[t4]);
@@ -149,8 +143,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '4');
                         }
-                        break;
-                    case 22:
+                    }
+                    case 22 -> {
                         // five
                         if (letters.contains(which)) {
                             updateDisplay(view, five[t5]);
@@ -161,8 +155,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '5');
                         }
-                        break;
-                    case 23:
+                    }
+                    case 23 -> {
                         // six
                         if (letters.contains(which)) {
                             updateDisplay(view, six[t6]);
@@ -173,18 +167,18 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '6');
                         }
-                        break;
-                    case 25:
+                    }
+                    case 25 -> {
                         // load
                         // open saves GUI
                         loadSaves(player);
-                        break;
-                    case 29:
+                    }
+                    case 29 -> {
                         // y
                         which = 2;
                         resetTrackers();
-                        break;
-                    case 30:
+                    }
+                    case 30 -> {
                         // seven
                         if (letters.contains(which)) {
                             updateDisplay(view, seven[t7]);
@@ -195,8 +189,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '7');
                         }
-                        break;
-                    case 31:
+                    }
+                    case 31 -> {
                         // eight
                         if (letters.contains(which)) {
                             updateDisplay(view, eight[t8]);
@@ -207,8 +201,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '8');
                         }
-                        break;
-                    case 32:
+                    }
+                    case 32 -> {
                         // nine
                         if (letters.contains(which)) {
                             updateDisplay(view, nine[t9]);
@@ -219,29 +213,29 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '9');
                         }
-                        break;
-                    case 34:
+                    }
+                    case 34 -> {
                         // message
                         message(player);
-                        break;
-                    case 38:
+                    }
+                    case 38 -> {
                         // z
                         which = 3;
                         resetTrackers();
-                        break;
-                    case 39:
+                    }
+                    case 39 -> {
                         // star
                         updateDisplay(view, star[ts]);
                         ts++;
                         if (ts == star.length) {
                             ts = 0;
                         }
-                        break;
-                    case 40:
+                    }
+                    case 40 -> {
                         //zero
                         updateDisplay(view, '0');
-                        break;
-                    case 41:
+                    }
+                    case 41 -> {
                         // hash
                         if (letters.contains(which) || components.get(0).startsWith("~")) {
                             updateDisplay(view, hash[th]);
@@ -252,49 +246,40 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                         } else {
                             updateDisplay(view, '-');
                         }
-                        break;
-                    case 43:
+                    }
+                    case 43 -> {
                         // beacon
                         setBeacon(player);
-                        break;
-                    case 45:
+                    }
+                    case 45 -> {
                         // close
                         close(player);
                         components = Arrays.asList("", "", "", "", "", "");
-                        break;
-                    case 48:
+                    }
+                    case 48 -> {
                         // previous cursor
                         if (pos[which] > 0) {
                             pos[which]--;
                         }
                         resetTrackers();
-                        break;
-                    case 50:
+                    }
+                    case 50 -> {
                         // next cursor
                         int next = components.get(which).length() + 1;
                         if (pos[which] < next) {
                             pos[which]++;
                         }
                         resetTrackers();
-                        break;
-                    case 53:
+                    }
+                    case 53 -> {
                         switch (which) {
-                            case 4:
-                                // save
-                                saveCurrentLocation(player, view);
-                                break;
-                            case 5:
-                                // scan
-                                scanLifesigns(player, view);
-                                break;
-                            default:
-                                // warp
-                                doWarp(player, view);
-                                break;
+                            case 4 -> saveCurrentLocation(player, view); // save
+                            case 5 -> scanLifesigns(player, view); // scan
+                            default -> doWarp(player, view); // warp
                         }
-                        break;
-                    default:
-                        break;
+                    }
+                    default -> {
+                    }
                 }
             }
         }
@@ -317,21 +302,11 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         String comp = new String(chars);
         String combined;
         switch (which) {
-            case 0:
-                combined = comp + " " + components.get(1) + " " + components.get(2) + " " + components.get(3);
-                break;
-            case 1:
-                combined = components.get(0) + " " + comp + " " + components.get(2) + " " + components.get(3);
-                break;
-            case 2:
-                combined = components.get(0) + " " + components.get(1) + " " + comp + " " + components.get(3);
-                break;
-            case 3:
-                combined = components.get(0) + " " + components.get(1) + " " + components.get(2) + " " + comp;
-                break;
-            default:
-                combined = comp;
-                break;
+            case 0 -> combined = comp + " " + components.get(1) + " " + components.get(2) + " " + components.get(3);
+            case 1 -> combined = components.get(0) + " " + comp + " " + components.get(2) + " " + components.get(3);
+            case 2 -> combined = components.get(0) + " " + components.get(1) + " " + comp + " " + components.get(3);
+            case 3 -> combined = components.get(0) + " " + components.get(1) + " " + components.get(2) + " " + comp;
+            default -> combined = comp;
         }
         components.set(which, comp);
         List<String> dlore = Arrays.asList(combined);
@@ -577,9 +552,7 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
         Parameters params = new Parameters(p, flags);
         int required;
         switch (dest.size()) {
-            case 1:
-            case 2:
-            case 3:
+            case 1, 2, 3 -> {
                 required = plugin.getConfig().getInt("tachyon_use.travel.world");
                 // only world specified (or incomplete setting)
                 // check world is an actual world
@@ -596,8 +569,8 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                 }
                 worlds.add(dest.get(0));
                 l = plugin.getTardisAPI().getRandomLocation(worlds, null, params);
-                break;
-            case 4:
+            }
+            case 4 -> {
                 required = plugin.getConfig().getInt("tachyon_use.travel.coords");
                 // world, x, y, z specified
                 World w;
@@ -650,12 +623,12 @@ public class TVMGUIListener extends TVMGUICommon implements Listener {
                     int highest = l.getWorld().getHighestBlockYAt(l);
                     l.setY(highest);
                 }
-                break;
-            default:
+            }
+            default -> {
                 required = plugin.getConfig().getInt("tachyon_use.travel.random");
                 // random
                 l = plugin.getTardisAPI().getRandomLocation(plugin.getTardisAPI().getWorlds(), null, params);
-                break;
+            }
         }
         UUID uuid = p.getUniqueId();
         if (!TVMUtils.checkTachyonLevel(uuid.toString(), required)) {
