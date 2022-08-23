@@ -2,7 +2,6 @@ package me.eccentric_nz.tardisvortexmanipulator;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.api.TardisAPI;
-import me.eccentric_nz.TARDIS.utility.Version;
 import me.eccentric_nz.tardisvortexmanipulator.command.*;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMDatabase;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMMySQL;
@@ -20,6 +19,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.lang.module.ModuleDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -60,12 +60,12 @@ public class TARDISVortexManipulator extends JavaPlugin {
             return;
         }
         tardis = (TARDIS) p;
-        Version minVersion = new Version("4.7.5");
+        ModuleDescriptor.Version minVersion = ModuleDescriptor.Version.parse("4.7.5");
         // TARDIS version = something like 4.7.5-b2339 or 4.7.5-b11.07.21-5:24
         String version = tardis.getDescription().getVersion().split("-")[0];
-        Version tardisVersion = new Version(version);
+        ModuleDescriptor.Version tardisVersion = ModuleDescriptor.Version.parse(version);
         if (tardisVersion.compareTo(minVersion) < 0) {
-            System.err.println("[TARDISVortexManipulator] You need a newer version of TARDIS (v4.7.5)!");
+            System.err.println("[TARDISVortexManipulator] You need a newer version of TARDIS (v4.11.0)!");
             pm.disablePlugin(this);
             return;
         }
