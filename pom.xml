@@ -68,7 +68,7 @@
         <dependency>
             <groupId>me.eccentric_nz.TARDIS</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>4.11.0</version>
+            <version>4.13.0</version>
             <type>jar</type>
             <scope>compile</scope>
             <exclusions>
