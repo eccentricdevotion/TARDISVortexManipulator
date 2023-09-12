@@ -13,10 +13,10 @@ Travel like Jack Harkness or River Song from Doctor Who! Have the Vortex Manipul
 This plugin utilises the [TARDIS](http://tardisjenkins.duckdns.org:8080/job/TARDIS/) plugin API, so you must have TARDIS installed as well.
 
 ## Crafting
-Crafting is a little complicated, as it's an advanced piece of technology. Requirements for crafting are (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS-MCP Resource Pack](https://github.com/eccentricdevotion/TARDIS-MCP).
+Crafting is a little complicated, as it's an advanced piece of technology. Requirements for crafting are (left to right, top row first): stone button, another stone button, glass; clock, gold, compass; iron ingot, iron ingot, iron ingot. Custom graphics for the crafted item and GUI are available as part of the [TARDIS Resource Pack](https://github.com/eccentricdevotion/TARDIS-Resource-Pack).
 
-![Vortex Manipulator crafting recipe](https://www.dropbox.com/s/q9mpoqwqzrrtg0f/vortexmanipulator.jpg?dl=1)
-![Vortex Manipulator item](https://raw.githubusercontent.com/eccentricdevotion/Bromley-Massive-Vector/master/assets/minecraft/mcpatcher/cit/vortex_manipulator/manipulator.png)
+![Vortex Manipulator crafting recipe](https://dl.dropboxusercontent.com/s/q9mpoqwqzrrtg0f/vortexmanipulator.jpg)
+![Vortex Manipulator item](https://eccentricdevotion.github.io/TARDIS/images/docs/manipulator.png)
 
 ## Multi-world support
 The plugin works with Multiverse (or other multi-word plugin), remembering personally saved locations and allowing for direct teleporting to any available world and coordinate. Also having respect for World Borders (plugin and the 1.8 default if possible). Towny/Faction/WorldGuard/GriefPrevention suport can be enabled via the config.
@@ -73,7 +73,7 @@ There are configuration options that allow for energy usage, recharging, and oth
 ## GUI
 Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI is provided as well.
 
-![GUI](https://www.dropbox.com/s/5leuk3rat62a3k0/vortexmanipulatorGUI.jpg?dl=1)
+![GUI](https://dl.dropboxusercontent.com/s/5leuk3rat62a3k0/vortexmanipulatorGUI.jpg)
 
 ## Commands
 
@@ -118,5 +118,5 @@ Because the device in the TV show has buttons and a lot of pushing of them, it w
 ## When it'll be released
 Time is a funny thing isn't it?
 
-Development builds are available from the [TARDIS Jenkins Server](http://tardisjenkins.duckdns.org:8080/job/TARDISVortexManipulator/lastSuccessfulBuild/me.eccentric_nz.tardisvortexmanipulator$TARDISVortexManipulator/)
+Development builds are available from the [TARDIS Jenkins Server](http://tardisjenkins.duckdns.org:8080/job/TARDISVortexManipulator/lastSuccessfulBuild/)
 
