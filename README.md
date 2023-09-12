@@ -24,51 +24,52 @@ The plugin works with Multiverse (or other multi-word plugin), remembering perso
 ## Configuration
 There are configuration options that allow for energy usage, recharging, and other things. The various features use different levels of energy, while charging is on a timer, gaining so much charge every minute or so.
 
-    allow:
-        teleport: true
-        messaging: true
-        lifesigns: true
-        beacon: true
-    recipe:
-        shape: BBG,WOC,III
-        ingredients:
-            B: STONE_BUTTON
-            G: GLASS
-            W: WATCH
-            O: GOLD_INGOT
-            C: COMPASS
-            I: IRON_INGOT
-        result: WATCH
-        amount: 1
-        lore: "Cheap and nasty time travel"
-    tachyon_use:
-        max: 1000
-        recharge: 25
-        recharge_interval: 600
-        travel:
-            random: 100
-            world: 150
-            coords: 200
-            saved: 50
-        lifesigns: 15
-        beacon: 1000
-        message: 5
-    storage:
-        database: sqlite
-        mysql:
-            url: mysql://localhost:3306/TARDIS
-            user: bukkit
-            password: mysecurepassword
-    date_format: dd/MM/YY HH:mm
-    lifesign_scan_distance: 16
-    respect:
-        worldborder: true
-        worldguard: true
-        griefprevention: true
-        factions: true
-        towny: true
-    debug: false
-
+```yaml
+allow:
+    teleport: true
+    messaging: true
+    lifesigns: true
+    beacon: true
+recipe:
+    shape: BBG,WOC,III
+    ingredients:
+        B: STONE_BUTTON
+        G: GLASS
+        W: WATCH
+        O: GOLD_INGOT
+        C: COMPASS
+        I: IRON_INGOT
+    result: WATCH
+    amount: 1
+    lore: "Cheap and nasty time travel"
+tachyon_use:
+    max: 1000
+    recharge: 25
+    recharge_interval: 600
+    travel:
+        random: 100
+        world: 150
+        coords: 200
+        saved: 50
+    lifesigns: 15
+    beacon: 1000
+    message: 5
+storage:
+    database: sqlite
+    mysql:
+        url: mysql://localhost:3306/TARDIS
+        user: bukkit
+        password: mysecurepassword
+date_format: dd/MM/YY HH:mm
+lifesign_scan_distance: 16
+respect:
+    worldborder: true
+    worldguard: true
+    griefprevention: true
+    factions: true
+    towny: true
+debug: false
+```
 
 ## GUI
 Because the device in the TV show has buttons and a lot of pushing of them, it would be easiest to have a command based system to work with this - though for hardcore role players, a GUI is provided as well.
